@@ -15,7 +15,7 @@ const sidebarList = [
       title: "Dashboard",
       Icon: DashboardOutlinedIcon,
       route: "/",
-      description: "Overview intructor dashboard",
+      description: "Overview App dashboard",
     },
     {
       title: "User",

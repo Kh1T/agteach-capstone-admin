@@ -114,9 +114,9 @@ export default function Sidebar({ children }) {
       </Stack>
 
       <Box>
-        <ListItemButton>
-          <LogoutOutlinedIcon />
-          <Typography variant="bmdr" sx={{ color: "dark.300" }}>
+        <ListItemButton sx={{ color: "dark.300" }}>
+          <LogoutOutlinedIcon sx={{pr:"15px"}}/>
+          <Typography variant="bmdr" >
             Logout
           </Typography>
         </ListItemButton>
