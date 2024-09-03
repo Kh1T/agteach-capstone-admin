@@ -60,16 +60,18 @@ export default function Sidebar({ children }) {
         }}
       >
         <List>
-          <Box
-            component="img"
-            sx={{
-              ml: 2,
-              height: 48,
-              width: 38,
-            }}
-            alt="logo"
-            src={logoIcon}
-          />
+          <Link component={RouterLink} to="/" underline="none">
+            <Box
+              component="img"
+              sx={{
+                ml: 2,
+                height: 48,
+                width: 38,
+              }}
+              alt="logo"
+              src={logoIcon}
+            />
+          </Link>
           <Toolbar />
           {sidebarList.map(
             ({ title, Icon, route }, index) =>
@@ -91,11 +93,15 @@ export default function Sidebar({ children }) {
                   }}
                 >
                   <ListItem key={title} disablePadding>
-                    <ListItemButton >
-                      <Icon sx={{pr:"15px", color: route === pathname ? "common.white" : "dark.300"}}/>
-                      <Typography variant="bmdr" >
-                        {title}
-                      </Typography>
+                    <ListItemButton>
+                      <Icon
+                        sx={{
+                          pr: "15px",
+                          color:
+                            route === pathname ? "common.white" : "dark.300",
+                        }}
+                      />
+                      <Typography variant="bmdr">{title}</Typography>
                     </ListItemButton>
                   </ListItem>
                 </Link>
