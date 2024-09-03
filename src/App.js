@@ -2,11 +2,12 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme/theme";
-import { Button } from "@mui/material";
+import { Button, CssBaseline } from "@mui/material";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       {/* <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
