@@ -13,7 +13,6 @@ import avtarChip from "../assets/avatar-chip.png";
 import { Avatar, Chip, Container, Link, Stack } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import sidebarList from "../data/sideBarData";
-import color from "../theme/Color";
 
 /**
  * Sidebar component that renders a drawer and app bar with content.
@@ -47,6 +46,7 @@ export default function Sidebar({ children }) {
           boxSizing: "border-box",
           px: "20px",
           py: 5,
+          borderRight: "dashed 1px lightgray",
         },
       }}
       variant="permanent"
@@ -88,23 +88,10 @@ export default function Sidebar({ children }) {
                     "& .MuiTypography-root": {
                       color: route === pathname ? "common.white" : "dark.300",
                     },
-                    // "& .MuiIcon-root": {
-                    //   color: route === pathname ? "common.black" : "dark.300",
-                    // },
                   }}
                 >
                   <ListItem key={title} disablePadding>
                     <ListItemButton >
-                      {/* <Box
-                        component="img"
-                        sx={{
-                          height: 25,
-                          width: 25,
-                          pr: "15px",
-                        }}
-                        alt={title}
-                        src={icon}
-                      /> */}
                       <Icon sx={{pr:"15px", color: route === pathname ? "common.white" : "dark.300"}}/>
                       <Typography variant="bmdr" >
                         {title}
@@ -132,7 +119,6 @@ export default function Sidebar({ children }) {
       position="fixed"
       sx={{
         width: `calc(100% - ${drawerWidth}px)`,
-        // pl: 15,
         pt: 5,
         ml: `${drawerWidth}px`,
         backgroundColor: "common.white",
@@ -157,7 +143,6 @@ export default function Sidebar({ children }) {
             flexDirection: "row",
             justifyContent: "center",
             maxWidth: 1300,
-            // borderStyle: "dashed",
             borderBottom: 1,
             borderBottomStyle: "dashed",
             borderColor: "grey.300",
@@ -187,7 +172,6 @@ export default function Sidebar({ children }) {
               sx={{
                 height: "40px",
                 borderRadius: "63px",
-                // mb: "30px",
                 backgroundColor: "common.black",
                 "& .MuiChip-label": {
                   color: "common.white",

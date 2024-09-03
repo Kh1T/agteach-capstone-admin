@@ -1,9 +1,15 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
-import a from '@mui/icons-material/PeopleOutlineOutlined'
+import PeopleOutlineOutlined from '@mui/icons-material/PeopleOutlineOutlined'
 
+/** @type {*} 
+ * title for Appbar title
+ * Icon is for Appbar icon
+ * route for Appbar route
+ * description for Appbar description
+ * 
+*/
 const sidebarList = [
     {
       title: "Dashboard",
@@ -13,7 +19,7 @@ const sidebarList = [
     },
     {
       title: "User",
-      Icon: a,
+      Icon: PeopleOutlineOutlined,
       route: "/user",
       description: "View or List more courses",
     },
