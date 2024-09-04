@@ -1,17 +1,4 @@
-import {
-  Box,
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Divider,
-  Link,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Divider, Link, Stack, Typography } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import CustomTable from '../components/CustomTable';
 
