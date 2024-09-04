@@ -11,7 +11,6 @@ import {
   Link,
   Stack,
   Typography,
-  Paper,
 } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 
