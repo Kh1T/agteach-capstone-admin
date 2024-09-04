@@ -98,6 +98,7 @@ export default function UserDetailPage() {
           </Table>
         </TableContainer>
       </Stack>
+      
     </Stack>
   );
 }
