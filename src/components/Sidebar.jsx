@@ -96,7 +96,7 @@ export default function Sidebar({ children }) {
                     <ListItemButton>
                       <Icon
                         sx={{
-                          pr: "15px",
+                          mr: "15px",
                           color:
                             route === pathname ? "common.white" : "dark.300",
                         }}
