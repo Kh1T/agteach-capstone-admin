@@ -1,8 +1,10 @@
-import { Box, Button, Divider, Link, Stack, Typography } from '@mui/material';
+import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import CustomTable from '../components/CustomTable';
+import { useNavigate } from 'react-router';
 
 export default function UserDetailPage() {
+  const navigate = useNavigate();
   const instructorList = instructors.map((item) => ({
     ...item,
     password: (
@@ -13,13 +15,16 @@ export default function UserDetailPage() {
   }));
   return (
     <Stack alignItems="start" gap={5}>
-      <Link>
-        <Button variant="Text" startIcon={<ChevronLeft />}>
-          <Typography variant="bsr" sx={{ textDecoration: 'underline' }}>
-            Go Back
-          </Typography>
-        </Button>
-      </Link>
+      <Button
+        onClick={() => navigate(-1)}
+        variant="Text"
+        startIcon={<ChevronLeft />}
+      >
+        <Typography variant="bsr" sx={{ textDecoration: 'underline' }}>
+          Go Back
+        </Typography>
+      </Button>
+
       <Stack
         direction="row"
         width="100%"
