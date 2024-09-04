@@ -90,6 +90,12 @@ const typography = {
     fontSize: fontSize.bs, // Extra small text
     lineHeight: "normal",
   },
+  bxssm: {
+    // body extra small semibold
+    fontWeight: fontWeight.semiBold, // Regular
+    fontSize: fontSize.bxs, // Extra small text
+    lineHeight: "normal",
+  },
   bxsr: {
     // body extra small regular
     fontWeight: fontWeight.regular, // Regular
