@@ -53,7 +53,7 @@ export default function UserDetailPage() {
             </Typography>
           </Stack>
         </Stack>
-        <CustomChip label="Approved" />
+        <CustomChip label="Approved" sx={{py:2, px:3}} />
       </Stack>
       <Divider sx={{ borderStyle: 'dashed', width: '100%' }} />
       <Stack width="100%" gap={2}>
