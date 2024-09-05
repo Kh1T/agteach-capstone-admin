@@ -1,34 +1,46 @@
 import {
-  Grid2 as Grid,
   Typography,
   Box,
   Checkbox,
-  FormControlLabel,
   Stack,
   TextField,
   Button,
   InputAdornment,
   IconButton,
   Alert,
+  Snackbar,
 } from '@mui/material';
 import LoginCover from '../assets/ag-login-cover.svg';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
+import Close from '@mui/icons-material/Close';
 
 function LoginPage() {
   const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
     if (data.password !== '123456') {
-      alert('Wrong password');
+      setOpen(true);
+      setError(
+        'email',
+        { type: 'manual', message: 'Invalid email or password' },
+        { shouldFocus: true }
+      );
+      setError(
+        'password',
+        { type: 'manual', message: 'Invalid email or password' },
+        { shouldFocus: true }
+      );
       return;
     }
   };
@@ -53,6 +65,11 @@ function LoginPage() {
           Let's see an amazing progress
         </Typography>
         <Stack gap component="form" onSubmit={handleSubmit(onSubmit)}>
+          <CustomAlertMessage
+            label={errors.email?.message}
+            open={open}
+            onClose={() => setOpen(false)}
+          />
           <TextField
             variant="outlined"
             label="Email"
@@ -83,13 +100,13 @@ function LoginPage() {
             }}
           />
           <Stack direction="row" alignItems="center">
-            <Checkbox defaultChecked {...register('rememberMe')} />
+            <Checkbox {...register('rememberMe')} />
             <Typography variant="body1" color="initial">
               Keep me logged in
             </Typography>
           </Stack>
           <Button type="submit" size="large" variant="contained">
-            Login
+            {isSubmitting ? 'Logging in...' : 'Log in'}
           </Button>
         </Stack>
       </Stack>
@@ -98,3 +115,32 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+export const CustomAlertMessage = ({ label, open, onClose }) => {
+  return (
+    <Snackbar
+      open={open}
+      autoHideDuration={4000}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      onClose={onClose}
+    >
+      <Alert
+        variant="filled"
+        severity="error"
+        width={500}
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={onClose}
+          >
+            <Close />
+          </IconButton>
+        }
+      >
+        <Typography variant="bsr">{label}</Typography>
+      </Alert>
+    </Snackbar>
+  );
+};
