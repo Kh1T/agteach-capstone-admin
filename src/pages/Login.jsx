@@ -5,12 +5,19 @@ import {
   Checkbox,
   FormControlLabel,
   Stack,
+  TextField,
+  Button,
+  InputAdornment,
+  IconButton,
 } from '@mui/material';
-
+import LoginCover from '../assets/ag-login-cover.svg';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
 
 function LoginPage() {
+  const [visible, setVisible] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,66 +29,63 @@ function LoginPage() {
   };
 
   return (
-    <Grid
-      container
-      direction="row"
-      alignItems="center"
-      sx={{
-        justifyContent: { xs: 'center', md: 'center', lg: 'start' },
-        mx: { xs: 2, md: 0, lg: 0 },
-      }}
-      mt={{ xs: 50, md: 50, lg: 0 }}
-      spacing={10}
-    >
-      <Grid sx={{ display: { xs: 'none', md: 'none', lg: 'block' } }}>
-        {/* <SideBarImg /> */}
-      </Grid>
-      <Grid>
-        <Stack>
-          <Box
-            display="flex"
-            flexDirection="column"
-            textAlign="center"
-            gap="20px"
-          >
-            <Typography variant="h1">Welcome back Instructor</Typography>
-            <Typography color="dark.300">
-              Please login to continue to your account.
-            </Typography>
-          </Box>
-          <Box>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-            >
-              {/* <InputField
-                fieldName="Email"
-                register={register}
-                errors={errors}
-              />
-              <InputField
-                fieldName="Password"
-                fieldType="password"
-                register={register}
-                errors={errors}
-              /> */}
+    <Stack alignItems="center" textAlign="center" height="100vh">
+      <Box width="100%">
+        <Box
+          component="img"
+          src={LoginCover}
+          height={350}
+          width="100%"
+          sx={{
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
 
-              <FormControlLabel
-                control={<Checkbox value="remember" />}
-                label="Keep me logged in"
-              />
-              <Link to="forgot">Forgot Password ?</Link>
-              {/* <CustomButton color="primary" variant="contained">
-                Login
-              </CustomButton> */}
-              <Typography>
-                Need an account ? <Link to="/signup">Create one</Link>
-              </Typography>
-            </form>
-          </Box>
+      <Stack pt={15} px={3} gap={2}>
+        <Typography variant="h1">Welcome back Admin</Typography>
+        <Typography variant="bmdr" color="dark.300">
+          Let's see an amazing progress
+        </Typography>
+        <Stack gap component="form" onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            variant="outlined"
+            label="Email"
+            register={register}
+            errors={errors}
+          />
+          <TextField
+            variant="outlined"
+            label="Password"
+            type={visible ? 'text' : 'password'}
+            register={register}
+            errors={errors}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setVisible(!visible)}
+                    >
+                      {visible ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+
+          <FormControlLabel
+            control={<Checkbox value="remember" />}
+            label="Keep me logged in"
+          />
+          <Button type="submit" size="large" variant="contained">
+            Login
+          </Button>
         </Stack>
-      </Grid>
-    </Grid>
+      </Stack>
+    </Stack>
   );
 }
 
