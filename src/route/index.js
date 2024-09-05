@@ -15,14 +15,13 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <DashboardPage /> },
-      {
-        path: "/category",
-        children: [
-          { index: true, element: <CategoryPage /> },
-          { path: "new", element: <NewCategoryPage /> },
-          //   { path: ":courseId/edit", element: <EditCoursePage /> },
-        ],
-      },
+      { path: "/category", element: <CategoryPage /> },
+      { path: "/category/new", element: <NewCategoryPage /> },
+      { path: "/users", element: <UserPage /> },
+      { path: "/users/:userId", element: <UserDetailPage /> },
+      { path: "/categorys/news", element: <NewCategoryPage /> },
+      
+      
       {
         path: "/user",
         children: [
