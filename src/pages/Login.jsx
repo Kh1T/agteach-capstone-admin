@@ -7,16 +7,21 @@ import {
   Button,
   InputAdornment,
   IconButton,
-  Alert,
-  Snackbar,
 } from '@mui/material';
 import LoginCover from '../assets/ag-login-cover.svg';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
-import Close from '@mui/icons-material/Close';
+import { CustomAlert } from '../components/CustomAlert';
 
+/**
+ * LoginPage component
+ * @description A component that renders a login form with input field for email and password.
+ * Also renders a checkbox for remember me and a log in button.
+ * The component also renders a snackbar at the bottom of the screen if the login is incorrect.
+ * @returns {ReactElement} A React component representing a login form.
+ */
 function LoginPage() {
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -27,6 +32,12 @@ function LoginPage() {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  /**
+   * Handles the form submission.
+   * If the password is incorrect, sets the error message
+   * for both the email and password fields.
+   * @param {object} data - The form data.
+   */
   const onSubmit = (data) => {
     console.log(data);
     if (data.password !== '123456') {
@@ -65,7 +76,7 @@ function LoginPage() {
           Let's see an amazing progress
         </Typography>
         <Stack gap component="form" onSubmit={handleSubmit(onSubmit)}>
-          <CustomAlertMessage
+          <CustomAlert
             label={errors.email?.message}
             open={open}
             onClose={() => setOpen(false)}
@@ -88,6 +99,7 @@ function LoginPage() {
               input: {
                 endAdornment: (
                   <InputAdornment position="end">
+                    {/* Toggle password visibility */}
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={() => setVisible(!visible)}
@@ -115,32 +127,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
-export const CustomAlertMessage = ({ label, open, onClose }) => {
-  return (
-    <Snackbar
-      open={open}
-      autoHideDuration={4000}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      onClose={onClose}
-    >
-      <Alert
-        variant="filled"
-        severity="error"
-        width={500}
-        action={
-          <IconButton
-            aria-label="close"
-            color="inherit"
-            size="small"
-            onClick={onClose}
-          >
-            <Close />
-          </IconButton>
-        }
-      >
-        <Typography variant="bsr">{label}</Typography>
-      </Alert>
-    </Snackbar>
-  );
-};
