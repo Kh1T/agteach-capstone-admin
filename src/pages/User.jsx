@@ -40,7 +40,7 @@ export default function UserPage() {
             <Typography>Number of Instructor</Typography>
           </Stack>
         </Grid>
-        <Grid color="white" borderRadius={3} bgcolor="green" item xs>
+        <Grid color="white" borderRadius={3} bgcolor="primary.main" item xs>
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
               50
@@ -63,34 +63,34 @@ const instructors = [
   {
     id: 1,
     register: '2022-01-01',
-    username: 'chandara',
+    name: 'chandara',
     phone: '0123456789',
-    address: 'St.6, plov veng sreng',
+    location: 'St.6, plov veng sreng',
     status: true,
   },
   {
     id: 2,
     register: '2022-01-01',
-    username: 'chandara',
+    name: 'chandara',
     phone: '0123456789',
-    address: 'St.6, plov veng sreng',
+    location: 'St.6, plov veng sreng',
     status: false,
   },
   {
     id: 3,
 
-    username: 'sokhengchhean',
+    name: 'sokhengchhean',
     register: '2022-01-01',
     phone: '0123456789',
-    address: 'St.6, plov veng sreng',
+    location: 'St.6, plov veng sreng',
     status: true,
   },
   {
     id: 4,
-    username: 'sokhachum',
+    name: 'sokhachum',
     register: '2022-01-01',
     phone: '0123456789',
-    address: 'St.6, plov veng sreng',
+    location: 'St.6, plov veng sreng',
     status: false,
   },
 ];
