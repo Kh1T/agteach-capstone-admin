@@ -17,18 +17,8 @@ export const router = createBrowserRouter([
       { index: true, element: <DashboardPage /> },
       { path: "/category", element: <CategoryPage /> },
       { path: "/category/new", element: <NewCategoryPage /> },
-      { path: "/users", element: <UserPage /> },
-      { path: "/users/:userId", element: <UserDetailPage /> },
-      { path: "/categorys/news", element: <NewCategoryPage /> },
-      
-      
-      {
-        path: "/user",
-        children: [
-          { index: true, element: <UserPage /> },
-          { path: ":userId", element: <UserDetailPage /> },
-        ],
-      },
+      { path: "/user", element: <UserPage /> },
+      { path: "/user/:userId", element: <UserDetailPage /> },
       { path: "/setting", element: <SettingPage /> },
     ],
   },
