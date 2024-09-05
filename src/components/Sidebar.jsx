@@ -29,12 +29,15 @@ export default function Sidebar({ children }) {
   const drawerWidth = 250;
   const param = useParams();
   console.log(param);
-  const headerTitle = sidebarList.find((element) => {
+  const head = sidebarList.find((element) => {
     if (param.productId) element.route = `/product/${param.productId}/edit`;
     if (param.courseId) element.route = `/course/${param.courseId}/edit`;
     if (element.route !== pathname) return false;
     return element.route === pathname;
-  }).title;
+  });
+  const des = sidebarList.find((element) => element.route === pathname);
+  const description = des && des.description;
+  const headerTitle = head && head.title;
 
   const drawerContent = (
     <Drawer
@@ -166,10 +169,7 @@ export default function Sidebar({ children }) {
             <Stack direction="column" spacing="2">
               <Typography variant="h3">{headerTitle && headerTitle}</Typography>
               <Typography variant="bsr" sx={{ color: "dark.300" }}>
-                {
-                  sidebarList.find((element) => element.route === pathname)
-                    .description
-                }
+                {description}
               </Typography>
             </Stack>
             <Chip
