@@ -2,6 +2,7 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import CustomTable from '../components/CustomTable';
 import { useNavigate } from 'react-router';
+import { CustomChip } from '../components/CustomChip';
 
 export default function UserDetailPage() {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ export default function UserDetailPage() {
             </Typography>
           </Stack>
         </Stack>
-        <Typography>hi</Typography>
+        <CustomChip label="Approved" />
       </Stack>
       <Divider sx={{ borderStyle: 'dashed', width: '100%' }} />
       <Stack width="100%" gap={2}>
