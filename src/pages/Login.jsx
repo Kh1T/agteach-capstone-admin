@@ -9,6 +9,7 @@ import {
   Button,
   InputAdornment,
   IconButton,
+  Alert,
 } from '@mui/material';
 import LoginCover from '../assets/ag-login-cover.svg';
 import { useForm } from 'react-hook-form';
@@ -26,6 +27,10 @@ function LoginPage() {
 
   const onSubmit = (data) => {
     console.log(data);
+    if (data.password !== '123456') {
+      alert('Wrong password');
+      return;
+    }
   };
 
   return (
@@ -51,15 +56,17 @@ function LoginPage() {
           <TextField
             variant="outlined"
             label="Email"
-            register={register}
-            errors={errors}
+            error={!!errors.email}
+            helperText={errors.email && 'Email is required'}
+            {...register('email', { required: true })}
           />
           <TextField
             variant="outlined"
             label="Password"
             type={visible ? 'text' : 'password'}
-            register={register}
-            errors={errors}
+            error={!!errors.password}
+            helperText={errors.password && 'Password is required'}
+            {...register('password', { required: true })}
             slotProps={{
               input: {
                 endAdornment: (
@@ -75,11 +82,12 @@ function LoginPage() {
               },
             }}
           />
-
-          <FormControlLabel
-            control={<Checkbox value="remember" />}
-            label="Keep me logged in"
-          />
+          <Stack direction="row" alignItems="center">
+            <Checkbox defaultChecked {...register('rememberMe')} />
+            <Typography variant="body1" color="initial">
+              Keep me logged in
+            </Typography>
+          </Stack>
           <Button type="submit" size="large" variant="contained">
             Login
           </Button>
