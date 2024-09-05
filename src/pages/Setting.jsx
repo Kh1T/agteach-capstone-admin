@@ -12,6 +12,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+  /**
+   * SettingPage component
+   * @description A page for the user to change their password
+   * @returns {ReactElement} A React component representing the SettingPage
+   */
 export default function SettingPage() {
   const [open, setOpen] = useState(false);
   const {
@@ -25,10 +30,25 @@ export default function SettingPage() {
 
   const currentPassword = watch('currentPassword');
 
+  /**
+   * Resets the form by calling useForm's reset method.
+   *
+   * @function
+   */
   const resetForm = () => {
     reset();
   };
 
+  /**
+   * Handles the form submission.
+   *
+   * If the new password and the retyped new password do not match, it will
+   * show an error message and set the focus to the new password field.
+   *
+   * Otherwise, it will reset the form.
+   *
+   * @param {{ newPassword: string; retypeNewPassword: string; }} data - The form data.
+   */
   const onSubmit = (data) => {
     console.log(data);
     if (data.newPassword !== data.retypeNewPassword) {
@@ -41,10 +61,25 @@ export default function SettingPage() {
     resetForm();
   };
 
+  /**
+   * Handles the click event of the snackbar.
+   *
+   * @function
+   */
   const handleClick = () => {
     setOpen(true);
   };
 
+  /**
+   * Handles the close event of the snackbar.
+   *
+   * @param {object} event - The event object.
+   * @param {string} reason - The reason of the close event.
+   *
+   * If the reason is 'clickaway', the function simply returns.
+   *
+   * Otherwise, it sets the open state of the snackbar to false.
+   */
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -71,6 +106,7 @@ export default function SettingPage() {
 
   return (
     <Stack gap={4}>
+      {/* A snackbar that shows up when the password does not match */}
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -87,6 +123,7 @@ export default function SettingPage() {
         <Typography variant="bmdr">User Email: jackma@xyz.com</Typography>
       </Stack>
       <Divider />
+      {/* A form to change password */}
       <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={2}>
           <TextField
