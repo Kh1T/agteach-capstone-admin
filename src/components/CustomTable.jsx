@@ -17,11 +17,9 @@ import { Link as RouterLink } from "react-router-dom";
  * @returns {ReactElement} A table component with optional pagination.
  */
 export default function CustomTable({
-export default function CustomTable({
   data,
   rowLimit = 5,
   isPagination = false,
-  isLink = false,
   isLink = false,
 }) {
   // const tableHead = data.
@@ -56,15 +54,10 @@ export default function CustomTable({
             borderTop: "1px dashed",
             borderBottom: "1px dashed",
             borderColor: "grey.300",
-            minWidth: 200,
-            borderTop: "1px dashed",
-            borderBottom: "1px dashed",
-            borderColor: "grey.300",
           }}
           aria-label="simple table"
         >
           <TableHead>
-            <TableRow sx={{ backgroundColor: "grey.100" }}>
             <TableRow sx={{ backgroundColor: "grey.100" }}>
               {headers.map((title, id) => (
                 <TableCell key={id}>
@@ -86,13 +79,7 @@ export default function CustomTable({
                     key={cellIndex}
                     component= {isLink ? RouterLink : "div"}
                     to={`${id}`}
-                    component= {isLink ? RouterLink : "div"}
-                    to={`${id}`}
                     sx={{
-                      borderBottom: "1px dashed",
-                      borderColor: "grey.300",
-                      cursor: isLink ? "pointer" : "default",
-                      textDecoration: "none",
                       borderBottom: "1px dashed",
                       borderColor: "grey.300",
                       cursor: isLink ? "pointer" : "default",
@@ -102,7 +89,6 @@ export default function CustomTable({
                     {cell}
                   </TableCell>
                 ))}
-                {/* </Link> */}
                 {/* </Link> */}
               </TableRow>
             ))}
