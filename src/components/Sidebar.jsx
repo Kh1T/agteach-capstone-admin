@@ -29,12 +29,15 @@ export default function Sidebar({ children }) {
   const drawerWidth = 250;
   const param = useParams();
   console.log(param);
-  const headerTitle = sidebarList.find((element) => {
+  const head = sidebarList.find((element) => {
     if (param.productId) element.route = `/product/${param.productId}/edit`;
     if (param.courseId) element.route = `/course/${param.courseId}/edit`;
     if (element.route !== pathname) return false;
     return element.route === pathname;
-  }).title;
+  });
+  const des = sidebarList.find((element) => element.route === pathname);
+  const description = des && des.description;
+  const headerTitle = head && head.title;
 
   const drawerContent = (
     <Drawer
@@ -60,16 +63,18 @@ export default function Sidebar({ children }) {
         }}
       >
         <List>
-          <Box
-            component="img"
-            sx={{
-              ml: 2,
-              height: 48,
-              width: 38,
-            }}
-            alt="logo"
-            src={logoIcon}
-          />
+          <Link component={RouterLink} to="/" underline="none">
+            <Box
+              component="img"
+              sx={{
+                ml: 2,
+                height: 48,
+                width: 38,
+              }}
+              alt="logo"
+              src={logoIcon}
+            />
+          </Link>
           <Toolbar />
           {sidebarList.map(
             ({ title, Icon, route }, index) =>
@@ -91,11 +96,15 @@ export default function Sidebar({ children }) {
                   }}
                 >
                   <ListItem key={title} disablePadding>
-                    <ListItemButton >
-                      <Icon sx={{pr:"15px", color: route === pathname ? "common.white" : "dark.300"}}/>
-                      <Typography variant="bmdr" >
-                        {title}
-                      </Typography>
+                    <ListItemButton>
+                      <Icon
+                        sx={{
+                          mr: "15px",
+                          color:
+                            route === pathname ? "common.white" : "dark.300",
+                        }}
+                      />
+                      <Typography variant="bmdr">{title}</Typography>
                     </ListItemButton>
                   </ListItem>
                 </Link>
@@ -160,10 +169,7 @@ export default function Sidebar({ children }) {
             <Stack direction="column" spacing="2">
               <Typography variant="h3">{headerTitle && headerTitle}</Typography>
               <Typography variant="bsr" sx={{ color: "dark.300" }}>
-                {
-                  sidebarList.find((element) => element.route === pathname)
-                    .description
-                }
+                {description}
               </Typography>
             </Stack>
             <Chip
