@@ -4,7 +4,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Box, Link, TablePagination, Typography } from "@mui/material";
+import { TablePagination, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -74,7 +74,6 @@ export default function CustomTable({
                   ":hover": { backgroundColor: "grey.200" },
                 }}
               >
-
                 {Object.values(row).map((cell, cellIndex) => (
                   <TableCell
                     key={cellIndex}
