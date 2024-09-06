@@ -5,16 +5,11 @@ function CardSale() {
     <>
       <Box
         sx={{
-          // p:4,
           width: "100%",
-          height: 215,
-          borderRadius: 1,
+          height: 220,       
           bgcolor: "grey.100",
-          // "&:hover": {
-          //   bgcolor: "primary.dark",
-          // },
-          boxShadow: 1,
-        }}
+          borderRadius: 4,
+         }}
       >
         <Stack direction="column" spacing={5} sx={{mx:"30px", mt: "30px"}}>
           <Stack
