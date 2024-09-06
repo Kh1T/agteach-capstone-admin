@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-function CardSale() {
+function CardSale({title, sale, percent}) {
   return (
     <>
       <Box
@@ -22,14 +22,14 @@ function CardSale() {
               Sale
             </Typography>
             <Typography variant="bsr" sx={{ color: "dark.200" }}>
-              Monthly
+              {title}
             </Typography>
           </Stack>
           <Typography variant="blgsm" sx={{ color: "dark.400" }}>
-            $230,220
+            ${sale}
           </Typography>
           <Typography variant="bsr" sx={{ color: "dark.200" }}>
-            +55% since last month
+            <Box component={"span"} sx={{color:"teal.main"}}>+{percent}%</Box> since last month
           </Typography>
         </Stack>
       </Box>
