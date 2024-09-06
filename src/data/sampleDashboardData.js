@@ -1,13 +1,32 @@
-function createData(...rest) {
-  return { ...rest };
-}
-let headers = ["No", "Name", "Date", "Amount"];
-let rows = [
-  createData(1, "Sok", "1-1-2024", "10$"),
-  createData(2, "Sok", "1-1-2024", "10$"),
-  createData(3, "Sok", "1-1-2024", "10$"),
-  createData(4, "Sok", "1-1-2024", "10$"),
-  createData(5, "Sok", "1-1-2024", "10$"),
+export const data = [
+  {
+    no: 1,
+    name: "Sok",
+    date: "20-12-2020",
+    amount: 10,
+  },
+  {
+    no: 2,
+    name: "Sok",
+    date: "20-12-2020",
+    amount: 10,
+  },
+  {
+    no: 3,
+    name: "Sok",
+    date: "20-12-2020",
+    amount: 10,
+  },
+  {
+    no: 4,
+    name: "Sok",
+    date: "20-12-2020",
+    amount: 10,
+  },
+  {
+    no: 5,
+    name: "Sok",
+    date: "20-12-2020",
+    amount: 10,
+  },
 ];
-
-export const data = { headers, rows };
