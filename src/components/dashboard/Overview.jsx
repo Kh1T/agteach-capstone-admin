@@ -1,5 +1,5 @@
 import { Box,  Typography } from "@mui/material";
-import SimpleBarChart from "./SimpleBarChart";
+import BarchartComponent from "./BarchartComponent";
 
 function Overview() {
   return (
@@ -14,7 +14,7 @@ function Overview() {
       >
         <Box sx={{ px: "25px", pt: "35px" }}>
           <Typography variant="blgsm">Overview</Typography>
-          <SimpleBarChart />
+          <BarchartComponent />
         </Box>
       </Box>
     </>

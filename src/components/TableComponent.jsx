@@ -4,25 +4,33 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { TablePagination } from "@mui/material";
+import { Box, Link, TablePagination, Typography } from "@mui/material";
 import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
-  /**
-   * TableComponent
-   * @description A simple table component with MUI that accepts a data object with headers and rows.
-   * @param {object} data - Data object with headers, rows, and isPagination (optional)
-   * @param {array} data.headers - Array of header titles
-   * @param {array} data.rows - Array of row data
-   * @param {boolean} [data.isPagination=false] - Whether or not to show pagination
-   * @returns A JSX element representing a table component
-   */
-export default function TableComponent({ data }) {
-  const { headers, rows, isPagination = false } = data;
+/**
+ * A table component that displays the given data.
+ *
+ * @param {array} data - An array of objects where each object is a row in the table.
+ * @param {number} [rowLimit=5] - The number of rows can be only 5, 10, 25 base on MUI Table
+ * @param {boolean} [isPagination=false] - If true, a pagination component is displayed.
+ * @returns {ReactElement} A table component with optional pagination.
+ */
+export default function CustomTable({
+  data,
+  rowLimit = 5,
+  isPagination = false,
+  isLink = false,
+}) {
+  // const tableHead = data.
+  let headers = Object.keys(data[0]).map(
+    (key) => key.charAt(0).toUpperCase() + key.slice(1)
+  );
+  let rows = data.map((item) => Object.values(item));
 
   // Pagination state
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(rowLimit);
 
   // Handle page change
   const handleChangePage = (event, newPage) => {
@@ -37,27 +45,52 @@ export default function TableComponent({ data }) {
   const displayedRows = isPagination
     ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     : rows;
-
   const content = (
     <>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+      <TableContainer>
+        <Table
+          sx={{
+            minWidth: 200,
+            borderTop: "1px dashed",
+            borderBottom: "1px dashed",
+            borderColor: "grey.300",
+          }}
+          aria-label="simple table"
+        >
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ backgroundColor: "grey.100" }}>
               {headers.map((title, id) => (
-                <TableCell key={id}>{title}</TableCell>
+                <TableCell key={id}>
+                  <Typography variant="bssm">{title}</Typography>
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {displayedRows.map((row) => (
+            {displayedRows.map((row, id) => (
               <TableRow
-                key={row.name}
-                // sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                key={id}
+                sx={{
+                  ":hover": { backgroundColor: "grey.200" },
+                }}
               >
+
                 {Object.values(row).map((cell, cellIndex) => (
-                  <TableCell key={cellIndex}>{cell}</TableCell>
+                  <TableCell
+                    key={cellIndex}
+                    component= {isLink ? RouterLink : "div"}
+                    to={`${id}`}
+                    sx={{
+                      borderBottom: "1px dashed",
+                      borderColor: "grey.300",
+                      cursor: isLink ? "pointer" : "default",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {cell}
+                  </TableCell>
                 ))}
+                {/* </Link> */}
               </TableRow>
             ))}
           </TableBody>
