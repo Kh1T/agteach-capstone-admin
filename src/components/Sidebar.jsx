@@ -140,8 +140,6 @@ export default function Sidebar({ children }) {
           display: "flex",
           justifyContent: "center",
           flexDirection: "row",
-          px: 0,
-          "@media (min-width: 0px)": { paddingRight: 0, paddingLeft: 0 },
           width: "100%",
         }}
       >
@@ -196,10 +194,6 @@ export default function Sidebar({ children }) {
       sx={{
         mt: 20,
         maxWidth: "1300px",
-        "@media (min-width: 0px)": { paddingRight: 0, paddingLeft: 0 },
-        "&.MuiContainer-root": {
-          px: 0,
-        },
       }}
     >
       {children}
