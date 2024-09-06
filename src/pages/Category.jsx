@@ -1,8 +1,8 @@
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import QueryHeader from "../components/QueryHeader";
 import { useRef, useState } from "react";
-import TableComponent from "../components/TableComponent";
 import { data } from "../data/sampleDashboardData";
+import CustomTable from "../components/CustomTable";
 export default function CategoryPage() {
   const [selectState, setSelectState] = useState(0);
   const searchRef = useRef();
@@ -20,7 +20,7 @@ export default function CategoryPage() {
     console.log(selectState);
   }
   return (
-    <Box width={"100%"}>
+    <Stack gap="30px" width={"100%"}>
       <QueryHeader
         label={label}
         searchRef={searchRef}
@@ -30,7 +30,7 @@ export default function CategoryPage() {
         pathCreated="/category/new"
         labelCreate="Create Category"
       />
-      <TableComponent data={data} />
-    </Box>
+      <CustomTable data={data} />
+    </Stack>
   );
 }
