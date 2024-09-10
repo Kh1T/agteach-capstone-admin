@@ -25,10 +25,11 @@ install_dependencies:
     #- cd npm install   # Install React dependencies    
     - npm i
     - mkdir -p ~/.ssh
+    - touch hello
     - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
     - chmod 400 ~/.ssh/ec2key.pem
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - scp -i ~/.ssh/ec2key.pem Document/Shiro.zip ubuntu@54.153.198.123:/home/ubuntu
+    - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
   cache:
     paths:
       - node_modules/
