@@ -2,7 +2,7 @@
 stages:
   - install
   - build
-  - deploy
+  # - deploy
 
 # Variables
 variables:
@@ -37,20 +37,21 @@ build_react_app:
     - echo "Building React app..."
     # - unset CI     # Unset CI to prevent treating warnings as errors
     - CI=false npm run build  # Build React app
+    - ls
   artifacts:
     paths:
       - /build   # Save the React build folder as an artifact
 
 
 # Stage 3: Deploy to AWS EC2
-deploy_to_aws:
-  stage: deploy
-  image: node
-  script:
-    - echo "Deploying to My Computer..."
-    - mkdir -p app
-    - cp -r build app
-    - cd app && ls -1
+# deploy_to_aws:
+#   stage: deploy
+#   image: node
+#   script:
+#     - echo "Deploying to My Computer..."
+#     - mkdir -p app
+#     - cp -r build app
+#     - cd app && ls -1
     # - echo "Deploying to AWS EC2..."
     # - mkdir -p ~/.ssh
     # - echo "$EC2_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
