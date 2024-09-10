@@ -26,7 +26,7 @@ install_dependencies:
     # - npm i
     - mkdir -p ~/.ssh
     - touch hello
-    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key
+    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
     - echo "$EC2_SSH_PEM_KEY"
     - chmod 400 ~/.ssh/ec2_key
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
@@ -40,6 +40,7 @@ install_dependencies:
     - cd ..
     - pwd
     - ls
+    - openssl rsa -in ~/.ssh/ec2key.pem -check
     # - ssh-keygen -y -f ~/.ssh/ec2key.pem
     # - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
   cache:
