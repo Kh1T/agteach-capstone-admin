@@ -48,19 +48,19 @@ deploy_to_aws:
   stage: deploy
   image: node
   script:
-    - echo "Deploying to My Computer..."
-    - mkdir app
-    - ls 
-    - cp -r build app
-    - cd app && ls
-    # - echo "Deploying to AWS EC2..."
-    # - mkdir -p ~/.ssh
-    # - echo "$EC2_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    # - chmod 600 ~/.ssh/id_rsa
-    # - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+    # - echo "Deploying to My Computer..."
+    # - mkdir app
+    # - ls 
+    # - cp -r build app
+    # - cd app && ls
+    - echo "Deploying to AWS EC2..."
+    - mkdir -p ~/.ssh
+    - echo "$EC2_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
     # SCP the React build and Node.js backend to EC2 instance
-    # - scp -r build $EC2_USER@$EC2_HOST:$APP_DIRECTORY/
+    - scp -r build ubuntu@ec2-54-153-198-123/home/ubuntu
 
     # SSH into EC2 and install Node.js dependencies, start the server
     # - ssh $EC2_USER@$EC2_HOST << EOF
