@@ -7,9 +7,11 @@ install_dependencies:
   stage: install
   # image: node:16-alpine    # Using node image to install dependencies
   script:
-    - echo "Installing dependencies..."
     - node -v
-    #- cd npm install   # Install React dependencies
+    - echo "Installing dependencies..."
+    #- cd npm install   # Install React dependencies    
+    - npm i
+
   cache:
     paths:
       - node_modules/
