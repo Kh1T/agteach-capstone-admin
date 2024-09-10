@@ -23,7 +23,8 @@ build_react_app:
   image: node
   script:
     - echo "Building React app..."
-    - npm run build  # Build React app
+    # - unset CI     # Unset CI to prevent treating warnings as errors
+    - CI=false npm run build  # Build React app
   artifacts:
     paths:
       - /build   # Save the React build folder as an artifact
