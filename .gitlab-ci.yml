@@ -4,17 +4,6 @@ stages:
   - build
   - deploy
 
-# Variables
-variables:
-  NODE_ENV: production
-  AWS_REGION: us-east-1   # Modify this to your AWS region
-  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-  EC2_SSH_PRIVATE_KEY: $EC2_SSH_PRIVATE_KEY   # To SSH into EC2 for deployment
-  EC2_USER: ec2-user       # Modify based on your EC2 user
-  EC2_HOST: $EC2_HOST      # Modify to your EC2 instance public IP or DNS
-  APP_DIRECTORY: /var/www/my-app  # Directory on your EC2 instance where the app will be deployed
-
 # Stage 1: Install dependencies for React and Node.js
 install_dependencies:
   stage: install
