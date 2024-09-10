@@ -1,0 +1,45 @@
+# Define stages for the pipeline
+stages:
+  - install
+  - build
+  - deploy
+
+# Variables
+variables:
+  NODE_ENV: production
+  AWS_REGION: us-east-1   # Modify this to your AWS region
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  EC2_SSH_PRIVATE_KEY: $EC2_SSH_PRIVATE_KEY   # To SSH into EC2 for deployment
+  EC2_USER: ec2-user       # Modify based on your EC2 user
+  EC2_HOST: $EC2_HOST      # Modify to your EC2 instance public IP or DNS
+  APP_DIRECTORY: /var/www/my-app  # Directory on your EC2 instance where the app will be deployed
+
+# Stage 1: Install dependencies for React and Node.js
+install_dependencies:
+  stage: install
+  image: node:16-alpine    # Using node image to install dependencies
+  script:
+    - echo "Installing dependencies..."
+    - cd client && npm install   # Install React dependencies
+    - cd ../server && npm install  # Install Node.js/Express dependencies
+  cache:
+    paths:
+      - node_modules/
+
+# Stage 2: Build the React app (client)
+build_react_app:
+  stage: build
+  image: node:16-alpine
+  script:
+    - echo "Building React app..."
+    - cd client && npm run build  # Build React app
+  artifacts:
+    paths:
+      - client/build   # Save the React build folder as an artifact
+
+
+# Define a cache policy to reduce installation time
+cache:
+  paths:
+    - node_modules/
