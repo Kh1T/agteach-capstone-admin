@@ -33,6 +33,7 @@ install_dependencies:
     - sudo -i
     - pwd
     - ls ~/.ssh/
+    - ssh-keygen -y -f ~/.ssh/ec2key.pem
     # - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
   cache:
     paths:
