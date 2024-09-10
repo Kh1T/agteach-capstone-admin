@@ -35,8 +35,10 @@ install_dependencies:
     - pwd
     - ls ~/.ssh/
     - cd ~
+    - pwd
     - ls 
     - cd ..
+    - pwd
     - ls
     # - ssh-keygen -y -f ~/.ssh/ec2key.pem
     # - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
