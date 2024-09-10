@@ -10,22 +10,11 @@ install_dependencies:
   image: node:16-alpine    # Using node image to install dependencies
   script:
     - echo "Installing dependencies..."
-    - cd client && npm install   # Install React dependencies
-    - cd ../server && npm install  # Install Node.js/Express dependencies
+    - cd npm install   # Install React dependencies
+    - ls -1
   cache:
     paths:
       - node_modules/
-
-# Stage 2: Build the React app (client)
-build_react_app:
-  stage: build
-  image: node:16-alpine
-  script:
-    - echo "Building React app..."
-    - cd client && npm run build  # Build React app
-  artifacts:
-    paths:
-      - client/build   # Save the React build folder as an artifact
 
 
 # Define a cache policy to reduce installation time
