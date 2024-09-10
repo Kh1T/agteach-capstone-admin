@@ -5,7 +5,7 @@ stages:
 # Stage 1: Install dependencies for React and Node.js
 install_dependencies:
   stage: install
-  image: node:16-alpine    # Using node image to install dependencies
+  # image: node:16-alpine    # Using node image to install dependencies
   script:
     - echo "Installing dependencies..."
     - node -v
