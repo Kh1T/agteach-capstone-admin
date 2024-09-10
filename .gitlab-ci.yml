@@ -57,7 +57,7 @@ deploy_to_aws:
     - ls
     - mkdir -p ~/.ssh
     - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
-    - cat ~/.ssh/ec2_key.pem
+    - ls ~/.ssh/
     - echo "$EC2_HOST"
     - chmod 400 ~/.ssh/ec2_key.pem
     #- ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
