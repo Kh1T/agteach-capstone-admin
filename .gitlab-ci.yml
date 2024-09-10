@@ -48,8 +48,8 @@ deploy_to_aws:
   image: node
   script:
     - echo "Deploying to My Computer..."
-    - mkdir -p ~/app
-    - cp -r /build ~/app
+    - mkdir -p app
+    - cp -r build app
     - cd app && ls -1
     # - echo "Deploying to AWS EC2..."
     # - mkdir -p ~/.ssh
