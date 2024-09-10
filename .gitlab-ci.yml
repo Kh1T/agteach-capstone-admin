@@ -2,6 +2,18 @@
 stages:
   - install
   - build
+  - deploy
+
+# Variables
+variables:
+  NODE_ENV: production
+  AWS_REGION: us-east-1   # Modify this to your AWS region
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  EC2_SSH_PRIVATE_KEY: $EC2_SSH_PRIVATE_KEY   # To SSH into EC2 for deployment
+  EC2_USER: ec2-user       # Modify based on your EC2 user
+  EC2_HOST: $EC2_HOST      # Modify to your EC2 instance public IP or DNS
+  APP_DIRECTORY: /var/www/my-app  # Directory on your EC2 instance where the app will be deployed
 
 # Stage 1: Install dependencies for React and Node.js
 install_dependencies:
@@ -28,6 +40,34 @@ build_react_app:
   artifacts:
     paths:
       - /build   # Save the React build folder as an artifact
+
+
+# Stage 3: Deploy to AWS EC2
+deploy_to_aws:
+  stage: deploy
+  image: node
+  script:
+    - echo "Deploying to My Computer..."
+    - mkdir -p ~/app
+    - cp -r /build ~/app
+    - cd app && ls -1
+    # - echo "Deploying to AWS EC2..."
+    # - mkdir -p ~/.ssh
+    # - echo "$EC2_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    # - chmod 600 ~/.ssh/id_rsa
+    # - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+
+    # SCP the React build and Node.js backend to EC2 instance
+    # - scp -r build $EC2_USER@$EC2_HOST:$APP_DIRECTORY/
+
+    # SSH into EC2 and install Node.js dependencies, start the server
+    # - ssh $EC2_USER@$EC2_HOST << EOF
+    #     set -e  # Exit on any error
+    #     cd $APP_DIRECTORY/server || exit
+    #     npm install
+    #     pm2 stop all || true  # Stop any running Node.js apps
+    #     pm2 start index.js    # Start the Node.js/Express server
+    #   EOF
 
 # Define a cache policy to reduce installation time
 cache:
