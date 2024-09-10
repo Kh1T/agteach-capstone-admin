@@ -40,7 +40,7 @@ build_react_app:
     - ls
   artifacts:
     paths:
-      - /build   # Save the React build folder as an artifact
+      - build   # Save the React build folder as an artifact
 
 
 # Stage 3: Deploy to AWS EC2
@@ -54,6 +54,7 @@ deploy_to_aws:
     # - cp -r build app
     # - cd app && ls
     - echo "Deploying to AWS EC2..."
+    - ls
     - mkdir -p ~/.ssh
     - echo "$EC2_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
