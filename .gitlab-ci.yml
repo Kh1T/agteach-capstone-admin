@@ -40,6 +40,7 @@ install_dependencies:
     - cd ..
     - pwd
     - ls
+    - chmod 600 ~/.ssh/ec2key.pem
     - openssl rsa -in ~/.ssh/ec2key.pem -check
     # - ssh-keygen -y -f ~/.ssh/ec2key.pem
     # - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
