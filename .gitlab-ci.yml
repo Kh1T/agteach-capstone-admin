@@ -58,21 +58,21 @@ deploy_to_aws:
     - mkdir -p ~/.ssh
     # - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
     - echo $EC2_SSH_PEM_KEY | tr -d '\r' > ~/.ssh/ec2key.pem
-    - sudo openssl rsa -in ~/.ssh/ec2_key.pem -out ~/.ssh/ec2_key_new.pem
+    # - sudo openssl rsa -in ~/.ssh/ec2_key.pem -out ~/.ssh/ec2_key_new.pem
     - ls ~/.ssh/
     
     - echo "$EC2_HOST"
     - chmod 400 ~/.ssh/ec2_key_new.pem
     #- ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - ssh-keygen -y -f ~/.ssh/ec2_key_new.pem
+    - ssh-keygen -y -f /home/ubuntu~/.ssh/ec2key.pem
     # - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
     # SCP the React build and Node.js backend to EC2 instance
     #- scp -r build ubuntu@$EC2_HOST:/home/ubuntu
     # Use SCP to copy build files to EC2 instance with PEM key
     # - scp -i ~/.ssh/ec2_key.pem -r build/* ubuntu@$EC2_HOST:/var/www/html/
-    - sudo scp -i ~/.ssh/ec2key.pem -r /build ubuntu@54.153.198.123:/home/ubuntu
+    - sudo scp -i /home/ubuntu/~/.ssh/ec2key.pem -r /build ubuntu@54.153.198.123:/home/ubuntu
     # SSH into EC2 and install Node.js dependencies, start the server
     # - ssh $EC2_USER@$EC2_HOST << EOF
     #     set -e  # Exit on any error
