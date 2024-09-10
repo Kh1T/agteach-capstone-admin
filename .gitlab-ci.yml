@@ -62,10 +62,10 @@ deploy_to_aws:
     - ls ~/.ssh/
     
     - echo "$EC2_HOST"
-    - chmod 400 ~/.ssh/ec2_key_new.pem
+    - chmod 400 ~/.ssh/ec2key.pem
     #- ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - ssh-keygen -y -f /home/ubuntu~/.ssh/ec2key.pem
+    # - ssh-keygen -y -f /home/ubuntu~/.ssh/ec2key.pem
     # - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
     # SCP the React build and Node.js backend to EC2 instance
