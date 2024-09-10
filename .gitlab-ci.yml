@@ -61,7 +61,7 @@ deploy_to_aws:
     # - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
     # SCP the React build and Node.js backend to EC2 instance
-    - scp -r build ubuntu@$EC2_HOST:/home/ubuntu
+    #- scp -r build ubuntu@$EC2_HOST:/home/ubuntu
 
     # SSH into EC2 and install Node.js dependencies, start the server
     # - ssh $EC2_USER@$EC2_HOST << EOF
