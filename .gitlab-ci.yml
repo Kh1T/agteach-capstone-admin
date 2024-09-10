@@ -57,6 +57,7 @@ deploy_to_aws:
     - ls
     - mkdir -p ~/.ssh
     - echo "$EC2_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - echo $EC2_HOST
     - chmod 600 ~/.ssh/id_rsa
     # - ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
 
