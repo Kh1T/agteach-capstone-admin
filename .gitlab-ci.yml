@@ -30,6 +30,9 @@ install_dependencies:
     - chmod 400 ~/.ssh/ec2key.pem
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
     - pwd
+    - sudo -i
+    - pwd
+    - ls ~/.ssh/
     # - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
   cache:
     paths:
