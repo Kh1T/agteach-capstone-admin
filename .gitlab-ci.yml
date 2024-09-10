@@ -65,7 +65,8 @@ deploy_to_aws:
     # SCP the React build and Node.js backend to EC2 instance
     #- scp -r build ubuntu@$EC2_HOST:/home/ubuntu
     # Use SCP to copy build files to EC2 instance with PEM key
-    - scp -i ~/.ssh/ec2_key.pem -r build/* ubuntu@$EC2_HOST:/var/www/html/
+    # - scp -i ~/.ssh/ec2_key.pem -r build/* ubuntu@$EC2_HOST:/var/www/html/
+    - scp -i ~/.ssh/ec2_key.pem -r /build ubuntu@54.153.198.123:/home/ubuntu
     # SSH into EC2 and install Node.js dependencies, start the server
     # - ssh $EC2_USER@$EC2_HOST << EOF
     #     set -e  # Exit on any error
