@@ -8,7 +8,7 @@ install_dependencies:
   image: node:16-alpine    # Using node image to install dependencies
   script:
     - echo "Installing dependencies..."
-    - ls -1
+    - npm install
     #- cd npm install   # Install React dependencies
   cache:
     paths:
