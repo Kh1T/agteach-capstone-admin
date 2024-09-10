@@ -1,6 +1,7 @@
 # Define stages for the pipeline
 stages:
   - install
+  - build
 
 # Stage 1: Install dependencies for React and Node.js
 install_dependencies:
