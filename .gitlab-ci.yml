@@ -28,11 +28,11 @@ install_dependencies:
     - touch hello
     - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > .ssh/ec2_key.pem
     # - echo "$EC2_SSH_PEM_KEY"
-    - cd .ssh & ls
-    - cd ..
-    - chmod 400 .ssh/ec2_key
-    - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - pwd
+    - ls -a
+    # - cd ..
+    # - chmod 400 .ssh/ec2_key
+    # - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
+    # - pwd
     # - sudo -i
     # - pwd
     # - ls ~/.ssh/
