@@ -35,6 +35,7 @@ install_dependencies:
     - ls -a
     # - cd ..
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
+    - scp -i .ssh/ec2_key.pem hello ubuntu@54.153.198.123:/home/ubuntu
     # - pwd
     # - sudo -i
     # - pwd
