@@ -26,9 +26,10 @@ install_dependencies:
     # - npm i
     - mkdir -p .ssh
     - touch hello
-    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > .ssh/ec2_key.pem
+    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ec2_key.pem
     # - echo "$EC2_SSH_PEM_KEY"
     - ls -a
+    - cat ec2_key.pem
     # - cd ..
     # - chmod 400 .ssh/ec2_key
     # - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
