@@ -61,7 +61,7 @@ deploy_to_aws:
     - mv ec2_key.pem .ssh
     # - cd ..
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - scp -i .ssh/ec2_key.pem hello ubuntu@54.153.198.123:/home/ubuntu
+    - scp -i .ssh/ec2_key.pem build ubuntu@54.153.198.123:/home/ubuntu
 
 #     - ls
 #     - mkdir -p ~/.ssh
