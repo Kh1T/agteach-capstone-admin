@@ -26,7 +26,7 @@ install_dependencies:
     # - npm i
     - mkdir -p .ssh
     - touch hello
-    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
+    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > .ssh/ec2_key.pem
     # - echo "$EC2_SSH_PEM_KEY"
     - cd .ssh & ls
     - cd ..
