@@ -30,7 +30,7 @@ install_dependencies:
     # - echo "$EC2_SSH_PEM_KEY"
     - ls -a
     - cat ec2_key.pem
-    - chmod 400 ec2_key
+    - chmod 400 ec2_key.pem
     - mv ec2_key.pem .ssh
     - ls -a
     # - cd ..
