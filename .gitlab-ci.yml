@@ -1,8 +1,8 @@
 # Define stages for the pipeline
 stages:
   - install
-  # - build
-  # - deploy
+  - build
+  - deploy
 
 # Variables
 variables:
@@ -22,65 +22,48 @@ install_dependencies:
   script:
     - node -v
     - echo "Installing dependencies..."
-    #- cd npm install   # Install React dependencies    
-    # - npm i
-    - mkdir -p .ssh
-    - touch hello
-    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ec2_key.pem
-    # - echo "$EC2_SSH_PEM_KEY"
-    - ls -a
-    - cat ec2_key.pem
-    - chmod 400 ec2_key.pem
-    - mv ec2_key.pem .ssh
-    - ls -a
-    # - cd ..
-    - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - scp -i .ssh/ec2_key.pem hello ubuntu@54.153.198.123:/home/ubuntu
-    # - pwd
-    # - sudo -i
-    # - pwd
-    # - ls ~/.ssh/
-    # - cd ~
-    # - pwd
-    # - ls 
-    # - cd ..
-    # - pwd
-    # - ls
-    # - cd /mnt/d/Data
-    # - ls
-    # - chmod 600 ~/.ssh/ec2key.pem
-    # - openssl rsa -in ~/.ssh/ec2key.pem -check
-    # - ssh-keygen -y -f ~/.ssh/ec2key.pem
-    # - scp -i ~/.ssh/ec2key.pem hello ubuntu@54.153.198.123:/home/ubuntu
+    - cd npm install   # Install React dependencies    
+    - npm i
+
   cache:
     paths:
       - node_modules/
 
 # # Stage 2: Build the React app (client)
-# build_react_app:
-#   stage: build
-#   image: node
-#   script:
-#     - echo "Building React app..."
-#     # - unset CI     # Unset CI to prevent treating warnings as errors
-#     - CI=false npm run build  # Build React app
-#     - ls
-#   artifacts:
-#     paths:
-#       - build   # Save the React build folder as an artifact
+build_react_app:
+  stage: build
+  image: node
+  script:
+    - echo "Building React app..."
+    # - unset CI     # Unset CI to prevent treating warnings as errors
+    - CI=false npm run build  # Build React app
+    - ls
+  artifacts:
+    paths:
+      - build   # Save the React build folder as an artifact
 
 
 # Stage 3: Deploy to AWS EC2
-# deploy_to_aws:
-#   stage: deploy
-#   image: node
-#   script:
-#     # - echo "Deploying to My Computer..."
-#     # - mkdir app
-#     # - ls 
-#     # - cp -r build app
-#     # - cd app && ls
-#     - echo "Deploying to AWS EC2..."
+deploy_to_aws:
+  stage: deploy
+  image: node
+  script:
+    # - echo "Deploying to My Computer..."
+    # - mkdir app
+    # - ls 
+    # - cp -r build app
+    # - cd app && ls
+    - echo "Deploying to AWS EC2..."
+    - mkdir -p .ssh
+    - touch hello
+    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ec2_key.pem
+    - cat ec2_key.pem
+    - chmod 400 ec2_key.pem
+    - mv ec2_key.pem .ssh
+    # - cd ..
+    - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
+    - scp -i .ssh/ec2_key.pem hello ubuntu@54.153.198.123:/home/ubuntu
+
 #     - ls
 #     - mkdir -p ~/.ssh
 #     # - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
