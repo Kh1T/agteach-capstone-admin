@@ -30,9 +30,11 @@ install_dependencies:
     # - echo "$EC2_SSH_PEM_KEY"
     - ls -a
     - cat ec2_key.pem
+    - chmod 400 ec2_key
+    - mv ec2_key.pem .ssh
+    - ls -a
     # - cd ..
-    # - chmod 400 .ssh/ec2_key
-    # - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
+    - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
     # - pwd
     # - sudo -i
     # - pwd
