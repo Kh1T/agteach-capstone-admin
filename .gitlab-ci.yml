@@ -22,8 +22,7 @@ install_dependencies:
   script:
     - node -v
     - echo "Installing dependencies..."
-    - cd npm install   # Install React dependencies    
-    - npm i
+    - npm install   # Install React dependencies
 
   cache:
     paths:
