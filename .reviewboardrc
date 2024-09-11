@@ -1,5 +1,5 @@
 REVIEWBOARD_URL = "https://review.clp.kr/"
 REPOSITORY = "AlphaBeez/AgTeach/Admin"
 REPOSITORY_TYPE = "git"
-BRANCH = "feature/feat-adminsetting-page"
-LAND_DEST_BRANCH = "feature/feat-adminsetting-page"
+BRANCH = "feature/feat-deploy-cicd"
+LAND_DEST_BRANCH = "feature/feat-deploy-cicd"
