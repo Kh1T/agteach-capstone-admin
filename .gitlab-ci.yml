@@ -24,24 +24,26 @@ install_dependencies:
     - echo "Installing dependencies..."
     #- cd npm install   # Install React dependencies    
     # - npm i
-    - mkdir -p ~/.ssh
+    - mkdir -p .ssh
     - touch hello
     - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ~/.ssh/ec2_key.pem
-    - echo "$EC2_SSH_PEM_KEY"
-    - chmod 400 ~/.ssh/ec2_key
+    # - echo "$EC2_SSH_PEM_KEY"
+    - cd .ssh & ls
+    - cd ..
+    - chmod 400 .ssh/ec2_key
     - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
     - pwd
-    - sudo -i
-    - pwd
-    - ls ~/.ssh/
-    - cd ~
-    - pwd
-    - ls 
-    - cd ..
-    - pwd
-    - ls
-    - cd /mnt/d/Data
-    - ls
+    # - sudo -i
+    # - pwd
+    # - ls ~/.ssh/
+    # - cd ~
+    # - pwd
+    # - ls 
+    # - cd ..
+    # - pwd
+    # - ls
+    # - cd /mnt/d/Data
+    # - ls
     # - chmod 600 ~/.ssh/ec2key.pem
     # - openssl rsa -in ~/.ssh/ec2key.pem -check
     # - ssh-keygen -y -f ~/.ssh/ec2key.pem
