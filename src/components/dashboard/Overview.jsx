@@ -13,7 +13,7 @@ function Overview() {
         }}
       >
         <Box sx={{ px: "25px", pt: "35px" }}>
-          <Typography variant="blgsm">Overview Dashboard</Typography>
+          <Typography variant="blgsm">Overview</Typography>
           <BarchartComponent />
         </Box>
       </Box>
