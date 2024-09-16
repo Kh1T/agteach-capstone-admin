@@ -45,7 +45,7 @@ deploy_to_aws:
     - scp -i .ssh/ec2_key.pem -r build ubuntu@54.153.198.123:/home/ubuntu
 
 
-# Define a cache policy to reduce installation time
+
 cache:
   paths:
     - node_modules/
