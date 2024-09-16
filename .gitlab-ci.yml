@@ -4,21 +4,10 @@ stages:
   - build
   - deploy
 
-# Variables
-variables:
-  NODE_ENV: production
-  AWS_REGION: us-east-1   # Modify this to your AWS region
-  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-  EC2_SSH_PRIVATE_KEY: $EC2_SSH_PRIVATE_KEY   # To SSH into EC2 for deployment
-  EC2_USER: ec2-user       # Modify based on your EC2 user
-  EC2_HOST: $EC2_HOST      # Modify to your EC2 instance public IP or DNS
-  APP_DIRECTORY: /var/www/my-app  # Directory on your EC2 instance where the app will be deployed
-
 # Stage 1: Install dependencies for React and Node.js
 install_dependencies:
   stage: install
-  image: node    # Using node image to install dependencies
+  image: node:20    # Using node image to install dependencies
   script:
     - node -v
     - echo "Installing dependencies..."
@@ -31,7 +20,7 @@ install_dependencies:
 # # Stage 2: Build the React app (client)
 build_react_app:
   stage: build
-  image: node
+  image: node:20
   script:
     - echo "Building React app..."
     # - unset CI     # Unset CI to prevent treating warnings as errors
@@ -47,13 +36,11 @@ deploy_to_aws:
   image: node
   script:
     - echo "Deploying to AWS EC2..."
-    - mkdir -p .ssh
-    - touch hello
-    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > ec2_key.pem
-    - chmod 400 ec2_key.pem
-    - mv ec2_key.pem .ssh
-    - ssh-keyscan -H 54.153.198.123 >> ~/.ssh.know_hosts
-    - scp -i .ssh/ec2_key.pem -r build ubuntu@54.153.198.123:/home/ubuntu
+    - mkdir -p .ssh    
+    - echo "$EC2_SSH_PEM_KEY" | tr -d '\r' > .ssh/agtech.pem
+    - chmod 600 agtech.pem
+    - ssh-keyscan -H $AWS_SSH_IP >> ~/.ssh.know_hosts
+    - scp -i .ssh/agtech.pem -r build/* $AWS_SSH_USER@AWS_SSH_IP:/home/ubuntu/app/admin
 
 
 # Define a cache policy to reduce installation time
