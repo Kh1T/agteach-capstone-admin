@@ -42,10 +42,6 @@ deploy_to_aws:
     - chmod 600 ~/.ssh/agtech.pem
     - ssh-keyscan -H $AWS_SSH_IP >> ~/.ssh/know_hosts
     - scp -i ~/.ssh/agtech.pem -r build/* $AWS_SSH_USER@$AWS_SSH_IP:/home/ubuntu/app/admin
-    # - rsync -avz -e "ssh -i ~/.ssh/agtech.pem" build/* $AWS_SSH_USER@$AWS_SSH_IP:/home/ubuntu/app/admin/ # Sync files to Server
-
-
-
 
 cache:
   paths:
