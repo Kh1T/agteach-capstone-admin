@@ -17,6 +17,11 @@ import { CustomAlert } from "../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../store/api/authApi.js";
 
+/**
+ * LoginPage component
+ * @description A component for the login page
+ * @returns {ReactElement} A React component representing the LoginPage
+ */
 function LoginPage() {
   const [login, { isLoading }] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
