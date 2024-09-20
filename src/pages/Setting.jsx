@@ -147,19 +147,6 @@ export default function SettingPage() {
             helperText={errors.passwordCurrent?.message}
             error={!!errors.passwordCurrent}
           />
-          {/* <TextField
-            id="outlined-basic"
-            label="New Password"
-            variant="outlined"
-            helperText={errors.newPassword?.message}
-            {...register("newPassword", {
-              required: "Password is required",
-              minLength: {
-                value: 8,
-                message: "Password must be at least 8 characters long",
-              },
-            })}
-          /> */}
           <TextField
             id="newPassword"
             label="New Password"
