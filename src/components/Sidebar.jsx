@@ -6,13 +6,20 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { useLocation, Link as RouterLink, useParams } from "react-router-dom";
+import {
+  useLocation,
+  Link as RouterLink,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
 
 import logoIcon from "../assets/logo.svg";
 import avtarChip from "../assets/avatar-chip.png";
 import { Avatar, Chip, Container, Link, Stack } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import sidebarList from "../data/sideBarData";
+import { useLogoutMutation } from "../store/api/authApi";
+import { useGetInfoQuery } from "../store/api/adminApi";
 
 /**
  * Sidebar component that renders a drawer and app bar with content.
@@ -38,6 +45,23 @@ export default function Sidebar({ children }) {
   const des = sidebarList.find((element) => element.route === pathname);
   const description = des && des.description;
   const headerTitle = head && head.title;
+
+  const [logout, { isLoading, isError }] = useLogoutMutation();
+  const nagivate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    console.log(isError);
+    
+    nagivate("/login");
+  };
+
+  const { data } = useGetInfoQuery();
+  let adminInfo = {}
+  if (data) {
+    adminInfo = data.data
+    console.log(data);
+    
+  }
 
   const drawerContent = (
     <Drawer
@@ -114,9 +138,9 @@ export default function Sidebar({ children }) {
       </Stack>
 
       <Box>
-        <ListItemButton sx={{ color: "dark.300" }}>
-          <LogoutOutlinedIcon sx={{pr:"15px"}}/>
-          <Typography variant="bmdr" >
+        <ListItemButton onClick={handleLogout}>
+          <LogoutOutlinedIcon sx={{ color: "dark.300", mr: "20px" }} />
+          <Typography variant="bmdr" sx={{ color: "dark.300" }}>
             Logout
           </Typography>
         </ListItemButton>
@@ -172,7 +196,7 @@ export default function Sidebar({ children }) {
             </Stack>
             <Chip
               avatar={<Avatar src={avtarChip} label="Avatar" />}
-              label="Jack Ma"
+              label={adminInfo.username}
               sx={{
                 height: "40px",
                 borderRadius: "63px",
