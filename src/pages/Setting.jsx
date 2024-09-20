@@ -7,16 +7,20 @@ import {
   Divider,
   IconButton,
   Snackbar,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import {
+  useGetInfoQuery,
+  useUpdatePasswordMutation,
+} from "../store/api/adminApi";
 
-  /**
-   * SettingPage component
-   * @description A page for the user to change their password
-   * @returns {ReactElement} A React component representing the SettingPage
-   */
+/**
+ * SettingPage component
+ * @description A page for the user to change their password
+ * @returns {ReactElement} A React component representing the SettingPage
+ */
 export default function SettingPage() {
   const [open, setOpen] = useState(false);
   const {
@@ -28,7 +32,7 @@ export default function SettingPage() {
     formState: { errors },
   } = useForm();
 
-  const currentPassword = watch('currentPassword');
+  const passwordCurrent = watch("passwordCurrent");
 
   /**
    * Resets the form by calling useForm's reset method.
@@ -38,6 +42,14 @@ export default function SettingPage() {
   const resetForm = () => {
     reset();
   };
+
+  const [updatePassword, { isLoading, isSuccess }] =
+    useUpdatePasswordMutation();
+  const { data } = useGetInfoQuery();
+  let adminInfo = {};
+  if (data) {
+    adminInfo = data.data;
+  }
 
   /**
    * Handles the form submission.
@@ -49,15 +61,14 @@ export default function SettingPage() {
    *
    * @param {{ newPassword: string; retypeNewPassword: string; }} data - The form data.
    */
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    if (data.newPassword !== data.retypeNewPassword) {
-      handleClick();
-      setError('newPassword', { type: 'focus' }, { shouldFocus: true });
-      setError('retypeNewPassword', { type: 'focus' }, { shouldFocus: true });
-      return;
+    try {
+      await updatePassword(data).unwrap();
+      console.log("Success:", data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
-
     resetForm();
   };
 
@@ -81,7 +92,7 @@ export default function SettingPage() {
    * Otherwise, it sets the open state of the snackbar to false.
    */
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -116,11 +127,13 @@ export default function SettingPage() {
       />
       <Stack gap={2}>
         <Typography variant="h4">Personal information</Typography>
-        <Typography variant="subtitle1">User Name: JackMa</Typography>
+        <Typography variant="subtitle1">
+          User Name: {adminInfo.username}
+        </Typography>
       </Stack>
       <Stack gap={2}>
         <Typography variant="h4">Account Security</Typography>
-        <Typography variant="bmdr">User Email: jackma@xyz.com</Typography>
+        <Typography variant="bmdr">User Email: {adminInfo.email}</Typography>
       </Stack>
       <Divider />
       {/* A form to change password */}
@@ -130,35 +143,44 @@ export default function SettingPage() {
             id="outlined-basic"
             label="Current Password"
             variant="outlined"
-            helperText={errors.currentPassword?.message}
-            error={!!errors.currentPassword}
-            {...register('currentPassword', { required: 'This is required.' })}
+            {...register("passwordCurrent", { required: "This is required." })}
+            helperText={errors.passwordCurrent?.message}
+            error={!!errors.passwordCurrent}
           />
           <TextField
-            id="outlined-basic"
+            id="newPassword"
             label="New Password"
             variant="outlined"
-            helperText={errors.newPassword?.message}
-            error={!!errors.newPassword}
-            {...register('newPassword', { required: 'This is required.' })}
+            helperText={errors.password?.message}
+            error={!!errors.password}
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters long",
+              },
+            })}
           />
           <TextField
             id="outlined-basic"
             label="Re-type new Password"
             variant="outlined"
-            helperText={errors.retypeNewPassword?.message}
-            error={!!errors.retypeNewPassword}
-            {...register('retypeNewPassword', {
-              required: 'This is required.',
+            {...register("passwordConfirm", {
+              required: "Confirm password is required",
+              validate: (value) =>
+                value === watch("password") || "Passwords don't match",
             })}
+            helperText={errors.passwordConfirm?.message}
+            error={!!errors.passwordConfirm}
           />
+
           <Stack direction="row" justifyContent="end" spacing={2}>
             <Button
-              disabled={!currentPassword}
+              disabled={!passwordCurrent}
               type="submit"
               variant="contained"
             >
-              Save Change
+              {isLoading ? "Loading..." : "Save Changes"}
             </Button>
             <Button onClick={resetForm} variant="outlined">
               Cancel
