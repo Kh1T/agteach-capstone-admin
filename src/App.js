@@ -4,9 +4,9 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./route";
 import { CssBaseline } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { useIsLoginQuery } from "./store/api/authApi";
-import { checkLoginStatus } from "./store/slice/authSlice";
 import { useEffect } from "react";
+import { checkLoginStatus } from "./feature/slice/authSlice";
+import { useIsLoginQuery } from "./services/api/authApi";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,9 +19,6 @@ function App() {
     }
   }, [data, dispatch]);
 
-  
-  
-  
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
