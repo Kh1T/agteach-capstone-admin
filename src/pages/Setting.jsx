@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import {
   useGetInfoQuery,
   useUpdatePasswordMutation,
-} from "../store/api/adminApi";
+} from "../services/api/adminApi";
 
 /**
  * SettingPage component
@@ -128,12 +128,12 @@ export default function SettingPage() {
       <Stack gap={2}>
         <Typography variant="h4">Personal information</Typography>
         <Typography variant="subtitle1">
-          User Name: {adminInfo.username}
+          User Name: {adminInfo.username || "N/A"}
         </Typography>
       </Stack>
       <Stack gap={2}>
         <Typography variant="h4">Account Security</Typography>
-        <Typography variant="bmdr">User Email: {adminInfo.email}</Typography>
+        <Typography variant="bmdr">User Email: {adminInfo.email || "N/A"}</Typography>
       </Stack>
       <Divider />
       {/* A form to change password */}

@@ -12,6 +12,7 @@ export const authApi = createApi({
         url: "/api/users/login",
         method: "POST",
         body: loginData,
+        headers: { "X-Frontend-URL": window.location },
       }),
     }),
 

@@ -15,7 +15,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import { CustomAlert } from "../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../store/api/authApi.js";
+import { useLoginMutation } from "../services/api/authApi.js";
+import { useDispatch } from "react-redux";
+import { checkLoginStatus } from "../feature/slice/authSlice.js";
 
 /**
  * LoginPage component
@@ -27,6 +29,7 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [open, setOpen] = useState(false);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -46,10 +49,11 @@ function LoginPage() {
     try {
       const response = await login(data).unwrap(); // login mutation call
       console.log("Login successful", response);
-      navigator("/"); // Redirect to home page
+      dispatch(checkLoginStatus(true));
+      navigator("/");
     } catch (error) {
       console.error("Incorrect email or password", error);
-      setOpen(true);  // Open the CustomAlert for errors
+      setOpen(true);
       setError(
         "email",
         { type: "manual", message: "Incorrect email or password" },
@@ -64,25 +68,31 @@ function LoginPage() {
   };
 
   return (
-    <Stack alignItems="center" textAlign="center" height="100vh">
+    <Stack alignItems="center" textAlign="center">
       <Box width="100%">
         <Box
           component="img"
           src={LoginCover}
-          height={350}
           width="100%"
           sx={{
+            height: { xs: 300, md: 350 },
             objectFit: "cover",
           }}
         />
       </Box>
 
-      <Stack pt={15} px={3} gap={2}>
-        <Typography variant="h1">Welcome back Admin</Typography>
-        <Typography variant="bmdr" color="dark.300">
-          Let's see an amazing progress
-        </Typography>
-        <Stack gap component="form" onSubmit={handleSubmit(submitHandler)}>
+      <Stack p={15} px={3} gap={3}>
+        <Box>
+          <Typography variant="h1">Welcome back Admin</Typography>
+          <Typography variant="bmdr" color="dark.300">
+            Let's see an amazing progress
+          </Typography>
+        </Box>
+        <Stack
+          spacing={3}
+          component="form"
+          onSubmit={handleSubmit(submitHandler)}
+        >
           <CustomAlert
             label={errors.email?.message}
             open={open}
@@ -91,17 +101,17 @@ function LoginPage() {
           <TextField
             variant="outlined"
             label="Email"
+            {...register("email", { required: "Email is required" })}
             error={!!errors.email}
-            helperText={errors.email && "Email is required"}
-            {...register("email", { required: true })}
+            helperText={errors.email?.message}
           />
           <TextField
             variant="outlined"
             label="Password"
             type={showPassword ? "text" : "password"}
+            {...register("password", { required: "Password is required" })}
             error={!!errors.password}
-            helperText={errors.password && "Password is required"}
-            {...register("password", { required: true })}
+            helperText={errors.password?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -129,6 +139,5 @@ function LoginPage() {
     </Stack>
   );
 }
-
 
 export default LoginPage;

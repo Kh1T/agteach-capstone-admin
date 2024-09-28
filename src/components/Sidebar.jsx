@@ -18,8 +18,8 @@ import avtarChip from "../assets/avatar-chip.png";
 import { Avatar, Chip, Container, Link, Stack } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import sidebarList from "../data/sideBarData";
-import { useLogoutMutation } from "../store/api/authApi";
-import { useGetInfoQuery } from "../store/api/adminApi";
+import { useLogoutMutation } from "../services/api/authApi";
+import { useGetInfoQuery } from "../services/api/adminApi";
 
 /**
  * Sidebar component that renders a drawer and app bar with content.
@@ -46,21 +46,19 @@ export default function Sidebar({ children }) {
   const description = des && des.description;
   const headerTitle = head && head.title;
 
-  const [logout, { isLoading, isError }] = useLogoutMutation();
+  const [logout, { isLoading, isError, error, isSuccess }] = useLogoutMutation();
   const nagivate = useNavigate();
-  const handleLogout = () => {
-    logout();
-    console.log(isError);
+  const handleLogout = async () => {
+    await logout();
+    console.log(error, isError, isSuccess);
     
-    nagivate("/login");
+    if (isSuccess) nagivate("/login");
   };
 
   const { data } = useGetInfoQuery();
-  let adminInfo = {}
+  let adminInfo = {};
   if (data) {
-    adminInfo = data.data
-    console.log(data);
-    
+    adminInfo = data.data;
   }
 
   const drawerContent = (
@@ -196,7 +194,7 @@ export default function Sidebar({ children }) {
             </Stack>
             <Chip
               avatar={<Avatar src={avtarChip} label="Avatar" />}
-              label={adminInfo.username}
+              label={adminInfo.username || "Admin"}
               sx={{
                 height: "40px",
                 borderRadius: "63px",
