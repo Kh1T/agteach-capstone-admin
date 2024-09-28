@@ -9,6 +9,8 @@ stages:
 install_dependencies:
   stage: install
   image: node:20    # Using node image to install dependencies
+  only:
+    - develop
   script:
     - node -v
     - echo "Installing dependencies..."
@@ -19,9 +21,11 @@ install_dependencies:
       - node_modules/
 
 # # Stage 2: Build the React app (client)
-build_react_app:
+build_app:
   stage: build
   image: node:20
+  only:
+    - develop
   script:
     - echo "Building React app..."
     # - unset CI     # Unset CI to prevent treating warnings as errors
@@ -35,6 +39,8 @@ build_react_app:
 deploy_to_aws:
   stage: deploy
   image: node
+  only:
+    - develop
   script:
     - echo "Deploying to AWS EC2..."
     - mkdir -p ~/.ssh    
@@ -42,6 +48,9 @@ deploy_to_aws:
     - chmod 600 ~/.ssh/agtech.pem
     - ssh-keyscan -H $AWS_SSH_IP >> ~/.ssh/know_hosts
     - scp -i ~/.ssh/agtech.pem -r build/* $AWS_SSH_USER@$AWS_SSH_IP:/home/ubuntu/app/admin
+  dependencies:
+    - build_app  # Ensure we pull artifacts from the build_app stage
+
 
 cache:
   paths:
