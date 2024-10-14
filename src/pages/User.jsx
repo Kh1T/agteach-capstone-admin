@@ -1,7 +1,14 @@
 import React from "react";
 import { useGetAllInstructorsQuery } from "../services/instructorApi"; // Adjust the import path accordingly
 import { Link } from "react-router-dom";
-import { Box, Button, Grid2, Stack, Typography } from "@mui/material"; // Adjust the imports based on your UI library
+import {
+  Box,
+  Button,
+  Grid2,
+  Stack,
+  Typography,
+  CircularProgress,
+} from "@mui/material"; // Adjust the imports based on your UI library
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
 
 export default function UserPage() {
@@ -28,12 +35,26 @@ export default function UserPage() {
             </Link>
           ),
         }));
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "90vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <Box>
-      <Grid2 container sx={{ width: "100%" , justifyContent: "space-between"}} >
+      <Grid2 container sx={{ width: "100%", justifyContent: "space-between" }}>
         <Grid2
           bgcolor="blue.main"
-          sx={{ width: "49%" }}
+          sx={{ width: "49.5%" }}
           color="white"
           borderRadius={3}
           height={300}
@@ -49,7 +70,7 @@ export default function UserPage() {
         </Grid2>
         <Grid2
           bgcolor="primary.main"
-          sx={{ width: "49%" }}
+          sx={{ width: "49.5%" }}
           color="white"
           borderRadius={3}
           height={300}

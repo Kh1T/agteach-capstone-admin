@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { get } from "react-hook-form";
 
 export const instructorApi = createApi({
   reducerPath: "instructorApi",
