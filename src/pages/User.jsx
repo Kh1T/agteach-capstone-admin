@@ -1,27 +1,36 @@
-import { Button, Grid, Stack, Typography } from '@mui/material';
-import CustomTable from '../components/CustomTable';
-import { CustomChip } from '../components/CustomChip';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useGetAllInstructorsQuery } from "../services/instructorApi"; // Adjust the import path accordingly
+import { Link } from "react-router-dom";
+import { Button, Grid, Grid2, Stack, Typography, Box } from "@mui/material"; // Adjust the imports based on your UI library
+import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
 
 export default function UserPage() {
-  const instructorList = instructors.map((item) => ({
-    ...item,
-    status: item.status ? (
-      <CustomChip label="Approved" />
-    ) : (
-      <CustomChip label="Not Approved" danger />
-    ),
-    review: (
-      <Link to={`/user/${item.id}`}>
-        <Button
-          variant="contained"
-          sx={{ color: 'white', bgcolor: 'blue.main' }}
-        >
-          View
-        </Button>
-      </Link>
-    ),
-  }));
+  const { isLoading, isSuccess, data } = useGetAllInstructorsQuery();
+  console.log(data);
+
+  if (!isLoading) console.log(data.data);
+
+  const instructorList =
+    isLoading || !data || !data.data
+      ? []
+      : data.data.map((item) => ({
+          Register: item.createdAt,
+          Name: `${item.firstName} ${item.lastName}`,
+          Location: item.locationId,
+          instructorId: item.instructorId,
+          review: (
+            <Link to={`/user/${item.instructorId}`}>
+              <Button
+                variant="contained"
+                sx={{ color: "white", bgcolor: "blue.main" }}
+              >
+                View
+              </Button>
+            </Link>
+          ),
+        }));
+  console.log({ instructorList });
+
   return (
     <Grid container>
       <Grid container gap={2}>
@@ -49,48 +58,13 @@ export default function UserPage() {
           </Stack>
         </Grid>
       </Grid>
-      <Grid item xs={12} py={5}>
-        <Stack gap={3}>
+      <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
+        <Grid2 item gap={3}>
           <Typography variant="h4">Instructor Review</Typography>
           <CustomTable data={instructorList} />
-        </Stack>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Grid>
   );
 }
 
-const instructors = [
-  {
-    id: 1,
-    register: '2022-01-01',
-    name: 'chandara',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: true,
-  },
-  {
-    id: 2,
-    register: '2022-01-01',
-    name: 'chandara',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: false,
-  },
-  {
-    id: 3,
-
-    name: 'sokhengchhean',
-    register: '2022-01-01',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: true,
-  },
-  {
-    id: 4,
-    name: 'sokhachum',
-    register: '2022-01-01',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: false,
-  },
-];
