@@ -29,15 +29,15 @@ export default function UserPage() {
           ),
         }));
   return (
-    <Box >
-      <Grid2 container gap={2}>
+    <Box>
+      <Grid2 container sx={{ width: "100%" , justifyContent: "space-between"}} >
         <Grid2
-          fullWidth
+          bgcolor="blue.main"
+          sx={{ width: "49%" }}
           color="white"
           borderRadius={3}
-          bgcolor="blue.main"
           height={300}
-          container
+          item
           xs
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
@@ -47,7 +47,15 @@ export default function UserPage() {
             <Typography>Number of Instructor</Typography>
           </Stack>
         </Grid2>
-        <Grid2 color="white" borderRadius={3} bgcolor="primary.main" item xs>
+        <Grid2
+          bgcolor="primary.main"
+          sx={{ width: "49%" }}
+          color="white"
+          borderRadius={3}
+          height={300}
+          item
+          xs
+        >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
               50
@@ -56,7 +64,7 @@ export default function UserPage() {
           </Stack>
         </Grid2>
       </Grid2>
-      
+
       {/* Custom Table */}
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
         <Grid2 item gap={3}>
@@ -67,4 +75,3 @@ export default function UserPage() {
     </Box>
   );
 }
-

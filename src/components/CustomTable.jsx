@@ -18,8 +18,8 @@ import { Link as RouterLink } from "react-router-dom";
  */
 export default function CustomTable({
   data = [],
-  rowLimit = 5,
-  isPagination = false,
+  rowLimit = 10,
+  isPagination = true,
   isLink = false,
 }) {
   // Pagination state
