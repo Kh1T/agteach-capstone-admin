@@ -7,24 +7,33 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useCreateCategoryMutation } from "../services/categoryApi";
+import {
+  useCreateCategoryMutation,
+  useGetCategoryQuery,
+} from "../services/categoryApi";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
 
 export default function NewCategoryPage() {
   const navigate = useNavigate();
-  const location = useLocation;
+  const location = useLocation();
+
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { isLoading, isSubmitSuccessful, errors },
   } = useForm();
   const [createCategory] = useCreateCategoryMutation();
+  const { data: categoryData } = useGetCategoryQuery(
+    location.state?.categoryId
+  );
 
   const submitHandler = async (data) => {
     console.log(data);
     if (data) {
       await createCategory(data);
+      navigate("/category");
     }
   };
 
@@ -32,10 +41,13 @@ export default function NewCategoryPage() {
   const category = location.state?.category;
   const editMode = location.state?.editMode;
   const categoryId = location.state?.categoryId;
-
+  console.log({categoryId})
+  console.log({categoryData})
+  
   useEffect(() => {
     if (editMode && category) {
-      console.log(category);
+      setValue("name", category.name);
+      setValue("description", category.description);
     }
   }, [editMode, category]);
 

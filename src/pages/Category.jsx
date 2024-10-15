@@ -73,9 +73,9 @@ export default function CategoryPage() {
             onClick={() => {
               navigate(`/category/new`, {
                 state: {
-                  product: item,
+                  category: item,
                   editMode: true,
-                  productId: item.categoryId,
+                  categoryId: item.categoryId,
                 },
               });
             }}
