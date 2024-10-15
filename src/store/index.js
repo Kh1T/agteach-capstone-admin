@@ -4,6 +4,8 @@ import { adminApi } from "../services/api/adminApi.js";
 import { instructorApi } from "../services/instructorApi.js";
 import { categoryApi } from "../services/categoryApi.js";
 import authSlice from "../feature/slice/authSlice.js";
+import { productApi } from "../services/productApi.js";
+import { red } from "@mui/material/colors";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,7 @@ export const store = configureStore({
     [adminApi.reducerPath]: adminApi.reducer,
     [instructorApi.reducerPath]: instructorApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
+    [productApi.reducerPath]: productApi.reducer,
     auth: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
@@ -18,6 +21,7 @@ export const store = configureStore({
       authApi.middleware,
       adminApi.middleware,
       instructorApi.middleware,
-      categoryApi.middleware
+      categoryApi.middleware,
+      productApi.middleware
     ),
 });

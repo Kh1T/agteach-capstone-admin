@@ -10,10 +10,11 @@ import {
   CircularProgress,
 } from "@mui/material"; // Adjust the imports based on your UI library
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
-
+import { useGetProductTopSalesQuery } from "../services/productApi";
 export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
-  console.log(data);
+  const { data: topSales } = useGetProductTopSalesQuery();
+  console.log({ topSales });
 
   if (!isLoading) console.log(data.data);
 
