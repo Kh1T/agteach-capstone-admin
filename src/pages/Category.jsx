@@ -2,11 +2,23 @@ import { Stack } from "@mui/material";
 import QueryHeader from "../components/QueryHeader";
 import { useRef, useState } from "react";
 import CustomTable from "../components/CustomTable";
-import { Box, CircularProgress, Link, Button } from "@mui/material";
-import { useGetAllCategoriesQuery } from "../services/categoryApi";
+import {
+  Box,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Typography,
+  Button,
+} from "@mui/material";
+import {
+  useDeleteCategoryMutation,
+  useGetAllCategoriesQuery,
+} from "../services/categoryApi";
 import { useNavigate } from "react-router";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import deleteBin from "../assets/delete-bin.png";
 export default function CategoryPage() {
   const [selectState, setSelectState] = useState(0);
   const searchRef = useRef();
@@ -14,7 +26,7 @@ export default function CategoryPage() {
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [deleteCategory] = useDeleteCategoryMutation();
   /**
    * Handles search button click event
    * @function
@@ -59,11 +71,11 @@ export default function CategoryPage() {
           <EditIcon
             sx={{ cursor: "pointer" }}
             onClick={() => {
-              navigate("/product/new", {
+              navigate(`/category/new`, {
                 state: {
                   product: item,
                   editMode: true,
-                  productId: item.productId,
+                  productId: item.categoryId,
                 },
               });
             }}
@@ -78,6 +90,14 @@ export default function CategoryPage() {
         ),
       }));
 
+  const handleConfirmDelete = async () => {
+    await deleteCategory(selectedProduct.categoryId);
+    setOpenDialog(false);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
   return (
     <Stack gap="30px" width={"100%"}>
       <QueryHeader
@@ -90,6 +110,47 @@ export default function CategoryPage() {
         labelCreate="Create Category"
       />
       <CustomTable data={categoryList || []} />
+
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogContent>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ textAlign: "center" }}
+          >
+            <img
+              src={deleteBin}
+              alt="Confirmation"
+              style={{ width: "136px", height: "136px", marginBottom: "10px" }}
+            />
+            <Typography variant="blgsm" padding={"10px"}>
+              Delete Confirmation
+            </Typography>
+            <Typography variant="bxsr">
+              Are you sure you want to delete this product? <br /> You won't be
+              able to retrieve it back.
+            </Typography>
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center", mb: "16px" }}>
+          <Button
+            onClick={handleConfirmDelete}
+            variant="contained"
+            sx={{ bgcolor: "red.main", marginRight: 1 }}
+          >
+            Delete
+          </Button>
+          <Button
+            onClick={handleCloseDialog}
+            color="primary"
+            variant="outlined"
+          >
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Stack>
   );
 }

@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Divider,
   FormHelperText,
@@ -9,10 +8,12 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useCreateCategoryMutation } from "../services/categoryApi";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { useEffect } from "react";
 
 export default function NewCategoryPage() {
   const navigate = useNavigate();
+  const location = useLocation;
   const {
     register,
     handleSubmit,
@@ -26,6 +27,17 @@ export default function NewCategoryPage() {
       await createCategory(data);
     }
   };
+
+  //Edit mode
+  const category = location.state?.category;
+  const editMode = location.state?.editMode;
+  const categoryId = location.state?.categoryId;
+
+  useEffect(() => {
+    if (editMode && category) {
+      console.log(category);
+    }
+  }, [editMode, category]);
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
@@ -41,8 +53,10 @@ export default function NewCategoryPage() {
             required: "Category name is required",
           })}
           error={errors.name}
-          />
-          <FormHelperText>{errors.name?.message}</FormHelperText>
+        />
+        <FormHelperText sx={{ color: "red.main" }}>
+          {errors.name?.message}
+        </FormHelperText>
         <ContentText
           title="Tell us more about your category"
           text="Help explain what does the category contain"
@@ -54,10 +68,14 @@ export default function NewCategoryPage() {
           accept="text/plain"
           placeholder="Tell us more about your category"
           rows={5}
-          {...register("description", { required: "Category description is required" })}
+          {...register("description", {
+            required: "Category description is required",
+          })}
           error={errors.description}
         />
-        <FormHelperText>{errors.description?.message}</FormHelperText>
+        <FormHelperText sx={{ color: "red.main" }}>
+          {errors.description?.message}
+        </FormHelperText>
         <Divider sx={{ borderStyle: "dashed" }} />
         <Button
           type="submit"

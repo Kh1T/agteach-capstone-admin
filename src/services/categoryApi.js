@@ -1,4 +1,3 @@
-import { create } from "@mui/material/styles/createTransitions";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const categoryApi = createApi({
@@ -17,9 +16,9 @@ export const categoryApi = createApi({
       }),
       providesTags: ["Category"],
     }),
-    getCategoryDetail: builder.query({
+    getCategory: builder.query({
       query: (id) => ({
-        url: `/api/admin/getCategoryDetail/${id}`,
+        url: `/api/admin/getCategory/${id}`,
         method: "GET",
       }),
       providesTags: ["Category"],
@@ -32,11 +31,19 @@ export const categoryApi = createApi({
       }),
       invalidatesTags: ["Category"],
     }),
+    deleteCategory: builder.mutation({
+      query: (id) => ({
+        url: `/api/admin/deleteCategory/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Category"],
+    })
   }),
 });
 
 export const {
   useGetAllCategoriesQuery,
-  useGetCategoryDetailQuery,
+  useGetCategoryQuery,
   useCreateCategoryMutation,
+  useDeleteCategoryMutation,
 } = categoryApi;

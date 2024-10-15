@@ -93,22 +93,8 @@ export default function UserDetailPage() {
       <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
       <Stack width="100%" gap={2}>
         <Typography variant="blgsm">User Detail</Typography>
-        <CustomTable data={instructor} />
+        <CustomTable data={instructor} isPagination={false} />
       </Stack>
     </Stack>
   );
 }
-
-// const instructors = [
-//   {
-//     id: 1,
-//     firstName: "Chan",
-//     lastName: "Dara",
-//     username: "chandara",
-//     email: "dara@abc.xyz",
-//     phone: "0123456789",
-//     address: "St.6, plov veng sreng",
-//     createdAt: "2022-01-01T00:00:00.000Z",
-//     lastLogin: "2022-01-01T00:00:00.000Z",
-//   },
-// ];
