@@ -14,6 +14,7 @@ import {
 } from "../services/categoryApi";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
+import { ChevronLeft } from "@mui/icons-material";
 
 export default function NewCategoryPage() {
   const navigate = useNavigate();
@@ -58,58 +59,78 @@ export default function NewCategoryPage() {
   }, [editMode, category]);
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)}>
-      <Stack gap={3}>
-        <ContentText
-          title="What is the category name for the product?"
-          text="Your category name should be short and meaningful"
-        />
-        <TextField
-          label="Title"
-          accept="text/plain"
-          {...register("name", {
-            required: "Category name is required",
-          })}
-          error={errors.name}
-        />
-        <FormHelperText sx={{ color: "red.main" }}>
-          {errors.name?.message}
-        </FormHelperText>
-        <ContentText
-          title="Tell us more about your category"
-          text="Help explain what does the category contain"
-        />
-        <TextField
-          id="outlined-multiline-static"
-          multiline
-          label="Description"
-          accept="text/plain"
-          placeholder="Tell us more about your category"
-          rows={5}
-          {...register("description", {
-            required: "Category description is required",
-          })}
-          error={errors.description}
-        />
-        <FormHelperText sx={{ color: "red.main" }}>
-          {errors.description?.message}
-        </FormHelperText>
-        <Divider sx={{ borderStyle: "dashed" }} />
+    <>
+      <Stack
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "start",
+          py:3,
+        }}
+      >
         <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          sx={{
-            width: "200px",
-            bgcolor: isSubmitSuccessful ? "teal" : "purple.main",
-          }}
-          bgcolor={isSubmitSuccessful ? "teal" : "purple.main"}
+          onClick={() => navigate(-1)}
+          variant="Text"
+          startIcon={<ChevronLeft />}
         >
-          {editMode ? "UPDATE CATEGORY" : "CREATE CATEGORY"}
+          <Typography variant="bsr" sx={{ textDecoration: "underline" }}>
+            Go Back
+          </Typography>
         </Button>
-        {isSubmitSuccessful && navigate("/category")}
       </Stack>
-    </form>
+      <form onSubmit={handleSubmit(submitHandler)} >
+        <Stack gap={3}>
+          <ContentText
+            title="What is the category name for the product?"
+            text="Your category name should be short and meaningful"
+          />
+          <TextField
+            label="Title"
+            accept="text/plain"
+            {...register("name", {
+              required: "Category name is required",
+            })}
+            error={errors.name}
+          />
+          <FormHelperText sx={{ color: "red.main" }}>
+            {errors.name?.message}
+          </FormHelperText>
+          <ContentText
+            title="Tell us more about your category"
+            text="Help explain what does the category contain"
+          />
+          <TextField
+            id="outlined-multiline-static"
+            multiline
+            label="Description"
+            accept="text/plain"
+            placeholder="Tell us more about your category"
+            rows={5}
+            {...register("description", {
+              required: "Category description is required",
+            })}
+            error={errors.description}
+          />
+          <FormHelperText sx={{ color: "red.main" }}>
+            {errors.description?.message}
+          </FormHelperText>
+          <Divider sx={{ borderStyle: "dashed" }} />
+          <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            sx={{
+              width: "200px",
+              bgcolor: isSubmitSuccessful ? "teal" : "purple.main",
+            }}
+            bgcolor={isSubmitSuccessful ? "teal" : "purple.main"}
+          >
+            {editMode ? "UPDATE CATEGORY" : "CREATE CATEGORY"}
+          </Button>
+          {isSubmitSuccessful && navigate("/category")}
+        </Stack>
+      </form>
+    </>
   );
 }
 

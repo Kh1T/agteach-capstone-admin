@@ -65,8 +65,8 @@ export default function CategoryPage() {
     ? []
     : data.data.map((item) => ({
         name: item.name,
-        createdAt: item.createdAt,
-        updatedAt: item.updatedAt,
+        createdAt: new Date(item.createdAt).toLocaleString(),
+        updatedAt: new Date(item.updatedAt).toLocaleString(),
         edit: (
           <EditIcon
             sx={{ cursor: "pointer" }}

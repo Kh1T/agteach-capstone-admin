@@ -21,7 +21,7 @@ export default function UserPage() {
     isLoading || !data || !data.data
       ? []
       : data.data.map((item) => ({
-          Register: item.createdAt,
+          Register: new Date(item.createdAt).toLocaleString(),
           Name: `${item.firstName} ${item.lastName}`,
           Location: item.location.name,
           review: (
@@ -63,7 +63,7 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              50
+              {instructorList.length}
             </Typography>
             <Typography>Number of Instructor</Typography>
           </Stack>
