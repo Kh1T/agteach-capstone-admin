@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import {
   useCreateCategoryMutation,
   useGetCategoryQuery,
+  useUpdateCategoryMutation,
 } from "../services/categoryApi";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
@@ -17,6 +18,8 @@ import { useEffect } from "react";
 export default function NewCategoryPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const categoryId = location.state?.categoryId;
+  console.log({ categoryId });
 
   const {
     register,
@@ -25,25 +28,28 @@ export default function NewCategoryPage() {
     formState: { isLoading, isSubmitSuccessful, errors },
   } = useForm();
   const [createCategory] = useCreateCategoryMutation();
-  const { data: categoryData } = useGetCategoryQuery(
-    location.state?.categoryId
-  );
+  const { data: categoryData } = useGetCategoryQuery(categoryId);
+  const [updateCategory] = useUpdateCategoryMutation();
 
   const submitHandler = async (data) => {
     console.log(data);
-    if (data) {
-      await createCategory(data);
-      navigate("/category");
+    try {
+      if (!editMode) {
+        await createCategory(data);
+      } else {
+        await updateCategory({ data: data, id: categoryId });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   //Edit mode
   const category = location.state?.category;
   const editMode = location.state?.editMode;
-  const categoryId = location.state?.categoryId;
-  console.log({categoryId})
-  console.log({categoryData})
-  
+  console.log({ categoryId });
+  console.log({ categoryData });
+
   useEffect(() => {
     if (editMode && category) {
       setValue("name", category.name);
@@ -99,7 +105,7 @@ export default function NewCategoryPage() {
           }}
           bgcolor={isSubmitSuccessful ? "teal" : "purple.main"}
         >
-          CREATE CATEGORY
+          {editMode ? "UPDATE CATEGORY" : "CREATE CATEGORY"}
         </Button>
         {isSubmitSuccessful && navigate("/category")}
       </Stack>
