@@ -23,10 +23,12 @@ export default function CustomTable({
   isLink = false,
 }) {
   // Pagination state
+  console.log("data in custom table:", data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowLimit);
   // const tableHead = data.
-  if (!data || data.length === 0) return <Typography>No data available</Typography>;
+  if (!data || data.length === 0)
+    return <Typography>No data available</Typography>;
   let headers = Object.keys(data[0]).map(
     (key) => key.charAt(0).toUpperCase() + key.slice(1)
   );

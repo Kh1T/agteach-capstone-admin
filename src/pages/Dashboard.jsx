@@ -1,13 +1,10 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, CircularProgress } from "@mui/material";
 import TopPerformance from "../components/dashboard/TopPerformance";
 import Grid from "@mui/material/Grid2";
 import CardSale from "../components/dashboard/CardSale";
 import Overview from "../components/dashboard/Overview";
-import { useGetProductTopSalesQuery } from "../services/productApi";
-export default function DashboardPage() {
-  const { data, isLoading } = useGetProductTopSalesQuery();
-  console.log({ data });
 
+export default function DashboardPage() {
   const content = (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -28,6 +25,5 @@ export default function DashboardPage() {
       </Box>
     </>
   );
-
   return content;
 }

@@ -10,32 +10,30 @@ import {
   CircularProgress,
 } from "@mui/material"; // Adjust the imports based on your UI library
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
-import { useGetProductTopSalesQuery } from "../services/productApi";
 export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
-  const { data: topSales } = useGetProductTopSalesQuery();
-  console.log({ topSales });
+  if (!isLoading) {
+    console.log(data.data);
+    console.log(data.data[0].location.name);
+  }
+  const instructorList = isLoading
+    ? []
+    : data.data.map((item) => ({
+        Register: new Date(item.createdAt).toLocaleString(),
+        Name: `${item.firstName} ${item.lastName}`,
+        Location: item.location ? item.location.name : 'Unknown' ,
+        review: (
+          <Link to={`/user/${item.instructorId}`}>
+            <Button
+              variant="contained"
+              sx={{ color: "white", bgcolor: "blue.main" }}
+            >
+              View
+            </Button>
+          </Link>
+        ),
+      }));
 
-  if (!isLoading) console.log(data.data);
-
-  const instructorList =
-    isLoading || !data || !data.data
-      ? []
-      : data.data.map((item) => ({
-          Register: new Date(item.createdAt).toLocaleString(),
-          Name: `${item.firstName} ${item.lastName}`,
-          Location: item.location.name,
-          review: (
-            <Link to={`/user/${item.instructorId}`}>
-              <Button
-                variant="contained"
-                sx={{ color: "white", bgcolor: "blue.main" }}
-              >
-                View
-              </Button>
-            </Link>
-          ),
-        }));
   if (isLoading) {
     return (
       <Box
