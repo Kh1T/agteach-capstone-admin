@@ -1,34 +1,77 @@
-import { Button, Grid, Stack, Typography } from '@mui/material';
-import CustomTable from '../components/CustomTable';
-import { CustomChip } from '../components/CustomChip';
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import { useGetAllInstructorsQuery } from "../services/instructorApi"; // Adjust the import path accordingly
+import { Link } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Grid2,
+  Stack,
+  Typography,
+  CircularProgress,
+} from "@mui/material"; // Adjust the imports based on your UI library
+import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
 export default function UserPage() {
-  const instructorList = instructors.map((item) => ({
-    ...item,
-    status: item.status ? (
-      <CustomChip label="Approved" />
-    ) : (
-      <CustomChip label="Not Approved" danger />
-    ),
-    review: (
-      <Link to={`/user/${item.id}`}>
-        <Button
-          variant="contained"
-          sx={{ color: 'white', bgcolor: 'blue.main' }}
-        >
-          View
-        </Button>
-      </Link>
-    ),
-  }));
+  const { isLoading, data } = useGetAllInstructorsQuery();
+  if (!isLoading) {
+    console.log(data.data);
+    console.log(data.data[0].location.name);
+  }
+  const instructorList = isLoading
+    ? []
+    : data.data.map((item) => ({
+        Register: new Date(item.createdAt).toLocaleString(),
+        Name: `${item.firstName} ${item.lastName}`,
+        Location: item.location ? item.location.name : 'Unknown' ,
+        review: (
+          <Link to={`/user/${item.instructorId}`}>
+            <Button
+              variant="contained"
+              sx={{ color: "white", bgcolor: "blue.main" }}
+            >
+              View
+            </Button>
+          </Link>
+        ),
+      }));
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "90vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
-    <Grid container>
-      <Grid container gap={2}>
-        <Grid
+    <Box>
+      <Grid2 container sx={{ width: "100%", justifyContent: "space-between" }}>
+        <Grid2
+          bgcolor="blue.main"
+          sx={{ width: "49.5%" }}
           color="white"
           borderRadius={3}
-          bgcolor="blue.main"
+          height={300}
+          item
+          xs
+        >
+          <Stack alignItems="center" height="100%" justifyContent="center">
+            <Typography fontSize={100} fontWeight="bold">
+              {instructorList.length}
+            </Typography>
+            <Typography>Number of Instructor</Typography>
+          </Stack>
+        </Grid2>
+        <Grid2
+          bgcolor="primary.main"
+          sx={{ width: "49.5%" }}
+          color="white"
+          borderRadius={3}
           height={300}
           item
           xs
@@ -37,60 +80,18 @@ export default function UserPage() {
             <Typography fontSize={100} fontWeight="bold">
               50
             </Typography>
-            <Typography>Number of Instructor</Typography>
-          </Stack>
-        </Grid>
-        <Grid color="white" borderRadius={3} bgcolor="primary.main" item xs>
-          <Stack alignItems="center" height="100%" justifyContent="center">
-            <Typography fontSize={100} fontWeight="bold">
-              50
-            </Typography>
             <Typography>Number of Guest</Typography>
           </Stack>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} py={5}>
-        <Stack gap={3}>
+        </Grid2>
+      </Grid2>
+
+      {/* Custom Table */}
+      <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
+        <Grid2 item gap={3}>
           <Typography variant="h4">Instructor Review</Typography>
           <CustomTable data={instructorList} />
-        </Stack>
-      </Grid>
-    </Grid>
+        </Grid2>
+      </Grid2>
+    </Box>
   );
 }
-
-const instructors = [
-  {
-    id: 1,
-    register: '2022-01-01',
-    name: 'chandara',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: true,
-  },
-  {
-    id: 2,
-    register: '2022-01-01',
-    name: 'chandara',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: false,
-  },
-  {
-    id: 3,
-
-    name: 'sokhengchhean',
-    register: '2022-01-01',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: true,
-  },
-  {
-    id: 4,
-    name: 'sokhachum',
-    register: '2022-01-01',
-    phone: '0123456789',
-    location: 'St.6, plov veng sreng',
-    status: false,
-  },
-];

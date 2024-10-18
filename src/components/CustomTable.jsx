@@ -17,20 +17,21 @@ import { Link as RouterLink } from "react-router-dom";
  * @returns {ReactElement} A table component with optional pagination.
  */
 export default function CustomTable({
-  data,
-  rowLimit = 5,
-  isPagination = false,
+  data = [],
+  rowLimit = 10,
+  isPagination = true,
   isLink = false,
 }) {
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(rowLimit);
   // const tableHead = data.
+  if (!data || data.length === 0)
+    return <Typography>No data available</Typography>;
   let headers = Object.keys(data[0]).map(
     (key) => key.charAt(0).toUpperCase() + key.slice(1)
   );
   let rows = data.map((item) => Object.values(item));
-
-  // Pagination state
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(rowLimit);
 
   // Handle page change
   const handleChangePage = (event, newPage) => {
@@ -77,7 +78,7 @@ export default function CustomTable({
                 {Object.values(row).map((cell, cellIndex) => (
                   <TableCell
                     key={cellIndex}
-                    component= {isLink ? RouterLink : "div"}
+                    component={isLink ? RouterLink : "div"}
                     to={`${id}`}
                     sx={{
                       borderBottom: "1px dashed",
@@ -89,7 +90,6 @@ export default function CustomTable({
                     {cell}
                   </TableCell>
                 ))}
-                {/* </Link> */}
               </TableRow>
             ))}
           </TableBody>

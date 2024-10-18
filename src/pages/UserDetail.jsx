@@ -1,19 +1,52 @@
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
-import ChevronLeft from '@mui/icons-material/ChevronLeft';
-import CustomTable from '../components/CustomTable';
-import { useNavigate } from 'react-router';
-import { CustomChip } from '../components/CustomChip';
+import {
+  Box,
+  Button,
+  Divider,
+  Stack,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import CustomTable from "../components/CustomTable";
+import { useNavigate, useParams } from "react-router";
+import { CustomChip } from "../components/CustomChip";
+import { useGetInstructorDetailQuery } from "../services/instructorApi";
 
 export default function UserDetailPage() {
   const navigate = useNavigate();
-  const instructorList = instructors.map((item) => ({
-    ...item,
-    password: (
-      <Button color="error" variant="outlined">
-        Reset
-      </Button>
-    ),
-  }));
+
+  const { userId } = useParams();
+
+  const { data, isLoading } = useGetInstructorDetailQuery(userId);
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  console.log({ data });
+  const instructor = isLoading
+    ? {}
+    : [
+        {
+          "First Name": data.instructor.firstName,
+          "Last Name": data.instructor.lastName,
+          email: data.instructor.email,
+          "Last Update": data.instructor.updatedAt,
+          "Created Account": data.instructor.createdAt,
+        },
+      ];
+  console.log({ instructor });
   return (
     <Stack alignItems="start" gap={5}>
       <Button
@@ -21,7 +54,7 @@ export default function UserDetailPage() {
         variant="Text"
         startIcon={<ChevronLeft />}
       >
-        <Typography variant="bsr" sx={{ textDecoration: 'underline' }}>
+        <Typography variant="bsr" sx={{ textDecoration: "underline" }}>
           Go Back
         </Typography>
       </Button>
@@ -34,46 +67,34 @@ export default function UserDetailPage() {
       >
         <Stack direction="row" gap={3}>
           <Box
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkxGINkXzKO1VE-jS8ED8i08kpb_2pC9lR0A&s"
+            src={data.instructor.imageUrl}
             component="img"
             width={130}
             height={130}
           />
           <Stack gap>
             <Typography variant="bxsr">Instructor Name</Typography>
-            <Typography variant="blgr">Chan Dara</Typography>
+            <Typography variant="blgr">{data.instructor.firstName} {data.instructor.lastName} </Typography>
             <Typography variant="bxsr">
-              <Box component="strong">Email: </Box>dara@abc.xyz
+              <Box component="strong">Email: </Box>
+              {data.instructor.email}
             </Typography>
             <Typography variant="bxsr">
-              <Box component="strong">Phone: </Box>0123456789
+              <Box component="strong">Phone: </Box>
+              {data.instructor.phone}
             </Typography>
             <Typography variant="bxsr">
-              <Box component="strong">Address: </Box>St.6, plov veng sreng
+              <Box component="strong">Address: </Box>{data.instructor.address || 'Not Provided'}
             </Typography>
           </Stack>
         </Stack>
-        <CustomChip label="Approved" sx={{py:2, px:3}} />
+        <CustomChip label="Approved" sx={{ py: 2, px: 3 }} />
       </Stack>
-      <Divider sx={{ borderStyle: 'dashed', width: '100%' }} />
+      <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
       <Stack width="100%" gap={2}>
         <Typography variant="blgsm">User Detail</Typography>
-        <CustomTable data={instructorList} />
+        <CustomTable data={instructor} isPagination={false} />
       </Stack>
     </Stack>
   );
 }
-
-const instructors = [
-  {
-    id: 1,
-    firstName: 'Chan',
-    lastName: 'Dara',
-    username: 'chandara',
-    email: 'dara@abc.xyz',
-    phone: '0123456789',
-    address: 'St.6, plov veng sreng',
-    createdAt: '2022-01-01T00:00:00.000Z',
-    lastLogin: '2022-01-01T00:00:00.000Z',
-  },
-];

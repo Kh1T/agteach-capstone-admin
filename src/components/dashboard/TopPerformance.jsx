@@ -4,48 +4,71 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  CircularProgress,
   Stack,
 } from "@mui/material";
 import CustomTableHeader from "../CustomTableHeader";
 import { useState } from "react";
 import CustomTable from "../CustomTable";
+import { useGetProductTopSalesQuery } from "../../services/productApi";
+import { useGetCourseTopSalesQuery } from "../../services/courseApi";
 
 function TopPerformance() {
-  const data = [{
-    no: 1,
-    product: "Advanced Vegetable Farming",
-    category: "Course",
-    earning: "$150"
-  },
-  {
-    no: 2,
-    product: "Advanced Vegetable Farming",
-    category: "Course",
-    earning: "$150"},
-  {
-    no: 3,
-    product: "Advanced Vegetable Farming",
-    category: "Course",
-    earning: "$150"},
-    {
-    no: 4,
-    product: "Advanced Vegetable Farming",
-    category: "Course",
-    earning: "$150"},
-    {
-    no: 5,
-    product: "Advanced Vegetable Farming",
-    category: "Course",
-    earning: "$150"},
-]
+  const [transaction, setTransaction] = useState(10); // 10 for Product, 20 for Course
 
-  const [transaction, setTransaction] = useState();
+  // Fetch both datasets
+  const { data: productData, isLoading: isLoadingProducts } =
+    useGetProductTopSalesQuery();
+
+  const { data: courseData, isLoading: isLoadingCourses } =
+    useGetCourseTopSalesQuery();
+  // Transform product data
+  const productSalesData =
+    !isLoadingProducts && productData?.salesProductTotals
+      ? productData.salesProductTotals.map((item, index) => ({
+          "No": index + 1,
+          "Product ID": item.product_id,
+          "Product Name": item.name,
+          "Category": item.category,
+          "Earning": `${item.totalSales}$`,
+        }))
+      : [];
+
+  // Transform course data
+  const courseSalesData =
+    !isLoadingCourses && courseData?.salesCourseTotals
+      ? courseData.salesCourseTotals.map((item, index) => ({
+          "No": index + 1,
+          "Product ID": item.course_id,
+          "Product Name": item.name,
+          "Category": "Course",
+          "Earning": `${item.totalSales}$`,
+        }))
+      : [];
+
+  const isLoading = isLoadingProducts;
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "30vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <Box
       sx={{
         p: 4,
         boxShadow: "0px 10px 33px 0px rgba(5,27,58,0.1)",
-        borderRadius: 4
+        borderRadius: 4,
       }}
     >
       <Stack spacing={2}>
@@ -62,21 +85,24 @@ function TopPerformance() {
           />
           <Box sx={{ minWidth: 180 }}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select">Transaction</InputLabel>
+              <InputLabel id="transaction-select-label">Transaction</InputLabel>
               <Select
-                id="demo-simple-select"
+                labelId="transaction-select-label"
+                id="transaction-select"
                 value={transaction}
                 onChange={(e) => setTransaction(e.target.value)}
                 label="Transaction"
-                defaultValue="10"
               >
-                <MenuItem value={10}>Course</MenuItem>
-                <MenuItem value={20}>Product</MenuItem>
+                <MenuItem value={20}>Course</MenuItem>
+                <MenuItem value={10}>Product</MenuItem>
               </Select>
             </FormControl>
           </Box>
         </Stack>
-        <CustomTable data={data} />
+        <CustomTable
+          data={transaction === 10 ? productSalesData : courseSalesData}
+          isPagination={false}
+        />
       </Stack>
     </Box>
   );
