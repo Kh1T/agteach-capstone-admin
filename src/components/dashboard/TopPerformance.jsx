@@ -25,22 +25,24 @@ function TopPerformance() {
   // Transform product data
   const productSalesData =
     !isLoadingProducts && productData?.salesProductTotals
-      ? productData.salesProductTotals.map((item) => ({
-          "Product ID:": item.product_id,
-          "Product Name:": item.name,
-          "Category:": item.category,
-          "Earning:": `${item.totalSales}$`,
+      ? productData.salesProductTotals.map((item, index) => ({
+          "No": index + 1,
+          "Product ID": item.product_id,
+          "Product Name": item.name,
+          "Category": item.category,
+          "Earning": `${item.totalSales}$`,
         }))
       : [];
 
   // Transform course data
   const courseSalesData =
     !isLoadingCourses && courseData?.salesCourseTotals
-      ? courseData.salesCourseTotals.map((item) => ({
-          "Product ID:": item.course_id,
-          "Product Name:": item.name,
-          "Category:": "Course",
-          "Earning:": `${item.totalSales}$`,
+      ? courseData.salesCourseTotals.map((item, index) => ({
+          "No": index + 1,
+          "Product ID": item.course_id,
+          "Product Name": item.name,
+          "Category": "Course",
+          "Earning": `${item.totalSales}$`,
         }))
       : [];
 
