@@ -23,7 +23,6 @@ export default function CustomTable({
   isLink = false,
 }) {
   // Pagination state
-  console.log("data in custom table:", data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowLimit);
   // const tableHead = data.

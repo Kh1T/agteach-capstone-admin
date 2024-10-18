@@ -20,7 +20,6 @@ export default function NewCategoryPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const categoryId = location.state?.categoryId;
-  console.log({ categoryId });
 
   const {
     register,

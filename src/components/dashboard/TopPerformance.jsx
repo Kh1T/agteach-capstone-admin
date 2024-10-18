@@ -22,8 +22,6 @@ function TopPerformance() {
 
   const { data: courseData, isLoading: isLoadingCourses } =
     useGetCourseTopSalesQuery();
-  console.log({ courseData });
-
   // Transform product data
   const productSalesData =
     !isLoadingProducts && productData?.salesProductTotals

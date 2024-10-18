@@ -45,7 +45,6 @@ export default function CategoryPage() {
   };
 
   const { data, isLoading } = useGetAllCategoriesQuery();
-  console.log(data);
   if (isLoading) {
     return (
       <Box
