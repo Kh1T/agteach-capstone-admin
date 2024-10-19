@@ -7,7 +7,7 @@ import CategoryPage from "../pages/Category";
 import NewCategoryPage from "../pages/NewCategory";
 import UserPage from "../pages/User";
 import UserDetailPage from "../pages/UserDetail";
-import RootLayout from "./Root";
+import RootLayout from "../route/Root";
 import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
