@@ -35,7 +35,6 @@ export default function Sidebar({ children }) {
   const { pathname } = useLocation();
   const drawerWidth = 250;
   const param = useParams();
-  console.log(param);
   const head = sidebarList.find((element) => {
     if (param.productId) element.route = `/product/${param.productId}/edit`;
     if (param.courseId) element.route = `/course/${param.courseId}/edit`;
@@ -52,7 +51,6 @@ export default function Sidebar({ children }) {
 
   const handleLogout = async () => {
     await logout();
-    console.log(isLoading, error, isError, isSuccess);
     if (isSuccess || !isLoading) nagivate("/login");
   };
 

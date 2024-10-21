@@ -45,7 +45,6 @@ function LoginPage() {
   const handleShowPassword = () => setShowPassword((prev) => !prev);
 
   const submitHandler = async (data) => {
-    console.log(data);
     try {
       const response = await login(data).unwrap(); // login mutation call
       console.log("Login successful", response);

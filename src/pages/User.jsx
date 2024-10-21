@@ -20,7 +20,6 @@ export default function UserPage() {
       : customerData.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleString(),
         }));
-  console.log(customerList);
   const instructorList =
     isLoading || !data
       ? []
