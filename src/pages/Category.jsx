@@ -43,7 +43,7 @@ export default function CategoryPage() {
     order: searchOrder,
   });
 
-  function HandleSearch() {
+  function handleSearch() {
     setSearchTerm(searchRef.current.value);
     if (selectState === 0) {
       setSearchOrder("Newest");
@@ -119,7 +119,7 @@ export default function CategoryPage() {
         searchRef={searchRef}
         useSelectState={[selectState, setSelectState]}
         selectData={["Newest", "Oldest"]}
-        handleSearch={HandleSearch}
+        handleSearch={handleSearch}
         pathCreated="/category/new"
         labelCreate="Create Category"
       />
