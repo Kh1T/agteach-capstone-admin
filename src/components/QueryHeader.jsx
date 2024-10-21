@@ -21,7 +21,8 @@ export default function QueryHeader({
   useSelectState,
   handleSearch,
   searchRef = null,
-  selectData=["Newest", "Oldest"],
+  orderRef,
+  selectData = ["Newest", "Oldest"],
   pathCreated = "/",
   labelCreate = "Create New",
   placeholder = "Search",
@@ -38,11 +39,14 @@ export default function QueryHeader({
           placeholder={placeholder}
           inputRef={searchRef}
           sx={{ width: 300 }}
+          onChange={handleSearch}
         />
         <CustomSelect
           label="Sort"
           useSelectState={useSelectState}
           selectData={selectData}
+          orderRef={selectData}
+          onChange={handleSearch}
         />
         <Button
           variant="outlined"
@@ -59,7 +63,11 @@ export default function QueryHeader({
       {isCreateNew && (
         <ButtonComponent
           variant="contained"
-          sx={{ backgroundColor: "purple.main", textTransform: "uppercase" ,height: "100%"}}
+          sx={{
+            backgroundColor: "purple.main",
+            textTransform: "uppercase",
+            height: "100%",
+          }}
           // handleCreateNew={handleCreateNew}
           path={pathCreated}
         >

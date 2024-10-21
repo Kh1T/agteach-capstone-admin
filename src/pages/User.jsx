@@ -12,16 +12,12 @@ import {
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
 export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
-  if (!isLoading) {
-    console.log(data.data);
-    console.log(data.data[0].location.name);
-  }
   const instructorList = isLoading
     ? []
     : data.data.map((item) => ({
         Register: new Date(item.createdAt).toLocaleString(),
-        Name: `${item.firstName} ${item.lastName}`,
-        Location: item.location ? item.location.name : 'Unknown' ,
+        Name: `${item.firstName} ${item.lastName} ` || "Unknown",
+        Location: item.location ? item.location.name : "Unknown",
         review: (
           <Link to={`/user/${item.instructorId}`}>
             <Button

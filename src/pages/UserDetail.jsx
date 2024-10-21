@@ -34,7 +34,6 @@ export default function UserDetailPage() {
     );
   }
 
-  console.log({ data });
   const instructor = isLoading
     ? {}
     : [
@@ -46,7 +45,6 @@ export default function UserDetailPage() {
           "Created Account": data.instructor.createdAt,
         },
       ];
-  console.log({ instructor });
   return (
     <Stack alignItems="start" gap={5}>
       <Button

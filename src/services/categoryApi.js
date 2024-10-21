@@ -47,13 +47,11 @@ export const categoryApi = createApi({
       invalidatesTags: ["Category"],
     }),
     searchCategory: builder.query({
-      query: ({ name, order }) => {
-        let url = "/api/admin/searchCategory?name=";
-        if (name) {
-          url = url + `?name=${name}`;
-        }
+      query: ({ name = "", order }) => {
+        let url = `/api/admin/searchCategory?name=${name}`;
         if (order) {
-          url = url + `?order=${order}`;
+          const dataOrder = order === "Newest" ? "desc" : "asc";
+          url += `&order=${dataOrder}`;
         }
         return {
           url: url,
@@ -71,5 +69,5 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
-  useSearchCategoryQuery
+  useSearchCategoryQuery,
 } = categoryApi;

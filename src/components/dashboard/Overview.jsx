@@ -39,7 +39,6 @@ function Overview() {
       { days: [], totalCourseSales: [], totalProductSales: [] }
     );
 
-    console.log(saleData);
   return (
     <>
       <Box

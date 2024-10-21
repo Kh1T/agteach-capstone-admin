@@ -62,7 +62,6 @@ export default function SettingPage() {
    * @param {{ newPassword: string; retypeNewPassword: string; }} data - The form data.
    */
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       await updatePassword(data).unwrap();
       console.log("Success:", data);
