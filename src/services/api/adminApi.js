@@ -6,8 +6,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const adminApi = createApi({
   reducerPath: "adminApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.agteach.site",
-    // baseUrl: "http://localhost:3001",
+    baseUrl: API_BASE_URL,
     credentials: "include",
   }),
   endpoints: (builder) => ({

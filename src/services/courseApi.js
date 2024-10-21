@@ -3,8 +3,7 @@ import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 export const courseApi = createApi({
   reducerPath: "courseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.agteach.site",
-    // baseUrl: "http://localhost:3001",
+    baseUrl: API_BASE_URL,
     credentials: "include",
   }),
   tagTypes: ["Course"],
