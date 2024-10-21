@@ -14,6 +14,7 @@ import {
 import {
   useDeleteCategoryMutation,
   useGetAllCategoriesQuery,
+  useSearchCategoryQuery,
 } from "../services/categoryApi";
 import { useNavigate } from "react-router";
 import EditIcon from "@mui/icons-material/Edit";
@@ -34,7 +35,8 @@ export default function CategoryPage() {
    * @param {Event} event - The search button click event
    * @description Logs the search input value and the selected sort option
    */
-  function handleSearch() {
+  function HandleSearch() {
+    const { data, error } = useSearchCategoryQuery({ name: searchTerm });
     console.log(searchRef.current.value);
     console.log(selectState);
   }
@@ -44,7 +46,9 @@ export default function CategoryPage() {
     setOpenDialog(true);
   };
 
-  const { data, isLoading } = useGetAllCategoriesQuery();
+  const searchTerm = searchRef.current?.value || "t";
+  const { data, isLoading } = useSearchCategoryQuery({ name: searchTerm });
+  console.log(searchTerm);
   if (isLoading) {
     return (
       <Box
@@ -104,7 +108,7 @@ export default function CategoryPage() {
         searchRef={searchRef}
         useSelectState={[selectState, setSelectState]}
         selectData={["Newest", "Oldest"]}
-        handleSearch={handleSearch}
+        handleSearch={HandleSearch}
         pathCreated="/category/new"
         labelCreate="Create Category"
       />

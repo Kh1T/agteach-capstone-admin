@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.agteach.site",
-    // baseUrl: "http://localhost:3001",
+    // baseUrl: "https://api.agteach.site",
+    baseUrl: "http://localhost:3001",
     credentials: "include",
   }),
   tagTypes: ["Category"],
@@ -46,6 +46,22 @@ export const categoryApi = createApi({
       }),
       invalidatesTags: ["Category"],
     }),
+    searchCategory: builder.query({
+      query: ({ name, order }) => {
+        let url = "/api/admin/searchCategory?name=";
+        if (name) {
+          url = url + `?name=${name}`;
+        }
+        if (order) {
+          url = url + `?order=${order}`;
+        }
+        return {
+          url: url,
+          method: "GET",
+        };
+      },
+      providesTags: ["Category"],
+    }),
   }),
 });
 
@@ -55,4 +71,5 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
+  useSearchCategoryQuery
 } = categoryApi;
