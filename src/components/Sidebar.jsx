@@ -46,13 +46,14 @@ export default function Sidebar({ children }) {
   const description = des && des.description;
   const headerTitle = head && head.title;
 
-  const [logout, { isLoading, isError, error, isSuccess }] = useLogoutMutation();
+  const [logout, { isLoading, isError, error, isSuccess }] =
+    useLogoutMutation();
   const nagivate = useNavigate();
+
   const handleLogout = async () => {
     await logout();
-    console.log(error, isError, isSuccess);
-    
-    if (isSuccess) nagivate("/login");
+    console.log(isLoading, error, isError, isSuccess);
+    if (isSuccess || !isLoading) nagivate("/login");
   };
 
   const { data } = useGetInfoQuery();

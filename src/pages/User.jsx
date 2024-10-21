@@ -15,7 +15,7 @@ export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
   const { data: customerData } = useGetAllCustomerQuery();
   const customerList =
-    isLoading || !data
+    isLoading || !customerData
       ? []
       : customerData.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleString(),
