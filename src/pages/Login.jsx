@@ -15,10 +15,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import { CustomAlert } from "../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../services/api/authApi.js";
 import { useDispatch } from "react-redux";
 import { checkLoginStatus } from "../feature/slice/authSlice.js";
-
+import { useLoginMutation } from "../services/api/authApi";
+import { useSelector } from "react-redux";
 /**
  * LoginPage component
  * @description A component for the login page

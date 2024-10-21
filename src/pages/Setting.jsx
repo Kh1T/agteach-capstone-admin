@@ -133,7 +133,9 @@ export default function SettingPage() {
       </Stack>
       <Stack gap={2}>
         <Typography variant="h4">Account Security</Typography>
-        <Typography variant="bmdr">User Email: {adminInfo.email || "N/A"}</Typography>
+        <Typography variant="bmdr">
+          User Email: {adminInfo.email || "N/A"}
+        </Typography>
       </Stack>
       <Divider />
       {/* A form to change password */}

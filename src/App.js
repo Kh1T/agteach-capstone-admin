@@ -10,14 +10,13 @@ import { useIsLoginQuery } from "./services/api/authApi";
 
 function App() {
   const dispatch = useDispatch();
-  const { data } = useIsLoginQuery();
+  const { data, isLoading } = useIsLoginQuery();
 
   useEffect(() => {
-    if (data) {
+    if (data && !isLoading) {
       dispatch(checkLoginStatus(data.IsAuthenticated));
-      console.log(data);
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, isLoading]);
 
   return (
     <ThemeProvider theme={theme}>

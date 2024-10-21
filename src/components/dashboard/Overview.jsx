@@ -21,22 +21,25 @@ function Overview() {
     );
   }
 
-  const saleData = data.salesData.reduce(
-    (acc, { day, totalCourseSales, totalProductSales }) => {
-      const date = new Date(day);
-      const formattedDate = [
-        String(date.getDate()).padStart(2, "0"),
-        String(date.getMonth() + 1).padStart(2, "0"), // Months are zero-indexed
-        date.getFullYear(),
-      ].join("-");
+    const saleData = (data?.salesData ?? []).reduce(
+      (acc, { day, totalCourseSales, totalProductSales }) => {
+        const date = new Date(day);
+        const formattedDate = [
+          String(date.getDate()).padStart(2, "0"),
+          String(date.getMonth() + 1).padStart(2, "0"), // Months are zero-indexed
+          date.getFullYear(),
+        ].join("-");
 
-      acc.days.push(formattedDate);
-      acc.totalCourseSales.push(Math.ceil(totalCourseSales / 10) * 10);
-      acc.totalProductSales.push(totalProductSales);
-      return acc;
-    },
-    { days: [], totalCourseSales: [], totalProductSales: [] }
-  );
+        acc.days.push(formattedDate);
+        acc.totalCourseSales.push(Math.ceil(totalCourseSales / 10) * 10);
+        acc.totalProductSales.push(totalProductSales);
+
+        return acc;
+      },
+      { days: [], totalCourseSales: [], totalProductSales: [] }
+    );
+
+    console.log(saleData);
   return (
     <>
       <Box
