@@ -32,7 +32,6 @@ export default function NewCategoryPage() {
   const [updateCategory] = useUpdateCategoryMutation();
 
   const submitHandler = async (data) => {
-    console.log(data);
     try {
       if (!editMode) {
         await createCategory(data);
@@ -47,8 +46,6 @@ export default function NewCategoryPage() {
   //Edit mode
   const category = location.state?.category;
   const editMode = location.state?.editMode;
-  console.log({ categoryId });
-  console.log({ categoryData });
 
   useEffect(() => {
     if (editMode && category) {

@@ -13,12 +13,13 @@ import {
 } from "@mui/material";
 import {
   useDeleteCategoryMutation,
-  useGetAllCategoriesQuery,
+  useSearchCategoryQuery,
 } from "../services/categoryApi";
 import { useNavigate } from "react-router";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import deleteBin from "../assets/delete-bin.png";
+import { useEffect } from "react";
 export default function CategoryPage() {
   const [selectState, setSelectState] = useState(0);
   const searchRef = useRef();
@@ -27,6 +28,8 @@ export default function CategoryPage() {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [deleteCategory] = useDeleteCategoryMutation();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchOrder, setSearchOrder] = useState("Newest");
   /**
    * Handles search button click event
    * @function
@@ -34,17 +37,29 @@ export default function CategoryPage() {
    * @param {Event} event - The search button click event
    * @description Logs the search input value and the selected sort option
    */
+
+  const { data, isLoading } = useSearchCategoryQuery({
+    name: searchTerm,
+    order: searchOrder,
+  });
+
   function handleSearch() {
-    console.log(searchRef.current.value);
-    console.log(selectState);
+    setSearchTerm(searchRef.current.value);
+    if (selectState === 0) {
+      setSearchOrder("Newest");
+    } 
+    setSearchOrder("Oldest");
   }
+
+  useEffect(() => {
+    setSearchTerm(searchRef.current?.value || "");
+  }, [searchRef.current?.value]);
 
   const handleDeleteClick = (product) => {
     setSelectedProduct(product);
     setOpenDialog(true);
   };
 
-  const { data, isLoading } = useGetAllCategoriesQuery();
   if (isLoading) {
     return (
       <Box

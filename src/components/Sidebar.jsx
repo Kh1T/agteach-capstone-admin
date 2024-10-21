@@ -35,7 +35,6 @@ export default function Sidebar({ children }) {
   const { pathname } = useLocation();
   const drawerWidth = 250;
   const param = useParams();
-  console.log(param);
   const head = sidebarList.find((element) => {
     if (param.productId) element.route = `/product/${param.productId}/edit`;
     if (param.courseId) element.route = `/course/${param.courseId}/edit`;
@@ -46,13 +45,13 @@ export default function Sidebar({ children }) {
   const description = des && des.description;
   const headerTitle = head && head.title;
 
-  const [logout, { isLoading, isError, error, isSuccess }] = useLogoutMutation();
+  const [logout, { isLoading, isError, error, isSuccess }] =
+    useLogoutMutation();
   const nagivate = useNavigate();
+
   const handleLogout = async () => {
     await logout();
-    console.log(error, isError, isSuccess);
-    
-    if (isSuccess) nagivate("/login");
+    if (isSuccess || !isLoading) nagivate("/login");
   };
 
   const { data } = useGetInfoQuery();

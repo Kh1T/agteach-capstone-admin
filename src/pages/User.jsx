@@ -10,29 +10,34 @@ import {
   CircularProgress,
 } from "@mui/material"; // Adjust the imports based on your UI library
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
+import { useGetAllCustomerQuery } from "../services/api/adminApi";
 export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
-  if (!isLoading) {
-    console.log(data.data);
-    console.log(data.data[0].location.name);
-  }
-  const instructorList = isLoading
-    ? []
-    : data.data.map((item) => ({
-        Register: new Date(item.createdAt).toLocaleString(),
-        Name: `${item.firstName} ${item.lastName}`,
-        Location: item.location ? item.location.name : 'Unknown' ,
-        review: (
-          <Link to={`/user/${item.instructorId}`}>
-            <Button
-              variant="contained"
-              sx={{ color: "white", bgcolor: "blue.main" }}
-            >
-              View
-            </Button>
-          </Link>
-        ),
-      }));
+  const { data: customerData } = useGetAllCustomerQuery();
+  const customerList =
+    isLoading || !customerData
+      ? []
+      : customerData.data.map((item) => ({
+          Register: new Date(item.createdAt).toLocaleString(),
+        }));
+  const instructorList =
+    isLoading || !data
+      ? []
+      : data.data.map((item) => ({
+          Register: new Date(item.createdAt).toLocaleString(),
+          Name: `${item.firstName} ${item.lastName} ` || "Unknown",
+          Location: item.location ? item.location.name : "Unknown",
+          review: (
+            <Link to={`/user/${item.instructorId}`}>
+              <Button
+                variant="contained"
+                sx={{ color: "white", bgcolor: "blue.main" }}
+              >
+                View
+              </Button>
+            </Link>
+          ),
+        }));
 
   if (isLoading) {
     return (
@@ -62,7 +67,7 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              {instructorList.length}
+              {instructorList.length || 0}
             </Typography>
             <Typography>Number of Instructor</Typography>
           </Stack>
@@ -78,7 +83,7 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              50
+              {customerList.length || 0}
             </Typography>
             <Typography>Number of Guest</Typography>
           </Stack>
@@ -89,7 +94,7 @@ export default function UserPage() {
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
         <Grid2 item gap={3}>
           <Typography variant="h4">Instructor Review</Typography>
-          <CustomTable data={instructorList} />
+          <CustomTable data={instructorList || []} />
         </Grid2>
       </Grid2>
     </Box>
