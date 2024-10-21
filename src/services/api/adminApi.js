@@ -32,6 +32,12 @@ export const adminApi = createApi({
         body: passwordData,
       }),
     }),
+    getAllCustomer : builder.query({
+      query: () => ({
+        url: "/api/admin/getAllCustomers",
+        method: "GET",
+      })
+    })
   }),
 });
 
@@ -39,4 +45,5 @@ export const {
   useGetInfoQuery,
   useUpdatePasswordMutation,
   useGetSalesOverviewQuery,
+  useGetAllCustomerQuery,
 } = adminApi;

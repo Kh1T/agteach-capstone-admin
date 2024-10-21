@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import {
   useDeleteCategoryMutation,
-  useGetAllCategoriesQuery,
   useSearchCategoryQuery,
 } from "../services/categoryApi";
 import { useNavigate } from "react-router";
@@ -24,7 +23,6 @@ import { useEffect } from "react";
 export default function CategoryPage() {
   const [selectState, setSelectState] = useState(0);
   const searchRef = useRef();
-  const orderRef = useRef()
   const label = "Sort";
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
