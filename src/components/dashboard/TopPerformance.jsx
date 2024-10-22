@@ -67,9 +67,10 @@ function TopPerformance() {
         p: 4,
         boxShadow: "0px 10px 33px 0px rgba(5,27,58,0.1)",
         borderRadius: 4,
+        width: "100%",
       }}
     >
-      <Stack spacing={2}>
+      <Stack spacing={2} >
         <Stack
           direction="row"
           sx={{
