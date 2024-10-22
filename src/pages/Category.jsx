@@ -44,11 +44,8 @@ export default function CategoryPage() {
   });
 
   function handleSearch() {
-    setSearchTerm(searchRef.current.value);
-    if (selectState === 0) {
-      setSearchOrder("Newest");
-    } 
-    setSearchOrder("Oldest");
+    setSearchTerm(searchRef.current.value || "");
+    setSearchOrder(selectState === 0 ? "Newest" : "Oldest");
   }
 
   useEffect(() => {

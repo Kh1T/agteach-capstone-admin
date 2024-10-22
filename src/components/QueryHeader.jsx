@@ -3,6 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import CustomSelect from "./CustomSelect";
 import ButtonComponent from "./ButtonComponent";
+import { useEffect } from "react";
 
 /**
  * QueryHeader component
@@ -21,14 +22,15 @@ export default function QueryHeader({
   useSelectState,
   handleSearch,
   searchRef = null,
-  orderRef,
   selectData = ["Newest", "Oldest"],
   pathCreated = "/",
   labelCreate = "Create New",
   placeholder = "Search",
   isCreateNew = true,
 }) {
-  // const selectComponent =
+  useEffect(() => {
+    handleSearch();
+  });
   const content = (
     <Stack direction="row" sx={{ justifyContent: "space-between", mb: 2 }}>
       <Stack direction="row" spacing={2}>
@@ -39,13 +41,11 @@ export default function QueryHeader({
           placeholder={placeholder}
           inputRef={searchRef}
           sx={{ width: 300 }}
-          onChange={handleSearch}
         />
         <CustomSelect
           label="Sort"
           useSelectState={useSelectState}
           selectData={selectData}
-          orderRef={selectData}
           onChange={handleSearch}
         />
         <Button
