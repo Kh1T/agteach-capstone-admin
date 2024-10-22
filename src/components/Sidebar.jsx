@@ -15,11 +15,25 @@ import {
 
 import logoIcon from "../assets/logo.svg";
 import avtarChip from "../assets/avatar-chip.png";
-import { Avatar, Chip, Container, Link, Stack } from "@mui/material";
+import logoutIcon from "../assets/red-circle-logout.png";
+import {
+  Avatar,
+  Chip,
+  Container,
+  Link,
+  Stack,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import sidebarList from "../data/sideBarData";
 import { useLogoutMutation } from "../services/api/authApi";
 import { useGetInfoQuery } from "../services/api/adminApi";
+import { useState } from "react";
 
 /**
  * Sidebar component that renders a drawer and app bar with content.
@@ -52,6 +66,16 @@ export default function Sidebar({ children }) {
   const handleLogout = async () => {
     await logout();
     if (isSuccess || !isLoading) nagivate("/login");
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const { data } = useGetInfoQuery();
@@ -135,12 +159,62 @@ export default function Sidebar({ children }) {
       </Stack>
 
       <Box>
-        <ListItemButton onClick={handleLogout}>
+        <ListItemButton onClick={handleClickOpen}>
           <LogoutOutlinedIcon sx={{ color: "dark.300", mr: "20px" }} />
           <Typography variant="bmdr" sx={{ color: "dark.300" }}>
             Logout
           </Typography>
         </ListItemButton>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent
+            fullWidth
+            sx={{
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Box
+              component="img"
+              src={logoutIcon}
+              height={100}
+              width={100}
+              m={5}
+            ></Box>
+            <DialogContentText
+              id="alert-dialog-title"
+              color="dark.500"
+              variant="bmdsm"
+              px={4}
+            >
+              Are you sure you want to logout?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions
+            fullWidth
+            sx={{ justifyContent: "center", gap: "12px", pb: "16px" }}
+          >
+            <Button
+              onClick={() => {
+                handleLogout();
+                handleClose();
+              }}
+              variant="contained"
+              color="error"
+              autoFocus
+            >
+              Logout
+            </Button>
+            <Button onClick={handleClose} variant="contained" color="grey.500">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Drawer>
   );
