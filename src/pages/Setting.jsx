@@ -7,6 +7,7 @@ import {
   Divider,
   IconButton,
   Snackbar,
+  InputAdornment,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
@@ -15,6 +16,8 @@ import {
   useGetInfoQuery,
   useUpdatePasswordMutation,
 } from "../services/api/adminApi";
+
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 /**
  * SettingPage component
@@ -114,6 +117,22 @@ export default function SettingPage() {
     </Box>
   );
 
+  // Separate states for each password visibility toggle
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // Handlers for toggling password visibility
+  const handleClickShowCurrentPassword = () =>
+    setShowCurrentPassword(!showCurrentPassword);
+  const handleClickShowNewPassword = () => setShowNewPassword(!showNewPassword);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Stack gap={4}>
       {/* A snackbar that shows up when the password does not match */}
@@ -147,6 +166,23 @@ export default function SettingPage() {
             {...register("passwordCurrent", { required: "This is required." })}
             helperText={errors.passwordCurrent?.message}
             error={!!errors.passwordCurrent}
+            type={showCurrentPassword ? "text" : "password"}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowCurrentPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showCurrentPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
           <TextField
             id="newPassword"
@@ -161,6 +197,23 @@ export default function SettingPage() {
                 message: "Password must be at least 8 characters long",
               },
             })}
+            type={showNewPassword ? "text" : "password"}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowNewPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
           <TextField
             id="outlined-basic"
@@ -173,6 +226,23 @@ export default function SettingPage() {
             })}
             helperText={errors.passwordConfirm?.message}
             error={!!errors.passwordConfirm}
+            type={showConfirmPassword ? "text" : "password"}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
 
           <Stack direction="row" justifyContent="end" spacing={2}>
