@@ -6,7 +6,6 @@ import { CircularProgress, Container } from "@mui/material";
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  console.log(isAuthenticated);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {

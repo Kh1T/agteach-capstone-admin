@@ -47,7 +47,6 @@ function LoginPage() {
   const submitHandler = async (data) => {
     try {
       const response = await login(data).unwrap(); // login mutation call
-      console.log("Login successful", response);
       dispatch(checkLoginStatus(true));
       navigator("/");
     } catch (error) {
