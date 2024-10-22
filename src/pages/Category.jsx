@@ -44,11 +44,8 @@ export default function CategoryPage() {
   });
 
   function handleSearch() {
-    setSearchTerm(searchRef.current.value);
-    if (selectState === 0) {
-      setSearchOrder("Newest");
-    } 
-    setSearchOrder("Oldest");
+    setSearchTerm(searchRef.current.value || "");
+    setSearchOrder(selectState === 0 ? "Newest" : "Oldest");
   }
 
   useEffect(() => {
@@ -79,8 +76,10 @@ export default function CategoryPage() {
     ? []
     : data.data.map((item) => ({
         name: item.name,
-        createdAt: new Date(item.createdAt).toLocaleString(),
-        updatedAt: new Date(item.updatedAt).toLocaleString(),
+        Description: item.description.length > 40 
+        ? `${item.description.substring(0, 40)}...`
+        : item.description,
+        createdAt: new Date(item.createdAt).toLocaleDateString(),
         edit: (
           <EditIcon
             sx={{ cursor: "pointer" }}

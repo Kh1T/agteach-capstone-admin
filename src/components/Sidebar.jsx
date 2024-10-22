@@ -192,7 +192,7 @@ export default function Sidebar({ children }) {
               </Typography>
             </Stack>
             <Chip
-              avatar={<Avatar src={avtarChip} label="Avatar" />}
+              avatar={<Avatar src={avtarChip} alt="Avatar" label="Avatar" />}
               label={adminInfo.username || "Admin"}
               sx={{
                 height: "40px",

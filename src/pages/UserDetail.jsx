@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import CustomTable from "../components/CustomTable";
-import { useNavigate, useParams } from "react-router";
+import { replace, useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
 import { useGetInstructorDetailQuery } from "../services/instructorApi";
 
@@ -41,8 +41,12 @@ export default function UserDetailPage() {
           "First Name": data.instructor.firstName,
           "Last Name": data.instructor.lastName,
           email: data.instructor.email,
-          "Last Update": data.instructor.updatedAt,
-          "Created Account": data.instructor.createdAt,
+          "Last Update": new Date(data.instructor.updatedAt)
+            .toLocaleString()
+            .replace(/\//g, "-"),
+          "Created Account": new Date(data.instructor.createdAt)
+            .toLocaleString()
+            .replace(/\//g, "-"),
         },
       ];
   return (
@@ -72,7 +76,9 @@ export default function UserDetailPage() {
           />
           <Stack gap>
             <Typography variant="bxsr">Instructor Name</Typography>
-            <Typography variant="blgr">{data.instructor.firstName} {data.instructor.lastName} </Typography>
+            <Typography variant="blgr">
+              {data.instructor.firstName} {data.instructor.lastName}{" "}
+            </Typography>
             <Typography variant="bxsr">
               <Box component="strong">Email: </Box>
               {data.instructor.email}
@@ -82,7 +88,8 @@ export default function UserDetailPage() {
               {data.instructor.phone}
             </Typography>
             <Typography variant="bxsr">
-              <Box component="strong">Address: </Box>{data.instructor.address || 'Not Provided'}
+              <Box component="strong">Address: </Box>
+              {data.instructor.address || "Not Provided"}
             </Typography>
           </Stack>
         </Stack>

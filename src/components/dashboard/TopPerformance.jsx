@@ -27,7 +27,6 @@ function TopPerformance() {
     !isLoadingProducts && productData?.salesProductTotals
       ? productData.salesProductTotals.map((item, index) => ({
           "No": index + 1,
-          "Product ID": item.product_id,
           "Product Name": item.name,
           "Category": item.category,
           "Earning": `${item.totalSales}$`,
@@ -39,7 +38,6 @@ function TopPerformance() {
     !isLoadingCourses && courseData?.salesCourseTotals
       ? courseData.salesCourseTotals.map((item, index) => ({
           "No": index + 1,
-          "Product ID": item.course_id,
           "Product Name": item.name,
           "Category": "Course",
           "Earning": `${item.totalSales}$`,
