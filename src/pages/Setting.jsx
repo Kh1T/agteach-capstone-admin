@@ -31,7 +31,6 @@ export default function SettingPage() {
     watch,
     reset,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
 
@@ -68,7 +67,7 @@ export default function SettingPage() {
     try {
       await updatePassword(data).unwrap();
     } catch (error) {
-      console.error("Error submitting form:", error);
+      setMessage(`Failed to change password: ${error?.data?.message}`);
     }
     resetForm();
   };
@@ -99,7 +98,6 @@ export default function SettingPage() {
       setMessage("Password changed successfully");
       setOpen(true);
     } else if (isError) {
-      setMessage("Failed to change password");
       setOpen(true);
     }
   }, [isSuccess, isError]);
@@ -215,6 +213,9 @@ export default function SettingPage() {
                 value: 8,
                 message: "Password must be at least 8 characters long",
               },
+              validate: (value) =>
+                value !== watch("passwordCurrent") ||
+                "New Password cannot be the same as current password",
             })}
             type={showNewPassword ? "text" : "password"}
             slotProps={{
@@ -235,7 +236,7 @@ export default function SettingPage() {
             }}
           />
           <TextField
-            id="outlined-basic"
+            id="passwordConfirm"
             label="Re-type new Password"
             variant="outlined"
             {...register("passwordConfirm", {
