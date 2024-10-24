@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   CircularProgress,
   Divider,
@@ -27,9 +26,8 @@ export default function NewCategoryPage() {
     setValue,
     handleSubmit,
     watch,
-    formState: { isLoading, isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, isSubmitSuccessful, errors },
   } = useForm();
-  console.log(isSubmitting);
   const [createCategory] = useCreateCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();
 

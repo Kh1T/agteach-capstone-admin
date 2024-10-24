@@ -1,7 +1,6 @@
-import { Box, Stack, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import TopPerformance from "../components/dashboard/TopPerformance";
 import Grid from "@mui/material/Grid2";
-import CardSale from "../components/dashboard/CardSale";
 import Overview from "../components/dashboard/Overview";
 
 export default function DashboardPage() {
@@ -18,7 +17,7 @@ export default function DashboardPage() {
               <CardSale title="Yearly" sale="15,000" percent="20" />
             </Stack>
           </Grid> */}
-          <Grid sx={{width:"100%"}}>
+          <Grid sx={{ width: "100%" }}>
             <TopPerformance />
           </Grid>
         </Grid>

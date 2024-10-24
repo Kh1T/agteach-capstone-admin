@@ -26,7 +26,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
   Button,
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -59,8 +58,7 @@ export default function Sidebar({ children }) {
   const description = des && des.description;
   const headerTitle = head && head.title;
 
-  const [logout, { isLoading, isError, error, isSuccess }] =
-    useLogoutMutation();
+  const [logout, { isLoading, isSuccess }] = useLogoutMutation();
   const nagivate = useNavigate();
 
   const handleLogout = async () => {

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import CustomTable from "../components/CustomTable";
-import { replace, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
 import { useGetInstructorDetailQuery } from "../services/instructorApi";
 

@@ -9,7 +9,6 @@ import {
   Snackbar,
   InputAdornment,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -73,15 +72,6 @@ export default function SettingPage() {
   };
 
   /**
-   * Handles the click event of the snackbar.
-   *
-   * @function
-   */
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  /**
    * Handles the close event of the snackbar.
    *
    * @param {object} event - The event object.
@@ -108,22 +98,6 @@ export default function SettingPage() {
     }
     setOpen(false); // Close the Snackbar
   };
-
-  const action = (
-    <Box>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </Box>
-  );
 
   // Separate states for each password visibility toggle
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
