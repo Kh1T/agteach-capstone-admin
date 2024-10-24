@@ -14,7 +14,7 @@ import {
   useUpdateCategoryMutation,
 } from "../services/categoryApi";
 import { useLocation, useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft } from "@mui/icons-material";
 
 export default function NewCategoryPage() {
@@ -26,11 +26,25 @@ export default function NewCategoryPage() {
     register,
     setValue,
     handleSubmit,
+    watch,
     formState: { isLoading, isSubmitting, isSubmitSuccessful, errors },
   } = useForm();
   console.log(isSubmitting);
   const [createCategory] = useCreateCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();
+
+  const [nameCharCount, setNameCharCount] = useState(0);
+  const [descCharCount, setDescCharCount] = useState(0);
+
+  const name = watch("name");
+  const description = watch("description");
+  useEffect(() => {
+    setNameCharCount(name?.length);
+    setDescCharCount(description?.length);
+  }, [name, description]);
+
+  const maxNameLength = 50;
+  const maxDescLength = 500;
 
   const submitHandler = async (data) => {
     try {
@@ -83,10 +97,18 @@ export default function NewCategoryPage() {
             text="Your category name should be short and meaningful"
           />
           <TextField
-            label="Title"
+            label={
+              nameCharCount === 0
+                ? "Category Name"
+                : `Category Name : ${nameCharCount} / ${maxNameLength}`
+            }
             accept="text/plain"
             {...register("name", {
               required: "Category name is required",
+              maxLength: {
+                value: maxNameLength,
+                message: `Category name should be less than ${maxNameLength} characters`,
+              },
             })}
             error={errors.name}
           />
@@ -100,12 +122,20 @@ export default function NewCategoryPage() {
           <TextField
             id="outlined-multiline-static"
             multiline
-            label="Description"
+            label={
+              descCharCount === 0
+                ? "Description"
+                : `Description : ${descCharCount} / ${maxDescLength}`
+            }
             accept="text/plain"
             placeholder="Tell us more about your category"
             rows={5}
             {...register("description", {
               required: "Category description is required",
+              maxLength: {
+                value: maxNameLength,
+                message: `Category description should be less than ${maxDescLength} characters`,
+              },
             })}
             error={errors.description}
           />
@@ -116,7 +146,12 @@ export default function NewCategoryPage() {
           <Button
             type="submit"
             variant="contained"
-            sx={{ mt: 1, bgcolor: "blue.main", size: "large", maxWidth: "200px" }}
+            sx={{
+              mt: 1,
+              bgcolor: "blue.main",
+              size: "large",
+              maxWidth: "200px",
+            }}
             disabled={isSubmitting}
           >
             {isSubmitting ? <CircularProgress size={24} /> : ButtonText}
