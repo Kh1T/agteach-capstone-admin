@@ -7,8 +7,8 @@ import Overview from "../components/dashboard/Overview";
 export default function DashboardPage() {
   const content = (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
+      <Box sx={{ flexGrow: 1 }} height={"100vh"}>
+        <Grid container>
           <Grid size={12} sx={{ mb: "50px" }}>
             <Overview />
           </Grid>

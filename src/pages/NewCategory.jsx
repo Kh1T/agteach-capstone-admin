@@ -109,6 +109,10 @@ export default function NewCategoryPage() {
                 value: maxNameLength,
                 message: `Category name should be less than ${maxNameLength} characters`,
               },
+              pattern: {
+                value: /^[a-zA-Z\s]*$/,
+                message: "Category name should only contain letters.",
+              },
             })}
             error={errors.name}
           />

@@ -51,16 +51,16 @@ function LoginPage() {
       dispatch(checkLoginStatus(true));
       navigator("/");
     } catch (error) {
-      console.error("Incorrect email or password", error);
+      console.error("Error:", error);
       setOpen(true);
       setError(
         "email",
-        { type: "manual", message: "Incorrect email or password" },
+        { type: "manual", message: error?.data?.message },
         { shouldFocus: true }
       );
       setError(
         "password",
-        { type: "manual", message: "Incorrect email or password" },
+        { type: "manual", message: error?.data?.message },
         { shouldFocus: true }
       );
     }
