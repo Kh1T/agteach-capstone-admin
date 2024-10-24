@@ -64,7 +64,7 @@ export default function CategoryPage() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          height: "70vh",
         }}
       >
         <CircularProgress />
@@ -76,9 +76,10 @@ export default function CategoryPage() {
     ? []
     : data.data.map((item) => ({
         name: item.name,
-        Description: item.description.length > 40 
-        ? `${item.description.substring(0, 40)}...`
-        : item.description,
+        Description:
+          item.description.length > 40
+            ? `${item.description.substring(0, 40)}...`
+            : item.description,
         createdAt: new Date(item.createdAt).toLocaleDateString(),
         edit: (
           <EditIcon
@@ -133,11 +134,12 @@ export default function CategoryPage() {
             justifyContent="center"
             sx={{ textAlign: "center" }}
           >
-            <img
+            <Box
+              component={"img"}
               src={deleteBin}
               alt="Confirmation"
-              style={{ width: "136px", height: "136px", marginBottom: "10px" }}
-            />
+              sx={{ width: "136px", height: "136px", marginBottom: "10px" }}
+            ></Box>
             <Typography variant="blgsm" padding={"10px"}>
               Delete Confirmation
             </Typography>

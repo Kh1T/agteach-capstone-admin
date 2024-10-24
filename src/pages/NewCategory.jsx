@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  CircularProgress,
   Divider,
   FormHelperText,
   Stack,
@@ -9,7 +11,6 @@ import {
 import { useForm } from "react-hook-form";
 import {
   useCreateCategoryMutation,
-  useGetCategoryQuery,
   useUpdateCategoryMutation,
 } from "../services/categoryApi";
 import { useLocation, useNavigate } from "react-router";
@@ -25,10 +26,10 @@ export default function NewCategoryPage() {
     register,
     setValue,
     handleSubmit,
-    formState: { isLoading, isSubmitSuccessful, errors },
+    formState: { isLoading, isSubmitting, isSubmitSuccessful, errors },
   } = useForm();
+  console.log(isSubmitting);
   const [createCategory] = useCreateCategoryMutation();
-  const { data: categoryData } = useGetCategoryQuery(categoryId);
   const [updateCategory] = useUpdateCategoryMutation();
 
   const submitHandler = async (data) => {
@@ -52,8 +53,9 @@ export default function NewCategoryPage() {
       setValue("name", category.name);
       setValue("description", category.description);
     }
-  }, [editMode, category]);
+  }, [editMode, category, setValue]);
 
+  const ButtonText = editMode ? "UPDATE CATEGORY" : "CREATE CATEGORY";
   return (
     <>
       <Stack
@@ -61,7 +63,7 @@ export default function NewCategoryPage() {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "start",
-          py:3,
+          py: 3,
         }}
       >
         <Button
@@ -74,7 +76,7 @@ export default function NewCategoryPage() {
           </Typography>
         </Button>
       </Stack>
-      <form onSubmit={handleSubmit(submitHandler)} >
+      <form onSubmit={handleSubmit(submitHandler)}>
         <Stack gap={3}>
           <ContentText
             title="What is the category name for the product?"
@@ -114,14 +116,10 @@ export default function NewCategoryPage() {
           <Button
             type="submit"
             variant="contained"
-            size="large"
-            sx={{
-              width: "200px",
-              bgcolor: isSubmitSuccessful ? "teal" : "purple.main",
-            }}
-            bgcolor={isSubmitSuccessful ? "teal" : "purple.main"}
+            sx={{ mt: 1, bgcolor: "blue.main", size: "large", maxWidth: "200px" }}
+            disabled={isSubmitting}
           >
-            {editMode ? "UPDATE CATEGORY" : "CREATE CATEGORY"}
+            {isSubmitting ? <CircularProgress size={24} /> : ButtonText}
           </Button>
           {isSubmitSuccessful && navigate("/category")}
         </Stack>
@@ -132,9 +130,9 @@ export default function NewCategoryPage() {
 
 function ContentText({ title, text }) {
   return (
-    <form gap>
+    <Stack gap={1}>
       <Typography variant="blgsm">{title}</Typography>
-      <Typography variant="bxsr">{title}</Typography>
-    </form>
+      <Typography variant="bxsr">{text}</Typography>
+    </Stack>
   );
 }
