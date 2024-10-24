@@ -4,9 +4,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { TablePagination, Typography } from "@mui/material";
+import { Box, Stack, TablePagination, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import frankyIcon from "../assets/Spooky Stickers Sweet Franky.svg";
 
 /**
  * A table component that displays the given data.
@@ -27,7 +28,16 @@ export default function CustomTable({
   const [rowsPerPage, setRowsPerPage] = useState(rowLimit);
   // const tableHead = data.
   if (!data || data.length === 0)
-    return <Typography>No data available</Typography>;
+    return (
+      <Stack height={"60vh"} alignItems={"center"} justifyContent={"center"}>
+        <Box
+          component={"img"}
+          src={frankyIcon}
+          sx={{ width: "200px", height: "200px" }}
+        ></Box>
+        <Typography variant="bmdr">No category found</Typography>
+      </Stack>
+    );
   let headers = Object.keys(data[0]).map(
     (key) => key.charAt(0).toUpperCase() + key.slice(1)
   );
