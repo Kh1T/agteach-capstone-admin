@@ -15,6 +15,7 @@ import {
 import { useLocation, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { ChevronLeft } from "@mui/icons-material";
+import { CustomAlert } from "../components/CustomAlert";
 
 export default function NewCategoryPage() {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ export default function NewCategoryPage() {
 
   const [nameCharCount, setNameCharCount] = useState(0);
   const [descCharCount, setDescCharCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(" ");
 
   const name = watch("name");
   const description = watch("description");
@@ -52,7 +55,8 @@ export default function NewCategoryPage() {
         await updateCategory({ data: data, id: categoryId });
       }
     } catch (err) {
-      console.log(err);
+      setOpen(true);
+      setErrorMessage(err?.message || "Error");
     }
   };
 
@@ -70,6 +74,11 @@ export default function NewCategoryPage() {
   const ButtonText = editMode ? "UPDATE CATEGORY" : "CREATE CATEGORY";
   return (
     <>
+      <CustomAlert
+        label={errorMessage}
+        open={open}
+        onClose={() => setOpen(false)}
+      />
       <Stack
         sx={{
           display: "flex",
@@ -97,7 +106,7 @@ export default function NewCategoryPage() {
           <TextField
             label={
               nameCharCount === 0
-                ? "Category Name"
+                ? "Category "
                 : `Category Name : ${nameCharCount} / ${maxNameLength}`
             }
             accept="text/plain"
