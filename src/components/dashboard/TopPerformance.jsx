@@ -27,7 +27,6 @@ function TopPerformance() {
     !isLoadingProducts && productData?.salesProductTotals
       ? productData.salesProductTotals.map((item, index) => ({
           "No": index + 1,
-          "Product ID": item.product_id,
           "Product Name": item.name,
           "Category": item.category,
           "Earning": `${item.totalSales}$`,
@@ -39,7 +38,6 @@ function TopPerformance() {
     !isLoadingCourses && courseData?.salesCourseTotals
       ? courseData.salesCourseTotals.map((item, index) => ({
           "No": index + 1,
-          "Product ID": item.course_id,
           "Product Name": item.name,
           "Category": "Course",
           "Earning": `${item.totalSales}$`,
@@ -69,9 +67,10 @@ function TopPerformance() {
         p: 4,
         boxShadow: "0px 10px 33px 0px rgba(5,27,58,0.1)",
         borderRadius: 4,
+        width: "100%",
       }}
     >
-      <Stack spacing={2}>
+      <Stack spacing={2} >
         <Stack
           direction="row"
           sx={{

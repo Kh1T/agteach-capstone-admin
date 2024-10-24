@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { checkLoginStatus } from "../feature/slice/authSlice.js";
 import { useLoginMutation } from "../services/api/authApi";
-import { useSelector } from "react-redux";
+
 /**
  * LoginPage component
  * @description A component for the login page
@@ -39,6 +39,7 @@ function LoginPage() {
     defaultValues: {
       email: "",
       password: "",
+      keepMeLoggedIn: false,
     },
   });
 
@@ -47,7 +48,6 @@ function LoginPage() {
   const submitHandler = async (data) => {
     try {
       const response = await login(data).unwrap(); // login mutation call
-      console.log("Login successful", response);
       dispatch(checkLoginStatus(true));
       navigator("/");
     } catch (error) {
@@ -125,7 +125,7 @@ function LoginPage() {
             }}
           />
           <Stack direction="row" alignItems="center">
-            <Checkbox {...register("rememberMe")} />
+            <Checkbox {...register("keepMeLoggedIn")} />
             <Typography variant="bmdr" color="initial">
               Keep me logged in
             </Typography>

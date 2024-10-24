@@ -18,14 +18,15 @@ export default function UserPage() {
     isLoading || !customerData
       ? []
       : customerData.data.map((item) => ({
-          Register: new Date(item.createdAt).toLocaleString(),
+          Register: new Date(item.createdAt).toLocaleDateString(),
         }));
   const instructorList =
     isLoading || !data
       ? []
       : data.data.map((item) => ({
-          Register: new Date(item.createdAt).toLocaleString(),
+          Register: new Date(item.createdAt).toLocaleDateString(),
           Name: `${item.firstName} ${item.lastName} ` || "Unknown",
+          Phone: item.phone || "Unknown",
           Location: item.location ? item.location.name : "Unknown",
           review: (
             <Link to={`/user/${item.instructorId}`}>
