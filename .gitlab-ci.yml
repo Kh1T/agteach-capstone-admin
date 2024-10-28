@@ -1,0 +1,58 @@
+# Define stages for the pipeline
+stages:
+  - install
+  - build
+  - deploy
+
+
+# Stage 1: Install dependencies for React and Node.js
+install_dependencies:
+  stage: install
+  image: node:20    # Using node image to install dependencies
+  only:
+    - main
+  script:
+    - node -v
+    - echo "Installing dependencies..."
+    - npm install   # Install React dependencies
+
+  cache:
+    paths:
+      - node_modules/
+
+# # Stage 2: Build the React app (client)
+build_app:
+  stage: build
+  image: node:20
+  only:
+    - main
+  script:
+    - echo "Building React app..."
+    # - unset CI     # Unset CI to prevent treating warnings as errors
+    - CI=false npm run build  # Build React app
+  artifacts:
+    paths:
+      - build   # Save the React build folder as an artifact
+
+
+# Stage 3: Deploy to AWS EC2
+deploy_to_aws:
+  stage: deploy
+  image: node
+  only:
+    - main
+  script:
+    - echo "Deploying to AWS EC2..."
+    - mkdir -p ~/.ssh    
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/agtech.pem
+    - chmod 600 ~/.ssh/agtech.pem
+    - ssh-keyscan -H $AWS_SSH_IP >> ~/.ssh/know_hosts
+    - scp -i ~/.ssh/agtech.pem -r build/* $AWS_SSH_USER@$AWS_SSH_IP:/home/ubuntu/app/admin
+  dependencies:
+    - build_app  # Ensure we pull artifacts from the build_app stage
+
+
+cache:
+  paths:
+    - node_modules/
+

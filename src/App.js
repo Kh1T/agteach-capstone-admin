@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "@emotion/react";
+import theme from "./theme/theme";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./route";
+import { CssBaseline } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { checkLoginStatus } from "./feature/slice/authSlice";
+import { useIsLoginQuery } from "./services/api/authApi";
 
 function App() {
+  const dispatch = useDispatch();
+  const { data, isLoading } = useIsLoginQuery();
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      dispatch(checkLoginStatus(data.IsAuthenticated));
+    }
+  }, [data, dispatch, isLoading]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+      <CssBaseline />
+    </ThemeProvider>
   );
 }
 

@@ -1,12 +1,15 @@
-# AgTeach - Admin Interface
+# AgTeach - Agricultural Training Video Platform
 
-Our Agricultural Training Video platform features a powerful and comprehensive admin interface that provides complete control over all aspects of the system. This admin panel is designed to offer robust management tools while maintaining ease of use and efficiency.
+This project is designed to help aspiring farmer to start growing plan with knowledge and product, The platform offers high-quality, paid agricultural training videos alongside a marketplace for related products. This dual approach provides comprehensive support for farmers and agricultural workers worldwide.  
+
+[//]: # (> 🎯 Samsung Web Clone <a href="https://samsungalphabeez.netlify.app/index.html">Click Here</a>.)
 
 ## Table of Contents
 
 - [Technology Used](#technology-used)
 - [Folder Structure](#folder-structure)
 - [Pages Included](#pages-included)
+<!-- - [Contributors](#contributors) -->
 - [Usage](#usage)
 - [Git Strategy](#git-strategy)
 - [Acknowledgement](#acknowledgement)
@@ -27,44 +30,41 @@ We use folder structure to organize our project and it is essential for maintain
 
 ```
 project-root/
-├── client/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   └── Button.js
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── utils/
-│   │   └── index.js
-│   ├── config/
-│   │   └── api.js
-│   ├── .env
-│   └── package.json
-├── server/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   └── userController.js
-│   ├── models/
-│   │   └── userModel.js
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │   └── images-1.png
+│   │
+│   ├── components/
+│   │   └── Button.jsx
+│   │
+│   ├── constants/
+│   │   └── apiConstants.js
+│   │
+│   ├── features/
+│   │
+│   ├── pages/
+│   │
 │   ├── routes/
-│   │   └── userRoutes.js
+│   │   └── index.js
+│   │
 │   ├── services/
-│   │   └── userService.js
+│   │   └── api/
+│   │
+│   ├── store/
+│   │
+│   ├── theme/
+│   │   └── theme.js
+│   │
 │   ├── utils/
-│   ├── app.js
-│   ├── server.js
-│   ├── .env
-│   └── package.json
-├── scripts/
-│   ├── build/
-│   ├── deploy/
-│   └── start/
+│   ├── App.jsx
+│   └── index.js
+├── .env
 ├── .gitignore
-├── README.md
-└── package.json
+├── package.json
+├── package-lock.json
+└── README.md
 
 ```
 
@@ -78,41 +78,15 @@ project-root/
 | -------------------------- | ----------------------------------------------------------- |
 | **client/public/**         | Contains static files like HTML, CSS, and images.           |
 | **client/src/**            | main source code for the React application                  |
+| **client/src/assets/**     | Contains images need to import into your React components   |
 | **client/src/components/** | Reusable UI components.                                     |
+| **client/src/constants/**  | API base url                                                |
 | **client/src/pages/**      | Components representing different pages of the application. |
+| **client/src/routes/**     | Components root layout and router navigate to pages         |
 | **client/src/services/**   | API service functions.                                      |
+| **client/src/store/**      | Application state that have slice, reducer and middleware   |
 | **client/src/utils/**      | Utility functions and helpers.                              |
-| **client/config/**         | configuration files.                                        |
 
-### Server Side Folder
-
-| **Folder Name**        | **Contain**                                                                |
-| ---------------------- | -------------------------------------------------------------------------- |
-| **project-name/**      | All file and folder in project                                             |
-| **server/config**      | contain configuration file                                                 |
-| **server/controllers** | Handle HTTP requests and responses.                                        |
-| **server/model**       | files that define the data schema and interact with the database directly. |
-| **server/routes/**     | Contains route definitions                                                 |
-| **server/views/**      | Components for displaying the data to the users                            |
-| **server/utils/**      | Contains utility functions and helpers.                                    |
-
-<!-- ## Pages Included
-
-| Page Names                                                                                             |
-| ------------------------------------------------------------------------------------------------------ |
-| <a href="https://samsungalphabeez.netlify.app/index.html">🏡 Home</a>                                  |
-| <a href="https://samsungalphabeez.netlify.app/pages/product-detail/">🛍️ Product Detail</a>             |
-| <a href="https://samsungalphabeez.netlify.app/pages/nearby-store/index.html">📍 Nearby Store</a>       |
-| <a href="https://samsungalphabeez.netlify.app/pages/cart/index.html">🛒 Cart</a>                       |
-| <a href="https://samsungalphabeez.netlify.app/pages/checkout/">📊 Checkout</a>                         |
-| <a href="https://samsungalphabeez.netlify.app/pages/login/index.html">🔒 Login</a>                     |
-| <a href="https://samsungalphabeez.netlify.app/pages/continue-shopping/index.html">💎 All Offers</a>    |
-| <a href="https://samsungalphabeez.netlify.app/pages/smartphone/index.html">📱 Smartphone</a>           |
-| <a href="https://samsungalphabeez.netlify.app/pages/galaxy-ai/index.html">🤖 Galaxy AI</a>             |
-| <a href="https://samsungalphabeez.netlify.app/pages/support/index.html">🥷 Support</a>                 |
-| <a href="https://samsungalphabeez.netlify.app/pages/privacy-page/index.html">🔑 Privacy</a>            |
-| <a href="https://samsungalphabeez.netlify.app/pages/account-benefit/index.html">🎁 Account Benefit</a> |
-| <a href="https://samsungalphabeez.netlify.app/pages/track-order/index.html">📦 Track Orders</a>        | -->
 
 ## Contributors
 
@@ -120,11 +94,12 @@ project-root/
 | -------------------- | -------------------- |
 | **Bet Sela**         | Backend and Server   |
 | **Pav Munyphalla**   | Backend and Server   |
-| **Song Seyla**       | Middle man           |
-| **Khom Khit**        | Middle man           |
+| **Song Seyla**       | Backend              |
+| **Khom Khit**        | Backend              |
 | **Panha Phosda**     | Front-end            |
 | **Chiv Sovanchitra** | Front-end            |
 | **Rith Sohak Neadh** | Front-end            |
+| **Pann SengLay**     | Front-end            |
 
 ## Usage
 
@@ -135,11 +110,13 @@ To start working on this project, follow these steps:
 1. Clone the repository:
 
 ```
-git clone https://git.clp.kr/anbschool/2nd/alphabeez/team-projects/agteach-capstone-instructor.git
+git clone https://git.clp.kr/anbschool/2nd/alphabeez/team-projects/agteach-capstone-guest.git
 
 ```
 
 ## Git Strategy & Scenario
+
+![GIT_FLOW_STRATEGY](/uploads/2929687cea7fa1505e0c8eed3de9e7cb/GIT_FLOW_STRATEGY.png)
 
 In order to collaborate with team members effectively and give each member a separated
 space to work on their part our team have chosen git-flow as branch management strategy.
