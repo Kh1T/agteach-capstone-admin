@@ -144,7 +144,7 @@ export default function NewCategoryPage() {
             {...register("description", {
               required: "Category description is required",
               maxLength: {
-                value: maxNameLength,
+                value: maxDescLength,
                 message: `Category description should be less than ${maxDescLength} characters`,
               },
             })}
