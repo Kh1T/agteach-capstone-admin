@@ -14,7 +14,7 @@ import {
 } from "react-router-dom";
 
 import logoIcon from "../assets/logo.svg";
-import avtarChip from "../assets/avatar-chip.png";
+import avtarChip from "../assets/baby-mummy.png";
 import logoutIcon from "../assets/red-circle-logout.png";
 import {
   Avatar,
@@ -59,11 +59,11 @@ export default function Sidebar({ children }) {
   const headerTitle = head && head.title;
 
   const [logout, { isLoading, isSuccess }] = useLogoutMutation();
-  const nagivate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     await logout();
-    if (isSuccess || !isLoading) nagivate("/login");
+    if (isSuccess || !isLoading) navigate("/login");
   };
 
   const [open, setOpen] = useState(false);
@@ -75,7 +75,9 @@ export default function Sidebar({ children }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handleNavigateSetting = () => {
+    navigate("/setting");
+  };
   const { data } = useGetInfoQuery();
   let adminInfo = {};
   if (data) {
@@ -263,19 +265,22 @@ export default function Sidebar({ children }) {
                 {description}
               </Typography>
             </Stack>
-            <Chip
-              avatar={<Avatar src={avtarChip} alt="Avatar" label="Avatar" />}
-              label={adminInfo.username || "Admin"}
-              sx={{
-                height: "40px",
-                borderRadius: "63px",
-                backgroundColor: "common.black",
-                "& .MuiChip-label": {
-                  color: "common.white",
-                  fontSize: 18,
-                },
-              }}
-            />
+            <Button
+              onClick={handleNavigateSetting}
+              sx={(theme) => ({
+                minWidth: "auto",
+                p: 0.5,
+                bgcolor: "common.white",
+                width: "hug-content",
+                borderRadius: "100%",
+                border: "2px solid transparent",
+                background: `linear-gradient(${theme.palette.common.white}, ${theme.palette.common.white}) padding-box, 
+                 linear-gradient(to right, ${theme.palette.teal.main}, ${theme.palette.blue.main}) border-box`,
+                backgroundClip: "padding-box, border-box",
+              })}
+            >
+              <Avatar src={avtarChip} sx={{ width: 35, height: 35 }} />
+            </Button>
           </Stack>
         </Box>
       </Toolbar>
