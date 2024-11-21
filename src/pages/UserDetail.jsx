@@ -10,7 +10,7 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import CustomTable from "../components/CustomTable";
 import { useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
-import { useGetInstructorDetailQuery } from "../services/instructorApi";
+import { useGetInstructorDetailQuery } from "../services/api/instructorApi";
 
 export default function UserDetailPage() {
   const navigate = useNavigate();

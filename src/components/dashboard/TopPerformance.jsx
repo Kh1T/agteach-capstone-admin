@@ -10,7 +10,7 @@ import {
 import CustomTableHeader from "../CustomTableHeader";
 import { useState } from "react";
 import CustomTable from "../CustomTable";
-import { useGetProductTopSalesQuery } from "../../services/productApi";
+import { useGetProductTopSalesQuery } from "../../services/api/productApi";
 import { useGetCourseTopSalesQuery } from "../../services/courseApi";
 
 function TopPerformance() {
