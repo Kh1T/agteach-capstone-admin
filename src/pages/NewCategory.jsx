@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
-} from "../services/categoryApi";
+} from "../services/api/categoryApi";
 import { useLocation, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { ChevronLeft } from "@mui/icons-material";

@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "../services/api/authApi.js";
 import { adminApi } from "../services/api/adminApi.js";
-import { instructorApi } from "../services/instructorApi.js";
-import { categoryApi } from "../services/categoryApi.js";
+import { instructorApi } from "../services/api/instructorApi.js";
+import { categoryApi } from "../services/api/categoryApi.js";
 import authSlice from "../feature/slice/authSlice.js";
-import { productApi } from "../services/productApi.js";
-import { courseApi } from "../services/courseApi.js";
+import { productApi } from "../services/api/productApi.js";
+import { courseApi } from "../services/api/courseApi.js";
 
 export const store = configureStore({
   reducer: {
