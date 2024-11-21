@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllInstructorsQuery } from "../services/instructorApi"; // Adjust the import path accordingly
+import { useGetAllInstructorsQuery } from "../services/api/instructorApi"; // Adjust the import path accordingly
 import { Link } from "react-router-dom";
 import {
   Box,

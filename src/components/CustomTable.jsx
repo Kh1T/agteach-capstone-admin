@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import { Box, Stack, TablePagination, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import frankyIcon from "../assets/Spooky Stickers Sweet Franky.svg";
+import frankyIcon from "../assets/spooky-stickers-sweet-franky.svg";
 
 /**
  * A table component that displays the given data.
