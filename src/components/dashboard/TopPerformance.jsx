@@ -11,7 +11,7 @@ import CustomTableHeader from "../CustomTableHeader";
 import { useState } from "react";
 import CustomTable from "../CustomTable";
 import { useGetProductTopSalesQuery } from "../../services/api/productApi";
-import { useGetCourseTopSalesQuery } from "../../services/courseApi";
+import { useGetCourseTopSalesQuery } from "../../services/api/courseApi";
 
 function TopPerformance() {
   const [transaction, setTransaction] = useState(10); // 10 for Product, 20 for Course
