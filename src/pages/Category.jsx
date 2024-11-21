@@ -14,7 +14,7 @@ import {
 import {
   useDeleteCategoryMutation,
   useSearchCategoryQuery,
-} from "../services/categoryApi";
+} from "../services/api/categoryApi";
 import { useNavigate } from "react-router";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
