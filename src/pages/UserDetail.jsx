@@ -10,9 +10,9 @@ import {
   Grid,
 } from "@mui/material";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
-import CustomTable from "../components/CustomTable";
 import { useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
+import BabyMommy from "../assets/baby-mummy.png";
 import { useGetInstructorDetailQuery } from "../services/api/instructorApi";
 
 /**
@@ -50,27 +50,24 @@ export default function UserDetailPage() {
       </Box>
     );
   }
-  console.log(data, "data");
-  const instructor = isLoading
-    ? {}
-    : [
-        {
-          "First Name": data.instructor.firstName,
-          "Last Name": data.instructor.lastName,
-          email: data.instructor.email,
-          "Last Update": new Date(data.instructor.updatedAt)
-            .toLocaleString()
-            .replace(/\//g, "-"),
-          "Created Account": new Date(data.instructor.createdAt)
-            .toLocaleString()
-            .replace(/\//g, "-"),
-        },
-      ];
-  const { nationalId, bankNumber, targetCourse, targetProduct, profileBackground } =
-    data?.instructor;
+  console.log(data, "data"); 
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    address,
+    nationalId,
+    bankNumber,
+    targetCourse,
+    targetProduct,
+    profileBackground,
+    isApproved,
+    imageUrl,
+  } = data?.instructor || {};
 
   const instructorDetailContent = (
-    <Card sx={{ width:"100%", margin: "20px auto", padding: 3, boxShadow: 3 }}>
+    <Card sx={{ width: "100%", margin: "20px auto", padding: 3, boxShadow: 3 }}>
       <CardContent>
         <Typography variant="h4" gutterBottom>
           Instructor Information
@@ -154,7 +151,7 @@ export default function UserDetailPage() {
       >
         <Stack direction="row" gap={3}>
           <Box
-            src={data.instructor.imageUrl}
+            src={imageUrl || BabyMommy}
             component="img"
             width={130}
             height={130}
@@ -162,23 +159,30 @@ export default function UserDetailPage() {
           <Stack gap>
             <Typography variant="bxsr">Instructor Name</Typography>
             <Typography variant="blgr">
-              {data.instructor.firstName} {data.instructor.lastName}{" "}
+              {firstName || "Unknown"} {lastName}{" "}
             </Typography>
             <Typography variant="bxsr">
               <Box component="strong">Email: </Box>
-              {data.instructor.email}
+              {email || "Unknown"}
             </Typography>
             <Typography variant="bxsr">
               <Box component="strong">Phone: </Box>
-              {data.instructor.phone}
+              {phone || "Unknown"}
             </Typography>
             <Typography variant="bxsr">
               <Box component="strong">Address: </Box>
-              {data.instructor.address || "Not Provided"}
+              {address || "Not Provided"}
             </Typography>
           </Stack>
         </Stack>
-        <CustomChip label="Not Yet Approve" danger="true" sx={{ py: 2, px: 3 }} />
+        {!isApproved && (
+          <CustomChip
+            label="Not Yet Approve"
+            danger="true"
+            sx={{ py: 2, px: 3 }}
+          />
+        )}
+        {isApproved && <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />}
       </Stack>
       <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
       <Stack width="100%" gap={2} pb={6}>
@@ -198,7 +202,6 @@ export default function UserDetailPage() {
             Reject
           </Button>
         </Stack>
-        {/* <CustomTable data={instructor} isPagination={false} /> */}
       </Stack>
     </Stack>
   );
