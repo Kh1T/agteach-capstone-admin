@@ -11,6 +11,7 @@ import {
 } from "@mui/material"; // Adjust the imports based on your UI library
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
 import { useGetAllCustomerQuery } from "../services/api/adminApi";
+import { CustomChip } from "../components/CustomChip";
 export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
   const { data: customerData } = useGetAllCustomerQuery();
@@ -37,6 +38,18 @@ export default function UserPage() {
                 View
               </Button>
             </Link>
+          ),
+          Status: (
+            <CustomChip
+              label={
+                item.isApproved
+                  ? "Approved"
+                  : item.isRejected
+                  ? "Rejected"
+                  : "Not Approve"
+              }
+              danger={item.isApproved ? false : true}
+            />
           ),
         }));
 
