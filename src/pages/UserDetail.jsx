@@ -59,12 +59,12 @@ export default function UserDetailPage() {
   }
 
   const handleApproved = async () => {
-    // const res = await updateVerifyInstructor({ isApproved: true });
+    const res = await updateVerifyInstructor({ id: userId, isApproved: true });
     // <CustomAlert />
     setIsApprovedSubmitted(true)
   };
   const handleRejected = async () => {
-    // const res = await updateVerifyInstructor({ isRejected: true });
+    const res = await updateVerifyInstructor({ id: userId,isRejected: true });
   };
 
   console.log(data, "data");
@@ -155,6 +155,7 @@ export default function UserDetailPage() {
         label={"hello"}
         open={isApprovedSubmitted}
         onClose={() => setIsApprovedSubmitted(false)}
+        severity="success"
       />
       <Button
         onClick={() => navigate(-1)}
@@ -208,7 +209,7 @@ export default function UserDetailPage() {
         {isApproved && !isRejected && (
           <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />
         )}
-        {!isRejected && (
+        {isRejected && (
           <CustomChip label="Rejected" danger={true} sx={{ py: 2, px: 3 }} />
         )}
       </Stack>

@@ -26,15 +26,15 @@ export const instructorApi = createApi({
       providesTags: ["Instructor"],
     }),
     updateVerifyInstructor: builder.mutation({
-      query: ({ data, id }) => ({
-        url: `/api/admin/verifyInstructor/${id}`,
+      query: (data) => ({
+        url: `/api/admin/verifyInstructor/${data.id}`,
         method: "PATCH",
-        body: data,
+        body: data.isApproved ? { isApproved: true } : { isRejected: true },
       }),
-      invalidatesTags: ["Instrcutor"],
+      invalidatesTags: ["Instructor"],
     }),
   }),
-  
+
 });
 
 export const { useGetAllInstructorsQuery, useGetInstructorDetailQuery, useUpdateVerifyInstructorMutation } =
