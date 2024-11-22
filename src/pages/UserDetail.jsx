@@ -64,6 +64,7 @@ export default function UserDetailPage() {
     profileBackground,
     isApproved,
     imageUrl,
+    isRejected,
   } = data?.instructor || {};
 
   const instructorDetailContent = (
@@ -182,7 +183,8 @@ export default function UserDetailPage() {
             sx={{ py: 2, px: 3 }}
           />
         )}
-        {isApproved && <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />}
+        {(isApproved && !isRejected) && <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />}
+        {!isRejected && <CustomChip label="Rejected" danger={true} sx={{ py: 2, px: 3 }} />}
       </Stack>
       <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
       <Stack width="100%" gap={2} pb={6}>

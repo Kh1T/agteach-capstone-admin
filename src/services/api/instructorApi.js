@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../constants/apiConstant";
+
+
 export const instructorApi = createApi({
   reducerPath: "instructorApi",
   baseQuery: fetchBaseQuery({
@@ -23,7 +25,16 @@ export const instructorApi = createApi({
       }),
       providesTags: ["Instructor"],
     }),
+    updateVerifyInstructor: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/api/admin/verifyInstructor/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Instrcutor"],
+    }),
   }),
+  
 });
 
 export const { useGetAllInstructorsQuery, useGetInstructorDetailQuery } =
