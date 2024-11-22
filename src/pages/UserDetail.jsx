@@ -50,7 +50,7 @@ export default function UserDetailPage() {
       </Box>
     );
   }
-
+  console.log(data, "data");
   const instructor = isLoading
     ? {}
     : [
@@ -66,21 +66,11 @@ export default function UserDetailPage() {
             .replace(/\//g, "-"),
         },
       ];
-  const nationalId = "123456789012345";
-  const bankNumber = "9876543210987654321";
-  const targetProduct = "Develop innovative web-based education tools.";
-  const targetCourse = `Course Objectives: Students will learn to design, implement, and optimize web applications using JavaScript frameworks. The course will cover essential topics such as component architecture, state management, routing, and API integration.
-Learning Outcomes: By the end of the course, students will be able to:
-Develop scalable and maintainable applications using popular JavaScript frameworks (e.g., React, Angular, Vue).
-Implement best practices for performance optimization and code quality.
-Create user-friendly interfaces that enhance the learning experience.
-Target Audience: This course is ideal for aspiring web developers, educators looking to integrate technology into their teaching methods, and professionals seeking to upgrade their skills in modern web development.
-Teaching Methodology: The course will employ a mix of theoretical lessons and hands-on projects. Students will engage in interactive coding sessions, collaborative group work, and real-world case studies to solidify their understanding.
-Assessment: Participants will be evaluated through practical assignments, quizzes, and a final project that showcases their ability to apply what they have learned in a real-world context.`;
-  const profileBackground =
-    "John is a seasoned web developer with over a decade of experience. He specializes in JavaScript frameworks and is dedicated to creating impactful learning experiences for his students.";
+  const { nationalId, bankNumber, targetCourse, targetProduct, profileBackground } =
+    data?.instructor;
+
   const instructorDetailContent = (
-    <Card sx={{ margin: "20px auto", padding: 3, boxShadow: 3 }}>
+    <Card sx={{ width:"100%", margin: "20px auto", padding: 3, boxShadow: 3 }}>
       <CardContent>
         <Typography variant="h4" gutterBottom>
           Instructor Information
@@ -113,7 +103,7 @@ Assessment: Participants will be evaluated through practical assignments, quizze
               Product Objective:
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {targetCourse}
+              {targetProduct}
             </Typography>
           </Grid>
 
@@ -137,7 +127,7 @@ Assessment: Participants will be evaluated through practical assignments, quizze
               color="text.secondary"
               sx={{ textAlign: "justify", lineHeight: 1.6 }}
             >
-              {targetCourse}
+              {profileBackground}
             </Typography>
           </Grid>
         </Grid>
@@ -161,14 +151,13 @@ Assessment: Participants will be evaluated through practical assignments, quizze
         width="100%"
         justifyContent="space-between"
         alignItems="center"
-        
       >
         <Stack direction="row" gap={3}>
           <Box
             src={data.instructor.imageUrl}
             component="img"
             width={130}
-            height={130}            
+            height={130}
           />
           <Stack gap>
             <Typography variant="bxsr">Instructor Name</Typography>
@@ -189,7 +178,7 @@ Assessment: Participants will be evaluated through practical assignments, quizze
             </Typography>
           </Stack>
         </Stack>
-        <CustomChip label="Approved" sx={{ py: 2, px: 3 }} />
+        <CustomChip label="Not Yet Approve" danger="true" sx={{ py: 2, px: 3 }} />
       </Stack>
       <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
       <Stack width="100%" gap={2} pb={6}>
