@@ -194,7 +194,20 @@ Assessment: Participants will be evaluated through practical assignments, quizze
       <Stack width="100%" gap={2}>
         <Typography variant="blgsm">User Detail</Typography>
         {instructorDetailContent}
-        
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            sx={{ color: "white", bgcolor: "blue.main" }}
+          >
+            Approve
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ color: "white", bgcolor: "red.main" }}
+          >
+            Approve
+          </Button>
+        </Stack>
         <CustomTable data={instructor} isPagination={false} />
       </Stack>
     </Stack>
