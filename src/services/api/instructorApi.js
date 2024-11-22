@@ -37,5 +37,5 @@ export const instructorApi = createApi({
   
 });
 
-export const { useGetAllInstructorsQuery, useGetInstructorDetailQuery } =
+export const { useGetAllInstructorsQuery, useGetInstructorDetailQuery, useUpdateVerifyInstructorMutation } =
   instructorApi;

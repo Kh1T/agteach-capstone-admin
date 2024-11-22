@@ -13,7 +13,12 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import { useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
 import BabyMommy from "../assets/baby-mummy.png";
-import { useGetInstructorDetailQuery } from "../services/api/instructorApi";
+import {
+  useGetInstructorDetailQuery,
+  useUpdateVerifyInstructorMutation,
+} from "../services/api/instructorApi";
+import { CustomAlert } from "../components/CustomAlert";
+import { useState } from "react";
 
 /**
  * UserDetailPage Component
@@ -33,8 +38,10 @@ export default function UserDetailPage() {
   const navigate = useNavigate();
 
   const { userId } = useParams();
+  const [isApprovedSubmitted, setIsApprovedSubmitted] = useState(null);
 
   const { data, isLoading } = useGetInstructorDetailQuery(userId);
+  const [updateVerifyInstructor] = useUpdateVerifyInstructorMutation();
 
   if (isLoading) {
     return (
@@ -50,7 +57,17 @@ export default function UserDetailPage() {
       </Box>
     );
   }
-  console.log(data, "data"); 
+
+  const handleApproved = async () => {
+    // const res = await updateVerifyInstructor({ isApproved: true });
+    // <CustomAlert />
+    setIsApprovedSubmitted(true)
+  };
+  const handleRejected = async () => {
+    // const res = await updateVerifyInstructor({ isRejected: true });
+  };
+
+  console.log(data, "data");
   const {
     firstName,
     lastName,
@@ -134,6 +151,11 @@ export default function UserDetailPage() {
   );
   return (
     <Stack alignItems="start" gap={5}>
+      <CustomAlert
+        label={"hello"}
+        open={isApprovedSubmitted}
+        onClose={() => setIsApprovedSubmitted(false)}
+      />
       <Button
         onClick={() => navigate(-1)}
         variant="Text"
@@ -183,8 +205,12 @@ export default function UserDetailPage() {
             sx={{ py: 2, px: 3 }}
           />
         )}
-        {(isApproved && !isRejected) && <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />}
-        {!isRejected && <CustomChip label="Rejected" danger={true} sx={{ py: 2, px: 3 }} />}
+        {isApproved && !isRejected && (
+          <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />
+        )}
+        {!isRejected && (
+          <CustomChip label="Rejected" danger={true} sx={{ py: 2, px: 3 }} />
+        )}
       </Stack>
       <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
       <Stack width="100%" gap={2} pb={6}>
@@ -193,12 +219,14 @@ export default function UserDetailPage() {
         <Stack direction="row" spacing={2}>
           <Button
             variant="contained"
+            onClick={handleApproved}
             sx={{ color: "white", bgcolor: "blue.main" }}
           >
             Approve
           </Button>
           <Button
             variant="contained"
+            onClick={handleRejected}
             sx={{ color: "white", bgcolor: "red.main" }}
           >
             Reject
