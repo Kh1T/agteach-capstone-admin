@@ -12,6 +12,20 @@ import { useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
 import { useGetInstructorDetailQuery } from "../services/api/instructorApi";
 
+/**
+ * UserDetailPage Component
+ *
+ * Renders detailed information about an instructor, including name, email,
+ * phone number, address, and account timestamps. It fetches data using the 
+ * user ID from the URL and displays a loading spinner while retrieving data. 
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <UserDetailPage />
+ *
+ * @returns {JSX.Element} The rendered UserDetailPage component.
+ */
 export default function UserDetailPage() {
   const navigate = useNavigate();
 
