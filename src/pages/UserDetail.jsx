@@ -110,7 +110,7 @@ Assessment: Participants will be evaluated through practical assignments, quizze
           {/* Objective Project (Target Product) */}
           <Grid item xs={12}>
             <Typography variant="subtitle1" fontWeight="bold">
-              Objective Project:
+              Product Objective:
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {targetCourse}
@@ -120,7 +120,7 @@ Assessment: Participants will be evaluated through practical assignments, quizze
           {/* Objective Course */}
           <Grid item xs={12}>
             <Typography variant="subtitle1" fontWeight="bold">
-              Objective Course:
+              Course Objective:
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {targetCourse}
@@ -161,13 +161,14 @@ Assessment: Participants will be evaluated through practical assignments, quizze
         width="100%"
         justifyContent="space-between"
         alignItems="center"
+        
       >
         <Stack direction="row" gap={3}>
           <Box
             src={data.instructor.imageUrl}
             component="img"
             width={130}
-            height={130}
+            height={130}            
           />
           <Stack gap>
             <Typography variant="bxsr">Instructor Name</Typography>
@@ -191,7 +192,7 @@ Assessment: Participants will be evaluated through practical assignments, quizze
         <CustomChip label="Approved" sx={{ py: 2, px: 3 }} />
       </Stack>
       <Divider sx={{ borderStyle: "dashed", width: "100%" }} />
-      <Stack width="100%" gap={2}>
+      <Stack width="100%" gap={2} pb={6}>
         <Typography variant="blgsm">User Detail</Typography>
         {instructorDetailContent}
         <Stack direction="row" spacing={2}>
@@ -205,10 +206,10 @@ Assessment: Participants will be evaluated through practical assignments, quizze
             variant="contained"
             sx={{ color: "white", bgcolor: "red.main" }}
           >
-            Approve
+            Reject
           </Button>
         </Stack>
-        <CustomTable data={instructor} isPagination={false} />
+        {/* <CustomTable data={instructor} isPagination={false} /> */}
       </Stack>
     </Stack>
   );
