@@ -39,6 +39,8 @@ export default function UserDetailPage() {
 
   const { userId } = useParams();
   const [isApprovedSubmitted, setIsApprovedSubmitted] = useState(null);
+  const [open, setOpen] = useState(null);
+  const [messesage, setMessesage] = useState(null);
 
   const { data, isLoading } = useGetInstructorDetailQuery(userId);
   const [updateVerifyInstructor] = useUpdateVerifyInstructorMutation();
@@ -60,11 +62,14 @@ export default function UserDetailPage() {
 
   const handleApproved = async () => {
     const res = await updateVerifyInstructor({ id: userId, isApproved: true });
-    // <CustomAlert />
-    setIsApprovedSubmitted(true)
+    setMessesage(res.data?.message);
+    setOpen(true);
+    setIsApprovedSubmitted(true);
   };
   const handleRejected = async () => {
-    const res = await updateVerifyInstructor({ id: userId,isRejected: true });
+    const res = await updateVerifyInstructor({ id: userId, isRejected: true });
+    setMessesage(res.data?.message);
+    setOpen(true);
   };
 
   console.log(data, "data");
@@ -152,10 +157,10 @@ export default function UserDetailPage() {
   return (
     <Stack alignItems="start" gap={5}>
       <CustomAlert
-        label={"hello"}
-        open={isApprovedSubmitted}
-        onClose={() => setIsApprovedSubmitted(false)}
-        severity="success"
+        label={messesage}
+        open={open}
+        onClose={() => setOpen(false)}
+        severity={isApprovedSubmitted ? "success" : "error"}
       />
       <Button
         onClick={() => navigate(-1)}
@@ -199,16 +204,14 @@ export default function UserDetailPage() {
             </Typography>
           </Stack>
         </Stack>
-        {!isApproved && (
+        {!isApproved && !isRejected && (
           <CustomChip
             label="Not Yet Approve"
             danger="true"
             sx={{ py: 2, px: 3 }}
           />
         )}
-        {isApproved && !isRejected && (
-          <CustomChip label="Approve" sx={{ py: 2, px: 3 }} />
-        )}
+        {isApproved && <CustomChip label="Approved" sx={{ py: 2, px: 3 }} />}
         {isRejected && (
           <CustomChip label="Rejected" danger={true} sx={{ py: 2, px: 3 }} />
         )}
@@ -217,22 +220,24 @@ export default function UserDetailPage() {
       <Stack width="100%" gap={2} pb={6}>
         <Typography variant="blgsm">User Detail</Typography>
         {instructorDetailContent}
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            onClick={handleApproved}
-            sx={{ color: "white", bgcolor: "blue.main" }}
-          >
-            Approve
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleRejected}
-            sx={{ color: "white", bgcolor: "red.main" }}
-          >
-            Reject
-          </Button>
-        </Stack>
+        {!isApproved && !isRejected && (
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="contained"
+              onClick={handleApproved}
+              sx={{ color: "white", bgcolor: "blue.main" }}
+            >
+              Approve
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleRejected}
+              sx={{ color: "white", bgcolor: "red.main" }}
+            >
+              Reject
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );
