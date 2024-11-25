@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGetAllInstructorsQuery } from "../services/api/instructorApi"; // Adjust the import path accordingly
 import { Link } from "react-router-dom";
 import {
@@ -26,6 +26,10 @@ export default function UserPage() {
   const selectData = ["All", "Approved", "Not Approve", "Rejected"];
   const searchRef = useRef();
   const label = "Sort";
+
+  useEffect(() => {
+    console.log("selectState", selectState);
+  }, [selectState]);
 
   const customerList =
     isLoading || !customerData
@@ -80,7 +84,7 @@ export default function UserPage() {
     );
   }
 
-  
+  // const handleOnChange = (event) => {};
   return (
     <Box>
       <Grid2 container sx={{ width: "100%", justifyContent: "space-between" }}>
@@ -120,16 +124,16 @@ export default function UserPage() {
 
       {/* Custom Table */}
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
-        <Grid2 item gap={3}>
+        <Stack spacing={4}>
           <Typography variant="h4">Instructor Review</Typography>
           <CustomSelect
-          label={label}
-          useSelectState={selectState}
-          selectData={selectData}
-          onChange={handleSearch}
-        />
+            label={label}
+            useSelectState={[selectState, setSelectState]}
+            selectData={selectData}
+            width="400px"
+          />
           <CustomTable data={instructorList || []} />
-        </Grid2>
+        </Stack>
       </Grid2>
     </Box>
   );

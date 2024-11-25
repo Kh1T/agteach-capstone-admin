@@ -11,8 +11,8 @@ export const instructorApi = createApi({
   tagTypes: ["Instructor"],
   endpoints: (builder) => ({
     getAllInstructors: builder.query({
-      query: () => ({
-        url: "/api/admin/getAllInstructors",
+      query: (filter='') => ({
+        url: `/api/admin/getAllInstructors?${filter && filter + '=true'}`,
         // url: "/api/course/getRecommendCourse/:",
         method: "GET",
       }),

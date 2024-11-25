@@ -46,7 +46,6 @@ export default function QueryHeader({
           label="Sort"
           useSelectState={useSelectState}
           selectData={selectData}
-          onChange={handleSearch}
         />
         <Button
           variant="outlined"
