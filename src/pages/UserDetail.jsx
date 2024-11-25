@@ -72,7 +72,6 @@ export default function UserDetailPage() {
     setOpen(true);
   };
 
-  console.log(data, "data");
   const {
     firstName,
     lastName,

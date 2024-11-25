@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useGetAllInstructorsQuery } from "../services/api/instructorApi"; // Adjust the import path accordingly
 import { Link } from "react-router-dom";
 import {
@@ -12,9 +12,21 @@ import {
 import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
 import { useGetAllCustomerQuery } from "../services/api/adminApi";
 import { CustomChip } from "../components/CustomChip";
+import CustomSelect from "../components/CustomSelect";
+/**
+ * A page that displays the total number of instructors and customers,
+ * and also provides a table of instructors that have been reviewed.
+ *
+ * @returns {ReactElement} A React component that renders the UserPage.
+ */
 export default function UserPage() {
   const { isLoading, data } = useGetAllInstructorsQuery();
   const { data: customerData } = useGetAllCustomerQuery();
+  const [selectState, setSelectState] = useState(0);
+  const selectData = ["All", "Approved", "Not Approve", "Rejected"];
+  const searchRef = useRef();
+  const label = "Sort";
+
   const customerList =
     isLoading || !customerData
       ? []
@@ -67,6 +79,8 @@ export default function UserPage() {
       </Box>
     );
   }
+
+  
   return (
     <Box>
       <Grid2 container sx={{ width: "100%", justifyContent: "space-between" }}>
@@ -108,6 +122,12 @@ export default function UserPage() {
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
         <Grid2 item gap={3}>
           <Typography variant="h4">Instructor Review</Typography>
+          <CustomSelect
+          label={label}
+          useSelectState={selectState}
+          selectData={selectData}
+          onChange={handleSearch}
+        />
           <CustomTable data={instructorList || []} />
         </Grid2>
       </Grid2>
