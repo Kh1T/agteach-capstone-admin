@@ -9,6 +9,7 @@ import UserPage from "../pages/User";
 import UserDetailPage from "../pages/UserDetail";
 import RootLayout from "../route/Root";
 import ProtectedRoute from "./ProtectedRoute";
+import ErrorPage from "../pages/Error";
 
 export const router = createBrowserRouter([
   {
