@@ -12,7 +12,7 @@ import {
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import { useNavigate, useParams } from "react-router";
 import { CustomChip } from "../components/CustomChip";
-import babyMummy from "../assets/baby-mummy.png";
+import guestProfile from "../assets/guest-profile.jpg";
 import {
   useGetInstructorDetailQuery,
   useUpdateVerifyInstructorMutation,
@@ -179,7 +179,7 @@ export default function UserDetailPage() {
       >
         <Stack direction="row" gap={3}>
           <Box
-            src={imageUrl || babyMummy}
+            src={imageUrl || guestProfile}
             component="img"
             width={130}
             height={130}

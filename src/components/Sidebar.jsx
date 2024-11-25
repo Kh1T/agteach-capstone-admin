@@ -46,6 +46,12 @@ export default function Sidebar({ children }) {
   const drawerWidth = 250; 
 
   const appBarHeader = SIDEBARROUTE.find((element) => {
+    if (element.route.includes("id")) {
+      const dynamicPath = `/${pathname.split("/")[1]}/id`;
+      if (element.route === dynamicPath) {
+        return element.route === dynamicPath;
+      }
+    }
     return element.route === pathname;
   });
   const description = appBarHeader && appBarHeader.description;

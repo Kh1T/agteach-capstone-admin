@@ -24,28 +24,28 @@ const sidebarList = [
       description: "View all registered user",
     },
     {
-      title: "UserDetail",
+      title: "User Detail",
       Icon: null,
-      route: "/course/new",
-      description: "Create new courses for your portfolio",
+      route: "/user/id",
+      description: "View user detail",
     },
     {
       title: "Category",
       Icon: CategoryOutlinedIcon,
       route: "/category",
-      description: "View or List more products",
+      description: "View all categories",
     },
     {
       title: "Create Categroy",
       Icon: null,
       route: "/category/new",
-      description: "Create new product for your porfolio",
+      description: "Create new category",
     },
     {
       title: "Edit Categroy",
       Icon: null,
       route: "/categroy/abc/edit",
-      description: "Edit categroy for your porfolio",
+      description: "Edit categroy",
     },
     
     {
