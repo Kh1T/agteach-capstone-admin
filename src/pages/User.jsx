@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useGetAllInstructorsQuery } from "../services/api/instructorApi"; // Adjust the import path accordingly
+import React, { useState } from "react";
+import { useGetAllInstructorsQuery, useGetInstructorsCountQuery } from "../services/api/instructorApi"; 
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -9,7 +9,7 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material"; // Adjust the imports based on your UI library
-import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
+import CustomTable from "./../components/CustomTable";
 import { useGetAllCustomerQuery } from "../services/api/adminApi";
 import { CustomChip } from "../components/CustomChip";
 import CustomSelect from "../components/CustomSelect";
@@ -20,16 +20,13 @@ import CustomSelect from "../components/CustomSelect";
  * @returns {ReactElement} A React component that renders the UserPage.
  */
 export default function UserPage() {
-  const { isLoading, data } = useGetAllInstructorsQuery();
   const { data: customerData } = useGetAllCustomerQuery();
-  const [selectState, setSelectState] = useState(0);
-  const selectData = ["All", "Approved", "Not Approve", "Rejected"];
-  const searchRef = useRef();
-  const label = "Sort";
-
-  useEffect(() => {
-    console.log("selectState", selectState);
-  }, [selectState]);
+  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Approved, 20 for Rejected 
+  const selectData = ["All", "Approved", "Rejected"]; 
+  const label = "Filter By";
+  const { isLoading, data } = useGetAllInstructorsQuery(selectState); 
+  // Get Length of instructor
+  const { isLoading: isInstructorLoading, data: instructorData } = useGetInstructorsCountQuery(); 
 
   const customerList =
     isLoading || !customerData
@@ -99,7 +96,8 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              {instructorList.length || 0}
+              {isInstructorLoading && 'Loading'}
+              {!isInstructorLoading && instructorData?.data?.length}
             </Typography>
             <Typography>Number of Instructor</Typography>
           </Stack>
