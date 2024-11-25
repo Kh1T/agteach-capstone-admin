@@ -8,8 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import {
   useLocation,
-  Link as RouterLink,
-  useParams,
+  Link as RouterLink, 
   useNavigate,
 } from "react-router-dom";
 
@@ -18,7 +17,6 @@ import avtarChip from "../assets/baby-mummy.png";
 import logoutIcon from "../assets/red-circle-logout.png";
 import {
   Avatar,
-  Chip,
   Container,
   Link,
   Stack,
@@ -29,9 +27,8 @@ import {
   Button,
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import sidebarList from "../data/sideBarData";
-import { useLogoutMutation } from "../services/api/authApi";
-import { useGetInfoQuery } from "../services/api/adminApi";
+import SIDEBARROUTE from "../constants/sideBarConstant";
+import { useLogoutMutation } from "../services/api/authApi"; 
 import { useState } from "react";
 
 /**
@@ -46,17 +43,13 @@ import { useState } from "react";
  */
 export default function Sidebar({ children }) {
   const { pathname } = useLocation();
-  const drawerWidth = 250;
-  const param = useParams();
-  const head = sidebarList.find((element) => {
-    if (param.productId) element.route = `/product/${param.productId}/edit`;
-    if (param.courseId) element.route = `/course/${param.courseId}/edit`;
-    if (element.route !== pathname) return false;
+  const drawerWidth = 250; 
+
+  const appBarHeader = SIDEBARROUTE.find((element) => {
     return element.route === pathname;
   });
-  const des = sidebarList.find((element) => element.route === pathname);
-  const description = des && des.description;
-  const headerTitle = head && head.title;
+  const description = appBarHeader && appBarHeader.description;
+  const headerTitle = appBarHeader && appBarHeader.title;
 
   const [logout, { isLoading, isSuccess }] = useLogoutMutation();
   const navigate = useNavigate();
@@ -78,11 +71,6 @@ export default function Sidebar({ children }) {
   const handleNavigateSetting = () => {
     navigate("/setting");
   };
-  const { data } = useGetInfoQuery();
-  let adminInfo = {};
-  if (data) {
-    adminInfo = data.data;
-  }
 
   const drawerContent = (
     <Drawer
@@ -121,7 +109,7 @@ export default function Sidebar({ children }) {
             />
           </Link>
           <Toolbar />
-          {sidebarList.map(
+          {SIDEBARROUTE.map(
             ({ title, Icon, route }, index) =>
               Icon && (
                 <Link
