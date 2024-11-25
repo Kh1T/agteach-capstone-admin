@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { useGetAllInstructorsQuery, useGetInstructorsCountQuery } from "../services/api/instructorApi"; 
+import React, { useRef, useState } from "react";
+import {
+  useGetAllInstructorsQuery,
+  useGetInstructorsCountQuery,
+} from "../services/api/instructorApi";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -12,7 +15,7 @@ import {
 import CustomTable from "./../components/CustomTable";
 import { useGetAllCustomerQuery } from "../services/api/adminApi";
 import { CustomChip } from "../components/CustomChip";
-import CustomSelect from "../components/CustomSelect";
+import QueryHeader from "../components/QueryHeader";
 /**
  * A page that displays the total number of instructors and customers,
  * and also provides a table of instructors that have been reviewed.
@@ -21,12 +24,15 @@ import CustomSelect from "../components/CustomSelect";
  */
 export default function UserPage() {
   const { data: customerData } = useGetAllCustomerQuery();
-  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Approved, 20 for Rejected 
-  const selectData = ["All", "Approved", "Rejected"]; 
+  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Approved, 20 for Rejected
+  const selectData = ["All", "Not Approve", "Approved", "Rejected"];
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchRef = useRef();
   const label = "Filter By";
-  const { isLoading, data } = useGetAllInstructorsQuery(selectState); 
+  const { isLoading, data } = useGetAllInstructorsQuery(selectState);
   // Get Length of instructor
-  const { isLoading: isInstructorLoading, data: instructorData } = useGetInstructorsCountQuery(); 
+  const { isLoading: isInstructorLoading, data: instructorData } =
+    useGetInstructorsCountQuery();
 
   const customerList =
     isLoading || !customerData
@@ -39,6 +45,7 @@ export default function UserPage() {
       ? []
       : data.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleDateString(),
+          Email: item.email,
           Name: `${item.firstName} ${item.lastName} ` || "Unknown",
           Phone: item.phone || "Unknown",
           Location: item.location ? item.location.name : "Unknown",
@@ -65,6 +72,11 @@ export default function UserPage() {
             />
           ),
         }));
+
+        const handleSearch = () => {
+          console.log(searchTerm);
+          setSearchTerm(searchRef.current.value || "");
+        };
 
   if (isLoading) {
     return (
@@ -96,7 +108,7 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              {isInstructorLoading && 'Loading'}
+              {isInstructorLoading && "Loading"}
               {!isInstructorLoading && instructorData?.data?.length}
             </Typography>
             <Typography>Number of Instructor</Typography>
@@ -124,11 +136,20 @@ export default function UserPage() {
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
         <Stack spacing={4}>
           <Typography variant="h4">Instructor Review</Typography>
-          <CustomSelect
+          {/* <CustomSelect
             label={label}
             useSelectState={[selectState, setSelectState]}
             selectData={selectData}
             width="400px"
+          /> */}
+          <QueryHeader
+            useSelectState={[selectState, setSelectState]}
+            handleSearch={handleSearch}
+            searchRef={searchRef}
+            selectData={selectData}
+            isCreateNew = {false}
+            placeholder= "Email"
+            selectLabel = {label}
           />
           <CustomTable data={instructorList || []} />
         </Stack>

@@ -27,6 +27,7 @@ export default function QueryHeader({
   labelCreate = "Create New",
   placeholder = "Search",
   isCreateNew = true,
+  selectLabel = "Sort",
 }) {
   useEffect(() => {
     handleSearch();
@@ -43,7 +44,7 @@ export default function QueryHeader({
           sx={{ width: 300 }}
         />
         <CustomSelect
-          label="Sort"
+          label={selectLabel}
           useSelectState={useSelectState}
           selectData={selectData}
         />
