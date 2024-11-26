@@ -10,7 +10,7 @@ install_dependencies:
   stage: install
   image: node:20    # Using node image to install dependencies
   only:
-    - main
+    # - main
   script:
     - node -v
     - echo "Installing dependencies..."
@@ -25,7 +25,7 @@ build_app:
   stage: build
   image: node:20
   only:
-    - main
+    # - main
   script:
     - echo "Building React app..."
     # - unset CI     # Unset CI to prevent treating warnings as errors
@@ -40,7 +40,7 @@ deploy_to_aws:
   stage: deploy
   image: node
   only:
-    - main
+    # - main
   script:
     - echo "Deploying to AWS EC2..."
     - mkdir -p ~/.ssh    
