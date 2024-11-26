@@ -40,10 +40,11 @@ export default function UserPage() {
       : customerData.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleDateString(),
         }));
+  
   const instructorList =
     isLoading || !data
       ? []
-      : data.data.map((item) => ({
+      : data.data.filter((item) => item.isFormSubmitted).map((item) => ({
           Register: new Date(item.createdAt).toLocaleDateString(),
           Email: item.email,
           Name: `${item.firstName} ${item.lastName} ` || "Unknown",
@@ -73,10 +74,10 @@ export default function UserPage() {
           ),
         }));
 
-        const handleSearch = () => {
-          console.log(searchTerm);
-          setSearchTerm(searchRef.current.value || "");
-        };
+  const handleSearch = () => {
+    console.log(searchTerm);
+    setSearchTerm(searchRef.current.value || "");
+  };
 
   if (isLoading) {
     return (
@@ -136,20 +137,14 @@ export default function UserPage() {
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
         <Stack spacing={4}>
           <Typography variant="h4">Instructor Review</Typography>
-          {/* <CustomSelect
-            label={label}
-            useSelectState={[selectState, setSelectState]}
-            selectData={selectData}
-            width="400px"
-          /> */}
           <QueryHeader
             useSelectState={[selectState, setSelectState]}
             handleSearch={handleSearch}
             searchRef={searchRef}
             selectData={selectData}
-            isCreateNew = {false}
-            placeholder= "Email"
-            selectLabel = {label}
+            isCreateNew={false}
+            placeholder="Email"
+            selectLabel={label}
           />
           <CustomTable data={instructorList || []} />
         </Stack>

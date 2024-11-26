@@ -18,17 +18,24 @@ export const instructorApi = createApi({
        */
       query: (filter = '') => {
         console.log(filter)
+        let isApproved = '';
+        let isRejected = '';
         if (filter === 0 || filter === '') {
           filter = "";
         } else if (filter === 10) {
-          filter = "isApproved";
+          isApproved = false;
+          isRejected = false
         } else if (filter === 20) {
-          filter = "isRejected";
-        }
+          isApproved = true;
+          isRejected = false
+        } else if (filter === 30) {
+          isRejected = true;
+          isApproved = false
+        }      
         return {
-          url: `/api/admin/getAllInstructors?${filter && filter + '=true'}`,
+          url: `/api/admin/getAllInstructors?isApproved=${isApproved}&isRejected=${isRejected}`,
           method: "GET",
-        }
+        }        
       },
       providesTags: ["Instructor"],
     }),

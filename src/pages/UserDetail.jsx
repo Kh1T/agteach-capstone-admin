@@ -91,59 +91,59 @@ export default function UserDetailPage() {
   const instructorDetailContent = (
     <Card sx={{ width: "100%", margin: "20px auto", padding: 3, boxShadow: 3 }}>
       <CardContent>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h3" sx={{ mb: 4 }}>
           Instructor Information
         </Typography>
 
         <Grid container spacing={2}>
           {/* National ID */}
           <Grid item xs={12} sm={6}>
-            <Typography variant="subtitle1" fontWeight="bold">
+            <Typography variant="bmdsm">
               National ID:
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
+            </Typography> <br />
+            <Typography variant="bmdmd" color="dark.300">
               {nationalId}
             </Typography>
           </Grid>
 
           {/* Bank Number */}
           <Grid item xs={12} sm={6}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              Bank Number:
+            <Typography variant="bmdsm">
+              Bank Number:<br />
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="bmdmd" color="dark.300">
               {bankNumber}
             </Typography>
           </Grid>
 
           {/* Objective Project (Target Product) */}
           <Grid item xs={12}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              Product Objective:
+            <Typography variant="bmdsm">
+              Product Objective:<br />
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="bmdmd" color="dark.300">
               {targetProduct}
             </Typography>
           </Grid>
 
           {/* Objective Course */}
           <Grid item xs={12}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              Course Objective:
+            <Typography variant="bmdsm">
+              Course Objective:<br />
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="bmdmd" color="dark.300">
               {targetCourse}
             </Typography>
           </Grid>
 
           {/* Profile Background */}
           <Grid item xs={12}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              Profile Background:
+            <Typography variant="bmdsm">
+              Profile Background:<br />
             </Typography>
             <Typography
-              variant="body1"
-              color="text.secondary"
+              variant="bmdmd"
+              color="dark.300"
               sx={{ textAlign: "justify", lineHeight: 1.6 }}
             >
               {profileBackground}
