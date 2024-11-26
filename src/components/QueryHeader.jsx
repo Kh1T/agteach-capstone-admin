@@ -27,10 +27,16 @@ export default function QueryHeader({
   labelCreate = "Create New",
   placeholder = "Search",
   isCreateNew = true,
+  selectLabel = "Sort",
 }) {
   useEffect(() => {
     handleSearch();
   });
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch(); // Trigger search when Enter is pressed
+    }
+  };
   const content = (
     <Stack direction="row" sx={{ justifyContent: "space-between", mb: 2 }}>
       <Stack direction="row" spacing={2}>
@@ -41,12 +47,12 @@ export default function QueryHeader({
           placeholder={placeholder}
           inputRef={searchRef}
           sx={{ width: 300 }}
+          onKeyDown={handleKeyDown}  
         />
         <CustomSelect
-          label="Sort"
+          label={selectLabel}
           useSelectState={useSelectState}
           selectData={selectData}
-          onChange={handleSearch}
         />
         <Button
           variant="outlined"
@@ -74,7 +80,7 @@ export default function QueryHeader({
           {labelCreate}
           <AddIcon sx={{ ml: 1 }} />
         </ButtonComponent>
-      )}
+      )}  
     </Stack>
   );
   return content;

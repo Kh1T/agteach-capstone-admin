@@ -1,5 +1,7 @@
-import React from "react";
-import { useGetAllInstructorsQuery } from "../services/api/instructorApi"; // Adjust the import path accordingly
+import React, { useRef, useState } from "react";
+import {
+  useGetAllInstructorsQuery,
+} from "../services/api/instructorApi";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -9,23 +11,39 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material"; // Adjust the imports based on your UI library
-import CustomTable from "./../components/CustomTable"; // Adjust the import path accordingly
+import CustomTable from "./../components/CustomTable";
 import { useGetAllCustomerQuery } from "../services/api/adminApi";
+import { CustomChip } from "../components/CustomChip";
+import QueryHeader from "../components/QueryHeader";
+/**
+ * A page that displays the total number of instructors and customers,
+ * and also provides a table of instructors that have been reviewed.
+ *
+ * @returns {ReactElement} A React component that renders the UserPage.
+ */
 export default function UserPage() {
-  const { isLoading, data } = useGetAllInstructorsQuery();
   const { data: customerData } = useGetAllCustomerQuery();
+  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Not Approve, 20 for Approved, 30 for Rejected
+  const selectData = ["All", "Not Approve", "Approved", "Rejected"];
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchRef = useRef();
+  const label = "Filter By";
+  const { isLoading, data } = useGetAllInstructorsQuery({email: searchTerm, filter: selectState});
+
   const customerList =
     isLoading || !customerData
       ? []
       : customerData.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleDateString(),
         }));
+  
   const instructorList =
     isLoading || !data
       ? []
       : data.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleDateString(),
-          Name: `${item.firstName} ${item.lastName} ` || "Unknown",
+          Email: item.email,
+          Name: item.firstName ? `${item.firstName} ${item.lastName} ` : "Unknown",
           Phone: item.phone || "Unknown",
           Location: item.location ? item.location.name : "Unknown",
           review: (
@@ -38,7 +56,24 @@ export default function UserPage() {
               </Button>
             </Link>
           ),
+          Status: (
+            <CustomChip
+              label={
+                item.isApproved
+                  ? "Approved"
+                  : item.isRejected
+                  ? "Rejected"
+                  : "Not Approve"
+              }
+              danger={item.isApproved ? false : true}
+            />
+          ),
         }));
+
+  const handleSearch = () => {
+    console.log(searchTerm);
+    setSearchTerm(searchRef.current.value || "");
+  };
 
   if (isLoading) {
     return (
@@ -54,6 +89,8 @@ export default function UserPage() {
       </Box>
     );
   }
+
+  // const handleOnChange = (event) => {};
   return (
     <Box>
       <Grid2 container sx={{ width: "100%", justifyContent: "space-between" }}>
@@ -68,7 +105,8 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              {instructorList.length || 0}
+              {isLoading && "Loading"}
+              {!isLoading && data.numInstructor}
             </Typography>
             <Typography>Number of Instructor</Typography>
           </Stack>
@@ -93,10 +131,19 @@ export default function UserPage() {
 
       {/* Custom Table */}
       <Grid2 sx={{ width: "100%" }} xs={12} py={5}>
-        <Grid2 item gap={3}>
+        <Stack spacing={4}>
           <Typography variant="h4">Instructor Review</Typography>
+          <QueryHeader
+            useSelectState={[selectState, setSelectState]}
+            handleSearch={handleSearch}
+            searchRef={searchRef}
+            selectData={selectData}
+            isCreateNew={false}
+            placeholder="Email"
+            selectLabel={label}
+          />
           <CustomTable data={instructorList || []} />
-        </Grid2>
+        </Stack>
       </Grid2>
     </Box>
   );
