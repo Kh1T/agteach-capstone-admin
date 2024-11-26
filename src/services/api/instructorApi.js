@@ -17,7 +17,6 @@ export const instructorApi = createApi({
        * @returns {import("reduxjs-toolkit").BaseQueryApi}
        */
       query: ({ email = '', filter = '' }) => {
-        console.log(filter)
         let isApproved = '';
         let isRejected = '';
         if (filter === 0 || filter === '') {

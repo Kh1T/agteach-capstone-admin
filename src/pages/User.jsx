@@ -63,7 +63,7 @@ export default function UserPage() {
                   ? "Approved"
                   : item.isRejected
                   ? "Rejected"
-                  : "Not Approve"
+                  : "Not Yet Approve"
               }
               danger={item.isApproved ? false : true}
             />
@@ -71,7 +71,6 @@ export default function UserPage() {
         }));
 
   const handleSearch = () => {
-    console.log(searchTerm);
     setSearchTerm(searchRef.current.value || "");
   };
 

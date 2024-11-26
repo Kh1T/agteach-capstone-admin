@@ -36,7 +36,7 @@ const sidebarList = [
       description: "View all categories",
     },
     {
-      title: "Create Categroy",
+      title: "Create Category",
       Icon: null,
       route: "/category/new",
       description: "Create new category",
