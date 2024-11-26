@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import {
   useGetAllInstructorsQuery,
-  useGetInstructorsCountQuery,
 } from "../services/api/instructorApi";
 import { Link } from "react-router-dom";
 import {
@@ -24,7 +23,7 @@ import QueryHeader from "../components/QueryHeader";
  */
 export default function UserPage() {
   const { data: customerData } = useGetAllCustomerQuery();
-  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Approved, 20 for Rejected
+  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Not Approve, 20 for Approved, 30 for Rejected
   const selectData = ["All", "Not Approve", "Approved", "Rejected"];
   const [searchTerm, setSearchTerm] = useState("");
   const searchRef = useRef();
