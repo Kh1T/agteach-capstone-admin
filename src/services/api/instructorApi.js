@@ -16,7 +16,7 @@ export const instructorApi = createApi({
        * @param {string} [filter=""] - filter the result either by 'isApproved' or 'isRejected' if empty will get all instructors
        * @returns {import("reduxjs-toolkit").BaseQueryApi}
        */
-      query: (filter = '') => {
+      query: ({ email = '', filter = '' }) => {
         console.log(filter)
         let isApproved = '';
         let isRejected = '';
@@ -31,20 +31,12 @@ export const instructorApi = createApi({
         } else if (filter === 30) {
           isRejected = true;
           isApproved = false
-        }      
+        }
         return {
-          url: `/api/admin/getAllInstructors?isApproved=${isApproved}&isRejected=${isRejected}`,
+          url: `/api/admin/getAllInstructors?email=${email}&isApproved=${isApproved}&isRejected=${isRejected}`,
           method: "GET",
-        }        
+        }
       },
-      providesTags: ["Instructor"],
-    }),
-
-    getInstructorsCount: builder.query({
-      query: () => ({
-        url: "/api/admin/getAllInstructors",
-        method: "GET",
-      }),
       providesTags: ["Instructor"],
     }),
 

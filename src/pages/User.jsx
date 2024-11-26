@@ -29,10 +29,7 @@ export default function UserPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const searchRef = useRef();
   const label = "Filter By";
-  const { isLoading, data } = useGetAllInstructorsQuery(selectState);
-  // Get Length of instructor
-  const { isLoading: isInstructorLoading, data: instructorData } =
-    useGetInstructorsCountQuery();
+  const { isLoading, data } = useGetAllInstructorsQuery({email: searchTerm, filter: selectState});
 
   const customerList =
     isLoading || !customerData
@@ -44,10 +41,10 @@ export default function UserPage() {
   const instructorList =
     isLoading || !data
       ? []
-      : data.data.filter((item) => item.isFormSubmitted).map((item) => ({
+      : data.data.map((item) => ({
           Register: new Date(item.createdAt).toLocaleDateString(),
           Email: item.email,
-          Name: `${item.firstName} ${item.lastName} ` || "Unknown",
+          Name: item.firstName ? `${item.firstName} ${item.lastName} ` : "Unknown",
           Phone: item.phone || "Unknown",
           Location: item.location ? item.location.name : "Unknown",
           review: (
@@ -109,8 +106,8 @@ export default function UserPage() {
         >
           <Stack alignItems="center" height="100%" justifyContent="center">
             <Typography fontSize={100} fontWeight="bold">
-              {isInstructorLoading && "Loading"}
-              {!isInstructorLoading && instructorData?.data?.length}
+              {isLoading && "Loading"}
+              {!isLoading && data.numInstructor}
             </Typography>
             <Typography>Number of Instructor</Typography>
           </Stack>
