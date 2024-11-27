@@ -1,5 +1,5 @@
-import { Alert, IconButton, Snackbar, Typography } from '@mui/material';
-import Close from '@mui/icons-material/Close';
+import { Alert, IconButton, Snackbar, Typography } from "@mui/material";
+import Close from "@mui/icons-material/Close";
 
 /**
  * CustomAlert component
@@ -8,28 +8,29 @@ import Close from '@mui/icons-material/Close';
  * The `label` prop is the text to be displayed in the Alert.
  * The `open` prop is a boolean that determines if the snackbar is open or not.
  * The `onClose` prop is a function that is called when the close button is clicked or the snackbar is automatically closed after 4 seconds.
+ * The `severity` prop is the severity of the alert, can be 'error', 'warning', 'info' or 'success'.
  * @param {string} label - The text to be displayed in the Alert
  * @param {boolean} open - Whether or not the snackbar is open
+ * @param {'error' | 'warning' | 'info' | 'success'} severity - The severity of the alert
  * @param {function} onClose - Function to be called when the close button is clicked or the snackbar is automatically closed after 4 seconds
  * @returns {ReactElement} A JSX element representing a snackbar with a filled error Alert and a close button
  */
-export const CustomAlert = ({ label, open, onClose }) => {
+export const CustomAlert = ({ label, open, onClose, severity = "error" }) => {
   return (
     <Snackbar
       // Auto hide duration is 4 seconds
       open={open}
       autoHideDuration={4000}
       // Place the snackbar at the top right of the screen
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       onClose={onClose}
     >
       <Alert
         // Make the alert have a filled style
         variant="filled"
         // Make the alert red
-        severity="error"
+        severity={severity}
         // Set the width of the alert to 500px
-        width={500}
         action={
           <IconButton
             aria-label="close"

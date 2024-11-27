@@ -10,11 +10,11 @@ import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
  * @param {array} selectData - The array of select data eg: ["Newest", "Oldest", "World"]
  * @returns {ReactElement} CustomSelect component
  */
-export default function CustomSelect({ id, label, useSelectState, selectData }) {
+export default function CustomSelect({ id, label, useSelectState, selectData, ...sx }) {
   const [selectState, setSelectState] = useSelectState;
 
   return (
-    <Box sx={{ minWidth: 180 }}>
+    <Box sx={{ minWidth: 180, ...sx}}>
       <FormControl fullWidth>
         <InputLabel id={id}>{label}</InputLabel>
         <Select
