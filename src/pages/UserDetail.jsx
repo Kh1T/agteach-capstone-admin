@@ -119,7 +119,7 @@ export default function UserDetailPage() {
           {/* Objective Project (Target Product) */}
           <Grid item xs={12}>
             <Typography variant="bmdsm">
-              Product Objective:<br />
+            What kind of courses user will be producing ?<br />
             </Typography>
             <Typography variant="bmdmd" color="dark.300">
               {targetProduct}
@@ -129,7 +129,7 @@ export default function UserDetailPage() {
           {/* Objective Course */}
           <Grid item xs={12}>
             <Typography variant="bmdsm">
-              Course Objective:<br />
+            What kind of product user will be selling ?<br />
             </Typography>
             <Typography variant="bmdmd" color="dark.300">
               {targetCourse}
@@ -139,7 +139,7 @@ export default function UserDetailPage() {
           {/* Profile Background */}
           <Grid item xs={12}>
             <Typography variant="bmdsm">
-              Profile Background:<br />
+            Why sell and teach on AgTeach ?<br />
             </Typography>
             <Typography
               variant="bmdmd"
