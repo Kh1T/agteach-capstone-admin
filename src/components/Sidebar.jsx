@@ -6,11 +6,7 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import {
-  useLocation,
-  Link as RouterLink, 
-  useNavigate,
-} from "react-router-dom";
+import { useLocation, Link as RouterLink, useNavigate } from "react-router-dom";
 
 import logoIcon from "../assets/logo.svg";
 import avtarChip from "../assets/baby-mummy.png";
@@ -28,7 +24,7 @@ import {
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SIDEBARROUTE from "../constants/sideBarConstant";
-import { useLogoutMutation } from "../services/api/authApi"; 
+import { useLogoutMutation } from "../services/api/authApi";
 import { useState } from "react";
 
 /**
@@ -43,7 +39,7 @@ import { useState } from "react";
  */
 export default function Sidebar({ children }) {
   const { pathname } = useLocation();
-  const drawerWidth = 250; 
+  const drawerWidth = 250;
 
   const appBarHeader = SIDEBARROUTE.find((element) => {
     if (element.route.includes("id")) {
@@ -76,6 +72,15 @@ export default function Sidebar({ children }) {
   };
   const handleNavigateSetting = () => {
     navigate("/setting");
+  };
+
+  const getActiveStyle = (route, pathname) => {
+    // Special case for the dashboard route "/"
+    if (route === "/") {
+      return pathname === "/";
+    }
+    // Highlight routes that match the start of the pathname
+    return pathname.startsWith(route);
   };
 
   const drawerContent = (
@@ -125,12 +130,15 @@ export default function Sidebar({ children }) {
                   underline="none"
                   sx={{
                     "& .MuiListItem-root": {
-                      backgroundColor:
-                        route === pathname ? "purple.main" : "common.white",
+                      backgroundColor: getActiveStyle(route, pathname)
+                        ? "purple.main"
+                        : "common.white",
                       borderRadius: 1,
                     },
                     "& .MuiTypography-root": {
-                      color: route === pathname ? "common.white" : "dark.300",
+                      color: getActiveStyle(route, pathname)
+                        ? "common.white"
+                        : "dark.300",
                     },
                   }}
                 >
@@ -139,8 +147,9 @@ export default function Sidebar({ children }) {
                       <Icon
                         sx={{
                           mr: "15px",
-                          color:
-                            route === pathname ? "common.white" : "dark.300",
+                          color: getActiveStyle(route, pathname)
+                            ? "common.white"
+                            : "dark.300",
                         }}
                       />
                       <Typography variant="bmdr">{title}</Typography>
