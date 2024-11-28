@@ -153,7 +153,7 @@ export default function CategoryPage() {
           <Button
             onClick={handleConfirmDelete}
             variant="contained"
-            sx={{ bgcolor: "red.main", marginRight: 1 }}
+            sx={{ bgcolor: "red.main", marginRight: 1, textTransform: "uppercase" }}
           >
             Delete
           </Button>
@@ -161,6 +161,7 @@ export default function CategoryPage() {
             onClick={handleCloseDialog}
             color="primary"
             variant="outlined"
+            sx={{ textTransform: "uppercase" }}
           >
             Cancel
           </Button>
