@@ -224,14 +224,14 @@ export default function UserDetailPage() {
             <Button
               variant="contained"
               onClick={handleApproved}
-              sx={{ color: "white", bgcolor: "blue.main" }}
+              sx={{ color: "white", bgcolor: "blue.main", textTransform: "uppercase" }}
             >
               Approve
             </Button>
             <Button
               variant="contained"
               onClick={handleRejected}
-              sx={{ color: "white", bgcolor: "red.main" }}
+              sx={{ color: "white", bgcolor: "red.main", textTransform: "uppercase" }}
             >
               Reject
             </Button>
