@@ -244,10 +244,11 @@ export default function SettingPage() {
               disabled={!passwordCurrent}
               type="submit"
               variant="contained"
+              sx={{ textTransform: "uppercase "}}
             >
               {isLoading ? "Loading..." : "Save Changes"}
             </Button>
-            <Button onClick={resetForm} variant="outlined">
+            <Button onClick={resetForm} variant="outlined" sx={{ textTransform: "uppercase "}}>
               Cancel
             </Button>
           </Stack>
