@@ -131,7 +131,7 @@ function LoginPage() {
             </Typography>
           </Stack>
           <Button type="submit" size="large" variant="contained">
-            {isLoading ? "Logging in..." : "Log in"}
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
         </Stack>
       </Stack>
