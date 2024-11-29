@@ -23,8 +23,8 @@ import QueryHeader from "../components/QueryHeader";
  */
 export default function UserPage() {
   const { data: customerData } = useGetAllCustomerQuery();
-  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Not Approve, 20 for Approved, 30 for Rejected
-  const selectData = ["All", "Not Approve", "Approved", "Rejected"];
+  const [selectState, setSelectState] = useState(0); // 0 for All, 10 for Not Yet Approve, 20 for Approved, 30 for Rejected
+  const selectData = ["All", "Not Yet Approve", "Approved", "Rejected"];
   const [searchTerm, setSearchTerm] = useState("");
   const searchRef = useRef();
   const label = "Filter By";
