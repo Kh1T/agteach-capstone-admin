@@ -50,7 +50,7 @@ export default function UserPage() {
             <Link to={`/user/${item.instructorId}`}>
               <Button
                 variant="contained"
-                sx={{ color: "white", bgcolor: "blue.main" }}
+                sx={{ color: "white", bgcolor: "blue.main", textTransform: "uppercase" }}
               >
                 View
               </Button>
