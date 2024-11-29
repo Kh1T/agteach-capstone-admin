@@ -6,19 +6,13 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import {
-  useLocation,
-  Link as RouterLink,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
+import { useLocation, Link as RouterLink, useNavigate } from "react-router-dom";
 
 import logoIcon from "../assets/logo.svg";
 import avtarChip from "../assets/baby-mummy.png";
 import logoutIcon from "../assets/red-circle-logout.png";
 import {
   Avatar,
-  Chip,
   Container,
   Link,
   Stack,
@@ -29,9 +23,8 @@ import {
   Button,
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import sidebarList from "../data/sideBarData";
+import SIDEBARROUTE from "../constants/sideBarConstant";
 import { useLogoutMutation } from "../services/api/authApi";
-import { useGetInfoQuery } from "../services/api/adminApi";
 import { useState } from "react";
 
 /**
@@ -47,16 +40,18 @@ import { useState } from "react";
 export default function Sidebar({ children }) {
   const { pathname } = useLocation();
   const drawerWidth = 250;
-  const param = useParams();
-  const head = sidebarList.find((element) => {
-    if (param.productId) element.route = `/product/${param.productId}/edit`;
-    if (param.courseId) element.route = `/course/${param.courseId}/edit`;
-    if (element.route !== pathname) return false;
+
+  const appBarHeader = SIDEBARROUTE.find((element) => {
+    if (element.route.includes("id")) {
+      const dynamicPath = `/${pathname.split("/")[1]}/id`;
+      if (element.route === dynamicPath) {
+        return element.route === dynamicPath;
+      }
+    }
     return element.route === pathname;
   });
-  const des = sidebarList.find((element) => element.route === pathname);
-  const description = des && des.description;
-  const headerTitle = head && head.title;
+  const description = appBarHeader && appBarHeader.description;
+  const headerTitle = appBarHeader && appBarHeader.title;
 
   const [logout, { isLoading, isSuccess }] = useLogoutMutation();
   const navigate = useNavigate();
@@ -78,11 +73,15 @@ export default function Sidebar({ children }) {
   const handleNavigateSetting = () => {
     navigate("/setting");
   };
-  const { data } = useGetInfoQuery();
-  let adminInfo = {};
-  if (data) {
-    adminInfo = data.data;
-  }
+
+  const getActiveStyle = (route, pathname) => {
+    // Special case for the dashboard route "/"
+    if (route === "/") {
+      return pathname === "/";
+    }
+    // Highlight routes that match the start of the pathname
+    return pathname.startsWith(route);
+  };
 
   const drawerContent = (
     <Drawer
@@ -121,7 +120,7 @@ export default function Sidebar({ children }) {
             />
           </Link>
           <Toolbar />
-          {sidebarList.map(
+          {SIDEBARROUTE.map(
             ({ title, Icon, route }, index) =>
               Icon && (
                 <Link
@@ -131,12 +130,15 @@ export default function Sidebar({ children }) {
                   underline="none"
                   sx={{
                     "& .MuiListItem-root": {
-                      backgroundColor:
-                        route === pathname ? "purple.main" : "common.white",
+                      backgroundColor: getActiveStyle(route, pathname)
+                        ? "purple.main"
+                        : "common.white",
                       borderRadius: 1,
                     },
                     "& .MuiTypography-root": {
-                      color: route === pathname ? "common.white" : "dark.300",
+                      color: getActiveStyle(route, pathname)
+                        ? "common.white"
+                        : "dark.300",
                     },
                   }}
                 >
@@ -145,8 +147,9 @@ export default function Sidebar({ children }) {
                       <Icon
                         sx={{
                           mr: "15px",
-                          color:
-                            route === pathname ? "common.white" : "dark.300",
+                          color: getActiveStyle(route, pathname)
+                            ? "common.white"
+                            : "dark.300",
                         }}
                       />
                       <Typography variant="bmdr">{title}</Typography>
@@ -207,10 +210,11 @@ export default function Sidebar({ children }) {
               variant="contained"
               color="error"
               autoFocus
+              sx={{ textTransform: "uppercase" }}
             >
               Logout
             </Button>
-            <Button onClick={handleClose} variant="contained" color="grey.500">
+            <Button onClick={handleClose} variant="contained" color="grey.500" sx={{ textTransform: "uppercase" }}>
               Cancel
             </Button>
           </DialogActions>
