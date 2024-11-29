@@ -210,10 +210,11 @@ export default function Sidebar({ children }) {
               variant="contained"
               color="error"
               autoFocus
+              sx={{ textTransform: "uppercase" }}
             >
               Logout
             </Button>
-            <Button onClick={handleClose} variant="contained" color="grey.500">
+            <Button onClick={handleClose} variant="contained" color="grey.500" sx={{ textTransform: "uppercase" }}>
               Cancel
             </Button>
           </DialogActions>
